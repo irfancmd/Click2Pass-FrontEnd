@@ -1,0 +1,28 @@
+$click2pass-primary: #d80621;
+
+.container-navbar {
+  justify-content: space-between;
+}
+
+.bg-light {
+  background-color: white !important;
+}
+
+.btn-contact {
+  color: white;
+  background-color: $click2pass-primary;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.navbar-brand {
+  color: $click2pass-primary;
+}
+
+.nav-link {
+  &.active {
+    font-weight: bold;
+    color: $click2pass-primary;
+    border-bottom: 2px solid $click2pass-primary;
+  }
+}

@@ -1,0 +1,37 @@
+<c-navbar class="bg-light shadow" colorScheme="light" expand="lg">
+  <c-container class="container-navbar">
+    <div>
+      <!-- <button [cNavbarToggler]="collapseRef"></button> -->
+      <a cNavbarBrand>
+        <img
+          src="assets/images/logo.png"
+          alt="Click2Pass Logo"
+          width="28"
+          height="28"
+        />
+        <span class="align-middle ms-2">Click2Pass</span>
+      </a>
+    </div>
+
+    <!-- <div #collapseRef="cCollapse" cCollapse navbar> -->
+    <!-- me-auto -->
+    <c-navbar-nav class="mb-2 mb-lg-0">
+      <a [active]="true" cNavLink routerLink="./">Home</a>
+      <a cNavLink routerLink="./">Practice</a>
+      <a cNavLink routerLink="./">Canadian Citizenship Test</a>
+    </c-navbar-nav>
+    <!-- </div> -->
+
+    <div>
+      <button
+        cButton
+        color="danger"
+        class="btn-contact"
+        shape="rounded-pill"
+        size="sm"
+      >
+        Contact
+      </button>
+    </div>
+  </c-container>
+</c-navbar>
