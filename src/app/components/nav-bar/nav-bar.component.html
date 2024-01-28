@@ -16,9 +16,27 @@
     <!-- <div #collapseRef="cCollapse" cCollapse navbar> -->
     <!-- me-auto -->
     <c-navbar-nav class="mb-2 mb-lg-0">
-      <a [active]="true" cNavLink routerLink="./">Home</a>
-      <a cNavLink routerLink="./">Practice</a>
-      <a cNavLink routerLink="./">Canadian Citizenship Test</a>
+      <a
+        cNavLink
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a
+        cNavLink
+        routerLink="/citizenship"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Citizenship</a
+      >
+      <a
+        cNavLink
+        routerLink="/driving-license"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Driving License</a
+      >
     </c-navbar-nav>
     <!-- </div> -->
 

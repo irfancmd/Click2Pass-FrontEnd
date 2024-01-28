@@ -1,0 +1,70 @@
+$click2pass-primary: #d80621;
+$click2pass-primary-light: #d8062108;
+
+.feature-master-container {
+  background-color: $click2pass-primary-light;
+}
+
+.container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.feature-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  h5 {
+    font-weight: 700;
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+}
+
+.feature-image-container {
+  img {
+    width: 400px;
+    height: auto;
+  }
+}
+
+.tab-container {
+  margin-top: -5rem;
+}
+
+.nav-link {
+  font-size: 1.5rem;
+  padding: 0.6rem 5rem;
+  color: $click2pass-primary;
+  background-color: #ffffff;
+
+  &.active {
+    background-color: $click2pass-primary;
+    color: #ffffff;
+  }
+
+  &.left-tab {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.right-tab {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.tips-container {
+  background-color: $click2pass-primary-light;
+
+  h3 {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.2rem;
+  }
+}

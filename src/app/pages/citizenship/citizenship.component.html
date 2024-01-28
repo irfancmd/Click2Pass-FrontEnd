@@ -1,0 +1,103 @@
+<div class="feature-master-container">
+  <c-container>
+    <c-row>
+      <c-col lg="4" class="feature-image-container">
+        <img
+          src="assets/images/feature-citizenship-test.png"
+          alt="Citizenship Test"
+        />
+      </c-col>
+      <c-col lg="8" class="feature-text-container">
+        <h5>Citizenship Test & Practice</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+          suscipit hic numquam fugit aliquam ut mollitia earum voluptates
+          obcaecati, provident iusto molestiae cupiditate quis animi aliquid
+          eius nisi, quasi tempora!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam atque
+          rem, unde quia obcaecati quo illum minima eligendi dolore impedit
+          pariatur cupiditate omnis necessitatibus exercitationem possimus sunt,
+          explicabo suscipit! Quas!
+        </p>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+<div class="tab-container">
+  <c-container>
+    <c-nav variant="pills" class="justify-content-center">
+      <a
+        class="left-tab shadow"
+        [active]="true"
+        [cTabContent]="tabContent"
+        [routerLink]
+        [tabPaneIdx]="0"
+        cNavLink
+        >Practice</a
+      >
+      <a
+        class="right-tab shadow"
+        [cTabContent]="tabContent"
+        [routerLink]
+        [tabPaneIdx]="1"
+        cNavLink
+        >Tests</a
+      >
+    </c-nav>
+    <c-tab-content #tabContent="cTabContent">
+      <c-tab-pane class="p-3">
+        <div class="mt-3">
+          <app-question-set-grid />
+        </div>
+      </c-tab-pane>
+      <c-tab-pane class="p-3">
+        <div class="mt-3">
+          This is some placeholder content the <strong>Profile</strong> tab's
+          associated content. Clicking another tab will toggle the visibility of
+          this one for the next. The tab JavaScript swaps classes to control the
+          content visibility and styling. You can use it with tabs, pills, and
+          any other .nav-powered navigation.
+        </div>
+      </c-tab-pane>
+    </c-tab-content>
+  </c-container>
+</div>
+
+<div class="tips-container">
+  <c-container>
+    <h3>How to Prepare for the Canadian Citizenship Test</h3>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis libero
+      fugiat accusamus minima excepturi fuga. Eligendi tempora odit eos quaerat
+      dignissimos? Ullam enim, sunt dicta ab facere corporis maiores rem
+      exercitationem sint placeat, aliquid tempora architecto minus veniam?
+      Reprehenderit quae doloribus rem. Harum molestiae, iure, possimus amet
+      magnam aut quibusdam optio quis alias quasi tempore voluptatem. Vero ad,
+      rerum nesciunt deleniti dolore atque odio ab nisi perferendis, iure
+      necessitatibus. Pariatur nisi voluptatem ab assumenda reiciendis rerum
+      voluptatum adipisci ex animi cumque? Non error adipisci sit accusamus hic
+      rerum beatae neque ab consectetur recusandae reiciendis officiis rem ad,
+      soluta ipsa esse eveniet optio earum assumenda? Possimus perspiciatis at
+      asperiores similique neque quaerat sunt tenetur repudiandae maxime non
+      corporis accusamus, consequuntur officia.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis libero
+      fugiat accusamus minima excepturi fuga. Eligendi tempora odit eos quaerat
+      dignissimos? Ullam enim, sunt dicta ab facere corporis maiores rem
+      exercitationem sint placeat, aliquid tempora architecto minus veniam?
+      Reprehenderit quae doloribus rem. Harum molestiae, iure, possimus amet
+      magnam aut quibusdam optio quis alias quasi tempore voluptatem. Vero ad,
+      rerum nesciunt deleniti dolore atque odio ab nisi perferendis, iure
+      necessitatibus. Pariatur nisi voluptatem ab assumenda reiciendis rerum
+      voluptatum adipisci ex animi cumque? Non error adipisci sit accusamus hic
+      rerum beatae neque ab consectetur recusandae reiciendis officiis rem ad,
+      soluta ipsa esse eveniet optio earum assumenda? Possimus perspiciatis at
+      asperiores similique neque quaerat sunt tenetur repudiandae maxime non
+      corporis accusamus, consequuntur officia.
+    </p>
+  </c-container>
+</div>

@@ -1,0 +1,35 @@
+$click2pass-primary: #d80621;
+$click2pass-primary-light: #d8062108;
+
+.set-number-container {
+  width: 38px;
+  height: 38px;
+  background-color: $click2pass-primary;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.2rem;
+  margin-left: 0.6rem;
+  transition: all 0.3s;
+}
+
+.card {
+  background-color: #ffffff;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $click2pass-primary;
+    color: #ffffff;
+
+    .set-number-container {
+      background-color: #ffffff;
+      color: $click2pass-primary;
+    }
+  }
+}
+
+.card-title {
+  font-weight: 600;
+}
