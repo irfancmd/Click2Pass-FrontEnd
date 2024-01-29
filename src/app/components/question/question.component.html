@@ -1,0 +1,80 @@
+<c-card class="shadow-sm">
+  <c-card-body>
+    <a routerLink="/citizenship"
+      ><svg [cIcon]="icons.cilArrowLeft" size="xs"></svg>&nbsp;All Test</a
+    >
+    <h4 cCardTitle>Question 01 of 20</h4>
+    <hr />
+    <div class="question-text">
+      After a federal election, which party forms the new government?
+    </div>
+    <form cForm>
+      <c-form-check>
+        <input
+          cFormCheckInput
+          checked
+          id="radioStack1"
+          name="radioStack"
+          type="radio"
+        />
+        <label cFormCheckLabel for="radioStack1"
+          >The party with the most elected representatives is invited by the
+          Governor Genneral to become the party in power.</label
+        >
+      </c-form-check>
+      <c-form-check>
+        <input
+          cFormCheckInput
+          id="radioStack2"
+          name="radioStack"
+          type="radio"
+        />
+        <label cFormCheckLabel for="radioStack2"
+          >The King himself picks any party to run the government.</label
+        >
+      </c-form-check>
+      <c-form-check>
+        <input
+          cFormCheckInput
+          id="radioStack3"
+          name="radioStack"
+          type="radio"
+        />
+        <label cFormCheckLabel for="radioStack3"
+          >The Governor General proposes a law for elected officials to become
+          the governing body.</label
+        >
+      </c-form-check>
+      <c-form-check>
+        <input
+          cFormCheckInput
+          id="radioStack4"
+          name="radioStack"
+          type="radio"
+        />
+        <label cFormCheckLabel for="radioStack4"
+          >The Primiers of each province pick a party to run the
+          government.</label
+        >
+      </c-form-check>
+    </form>
+  </c-card-body>
+  <c-row class="button-container">
+    <c-col>
+      <button
+        cButton
+        color="danger"
+        class="btn-prev"
+        shape="rounded-pill"
+        disabled
+      >
+        Previous
+      </button>
+    </c-col>
+    <c-col>
+      <button cButton color="danger" class="btn-next" shape="rounded-pill">
+        Next
+      </button>
+    </c-col>
+  </c-row>
+</c-card>
