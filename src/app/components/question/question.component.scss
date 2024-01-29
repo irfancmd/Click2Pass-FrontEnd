@@ -1,0 +1,55 @@
+$click2pass-primary: #d80621;
+$click2pass-primary-light: #d8062108;
+$click2pass-pink: #ffe1e7;
+
+.card {
+  a {
+    text-decoration: none;
+    color: $click2pass-primary;
+  }
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0.6rem 0;
+}
+
+.form-check {
+  margin: 1rem 0;
+}
+
+.form-check-input {
+  &:checked {
+    background-color: $click2pass-primary;
+    border-color: $click2pass-primary;
+  }
+}
+
+.button-container {
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+  padding-bottom: 1.4rem;
+
+  button {
+    width: 100%;
+    color: $click2pass-primary;
+    background-color: $click2pass-pink;
+    border: 0;
+
+    &:hover {
+      color: #ffffff;
+      background-color: $click2pass-primary;
+    }
+
+    &:disabled {
+      color: unset;
+    }
+  }
+}
