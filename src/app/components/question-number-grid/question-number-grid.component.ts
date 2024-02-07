@@ -1,14 +1,14 @@
-import { Component } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
   ButtonModule,
   CardModule,
   ContainerComponent,
   GridModule,
-} from "@coreui/angular";
+} from '@coreui/angular';
 
 @Component({
-  selector: "app-question-number-grid",
+  selector: 'app-question-number-grid',
   standalone: true,
   imports: [
     RouterModule,
@@ -17,7 +17,15 @@ import {
     ButtonModule,
     CardModule,
   ],
-  templateUrl: "./question-number-grid.component.html",
-  styleUrl: "./question-number-grid.component.scss",
+  templateUrl: './question-number-grid.component.html',
+  styleUrl: './question-number-grid.component.scss',
 })
-export class QuestionNumberGridComponent {}
+export class QuestionNumberGridComponent {
+  @Input() questionCount: number = 0;
+  @Input() timeLeft: string = '';
+  @Input() answeredCount: number = 0;
+  @Input() notAnsweredCount: number = 0;
+  @Input() passMarkPercentage: number = 0;
+  @Input() allowedMistakesCount: number = 0;
+  @Input() examTimeInMinutes: number = 0;
+}

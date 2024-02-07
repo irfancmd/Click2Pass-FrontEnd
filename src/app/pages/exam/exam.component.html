@@ -7,7 +7,15 @@
         <app-question />
       </c-col>
       <c-col lg="5">
-        <app-question-number-grid />
+        <app-question-number-grid
+          [questionCount]="questionCount"
+          [timeLeft]="timeLeft"
+          [answeredCount]="answeredCount"
+          [notAnsweredCount]="notAnsweredCount"
+          [passMarkPercentage]="passMarkPercentage"
+          [allowedMistakesCount]="allowedMistakesCount"
+          [examTimeInMinutes]="examTimeInMinutes"
+        />
       </c-col>
     </c-row>
   </c-container>

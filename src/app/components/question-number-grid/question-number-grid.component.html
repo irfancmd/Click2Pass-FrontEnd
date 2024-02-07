@@ -2,7 +2,7 @@
   <c-card-body>
     <c-row>
       <c-col>
-        <div class="time-text">Time Left: 10:08</div>
+        <div class="time-text">Time Left: {{ timeLeft }}</div>
       </c-col>
       <c-col class="text-end">
         <a routerLink="/citizenship">Restart?</a>
@@ -24,85 +24,19 @@
             01
           </button>
         </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            02
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            03
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            04
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            05
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            06
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            07
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            08
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            09
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            11
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            12
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            13
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            14
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            15
-          </button>
-        </c-col>
-        <c-col>
-          <button cButton color="danger" class="btn-question-number shadow">
-            16
-          </button>
-        </c-col>
       </c-row>
     </div>
 
     <c-row>
       <c-col>
-        <p>Answered: <b>03</b></p>
+        <p>
+          Answered: <b>{{ answeredCount }}</b>
+        </p>
       </c-col>
       <c-col class="text-end">
-        <p>Not answered: <b>17</b></p>
+        <p>
+          Not answered: <b>{{ notAnsweredCount }}</b>
+        </p>
       </c-col>
     </c-row>
 
@@ -113,7 +47,9 @@
         <p>Pass mark</p>
       </c-col>
       <c-col class="text-end">
-        <p><b>75%</b></p>
+        <p>
+          <b>{{ passMarkPercentage }}%</b>
+        </p>
       </c-col>
     </c-row>
 
@@ -122,7 +58,9 @@
         <p>Allowed mistakes</p>
       </c-col>
       <c-col class="text-end">
-        <p><b>02 Questions</b></p>
+        <p>
+          <b>{{ allowedMistakesCount }} Questions</b>
+        </p>
       </c-col>
     </c-row>
 
@@ -131,7 +69,9 @@
         <p>Total time</p>
       </c-col>
       <c-col class="text-end">
-        <p><b>20 Minutes</b></p>
+        <p>
+          <b>{{ examTimeInMinutes }} Minutes</b>
+        </p>
       </c-col>
     </c-row>
   </c-card-body>
