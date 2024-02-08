@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   ButtonModule,
@@ -20,7 +20,7 @@ import {
   templateUrl: './question-number-grid.component.html',
   styleUrl: './question-number-grid.component.scss',
 })
-export class QuestionNumberGridComponent {
+export class QuestionNumberGridComponent implements OnInit {
   @Input() questionCount: number = 0;
   @Input() timeLeft: string = '';
   @Input() answeredCount: number = 0;
@@ -28,4 +28,14 @@ export class QuestionNumberGridComponent {
   @Input() passMarkPercentage: number = 0;
   @Input() allowedMistakesCount: number = 0;
   @Input() examTimeInMinutes: number = 0;
+
+  questionIndecies: number[] = [];
+
+  constructor() {}
+
+  ngOnInit(): void {
+    for (let i = 0; i < this.questionCount; i++) {
+      this.questionIndecies.push(i);
+    }
+  }
 }

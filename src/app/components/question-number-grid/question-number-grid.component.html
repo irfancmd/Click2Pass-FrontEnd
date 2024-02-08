@@ -15,15 +15,17 @@
 
     <div class="question-number-grid-container">
       <c-row [lg]="7">
+        @for (questionIndex of questionIndecies; track $index) {
         <c-col>
           <button
             cButton
             color="danger"
             class="btn-question-number shadow current"
           >
-            01
+            {{ questionIndex + 1 }}
           </button>
         </c-col>
+        }
       </c-row>
     </div>
 

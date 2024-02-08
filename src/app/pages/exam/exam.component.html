@@ -1,10 +1,18 @@
 <div class="test-container">
   <c-container>
     <h2 class="text-center">Online Citizenship Test</h2>
-    <h3 class="test-name">Canadian Citizenship Test - A</h3>
+    <h3 class="test-name">
+      {{ examService.currentExamChapter?.name ?? "Random Test" }}
+    </h3>
+    @if(examLoaded) {
     <c-row [gutter]="4">
       <c-col lg="7">
-        <app-question />
+        <app-question
+          [questionIndex]="currentQuestionIndex"
+          [totalQuestions]="questionCount"
+          [question]="questions[currentQuestionIndex]"
+          (questionAnsweredEvent)="onQuestionAnswered($event)"
+        />
       </c-col>
       <c-col lg="5">
         <app-question-number-grid
@@ -18,5 +26,6 @@
         />
       </c-col>
     </c-row>
+    }
   </c-container>
 </div>
