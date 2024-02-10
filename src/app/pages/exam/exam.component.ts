@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import {
   ContainerComponent,
   GridModule,
   NavModule,
   TabsModule,
-} from '@coreui/angular';
-import { QuestionComponent } from '../../components/question/question.component';
-import { QuestionNumberGridComponent } from '../../components/question-number-grid/question-number-grid.component';
-import { ExamService } from '../../services/exam.service';
-import { Exam } from '../../models/exam.model';
-import { Question } from '../../models/question.models';
+} from "@coreui/angular";
+import { QuestionComponent } from "../../components/question/question.component";
+import { QuestionNumberGridComponent } from "../../components/question-number-grid/question-number-grid.component";
+import { ExamService } from "../../services/exam.service";
+import { Exam } from "../../models/exam.model";
+import { Question } from "../../models/question.models";
 
 @Component({
-  selector: 'app-exam',
+  selector: "app-exam",
   standalone: true,
   imports: [
     RouterModule,
@@ -24,8 +24,8 @@ import { Question } from '../../models/question.models';
     QuestionComponent,
     QuestionNumberGridComponent,
   ],
-  templateUrl: './exam.component.html',
-  styleUrl: './exam.component.scss',
+  templateUrl: "./exam.component.html",
+  styleUrl: "./exam.component.scss",
 })
 export class ExamComponent implements OnInit {
   public examId: number = 0;
@@ -33,7 +33,7 @@ export class ExamComponent implements OnInit {
 
   public examEndTime = new Date();
   public questionCount = 0;
-  public timeLeft = '';
+  public timeLeft = "";
   public answeredCount = 0;
   public notAnsweredCount = 0;
   public passMarkPercentage = 0;
@@ -63,6 +63,10 @@ export class ExamComponent implements OnInit {
         this.questionCount = this.exam?.questionCount ?? 0;
 
         setInterval(() => {
+          if (this.examEndTime < new Date()) {
+            alert("Time up!");
+          }
+
           this.timeLeft = this.calculateTimeDifference(
             new Date(),
             this.examEndTime
@@ -103,11 +107,12 @@ export class ExamComponent implements OnInit {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
 
   onQuestionAnswered(questionIndex: number) {
     console.log(`Question ${questionIndex} answered.`);
+    this.currentQuestionIndex++;
   }
 
   private countAnsweredQuestions(): number {
