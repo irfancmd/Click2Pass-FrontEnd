@@ -49,6 +49,7 @@ export class ExamComponent implements OnInit {
 
   public isCorrectVisible = false;
   public isInCorrectVisible = false;
+  public correctCount = 0;
 
   constructor(public examService: ExamService) {}
 
@@ -116,7 +117,9 @@ export class ExamComponent implements OnInit {
   onQuestionAnswered(event: {
     index: number;
     previous: boolean;
+    answered: boolean;
     isCorrect: boolean;
+    finishExam: boolean;
   }) {
     if (this.examService.isPracticeModeON) {
       this.isCorrectVisible = false;
@@ -129,23 +132,53 @@ export class ExamComponent implements OnInit {
           this.isCorrectVisible = false;
           this.isInCorrectVisible = false;
 
-          if (event.previous) {
-            this.currentQuestionIndex--;
-          } else {
-            this.currentQuestionIndex++;
+          if (event.answered) {
+            this.answeredStatus[event.index] = 1;
+            this.answeredCount = this.countAnsweredQuestions();
+
+            if (event.isCorrect) {
+              this.correctCount++;
+            }
           }
-          this.answeredCount++;
+
+          if (event.finishExam) {
+            alert(
+              "You've completed the test. You got " +
+                `${this.correctCount} / ${this.questionCount}`
+            );
+          } else {
+            if (event.previous) {
+              this.currentQuestionIndex--;
+            } else {
+              this.currentQuestionIndex++;
+            }
+          }
         }, 1000);
       } else {
         this.isInCorrectVisible = true;
       }
     } else {
-      if (event.previous) {
-        this.currentQuestionIndex--;
-      } else {
-        this.currentQuestionIndex++;
+      if (event.answered) {
+        this.answeredStatus[event.index] = 1;
+        this.answeredCount = this.countAnsweredQuestions();
+
+        if (event.isCorrect) {
+          this.correctCount++;
+        }
       }
-      this.answeredCount++;
+
+      if (event.finishExam) {
+        alert(
+          "You've completed the test. You got " +
+            `${this.correctCount} / ${this.questionCount}`
+        );
+      } else {
+        if (event.previous) {
+          this.currentQuestionIndex--;
+        } else {
+          this.currentQuestionIndex++;
+        }
+      }
     }
   }
 

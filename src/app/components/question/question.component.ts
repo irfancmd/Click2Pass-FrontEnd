@@ -36,8 +36,10 @@ export class QuestionComponent {
 
   @Output() questionAnsweredEvent = new EventEmitter<{
     index: number;
+    answered: boolean;
     previous: boolean;
     isCorrect: boolean;
+    finishExam: boolean;
   }>();
 
   readonly icons = { cilArrowLeft };
@@ -48,6 +50,7 @@ export class QuestionComponent {
 
   onQuestionAnswered(previous: boolean, finishExam: boolean) {
     let isCorrect = false;
+    let answered = this.questionForm.controls.answer.value != "0";
 
     if (
       this.question &&
@@ -58,8 +61,10 @@ export class QuestionComponent {
 
     this.questionAnsweredEvent.emit({
       index: this.questionIndex,
+      answered,
       previous,
       isCorrect,
+      finishExam,
     });
     this.questionForm.controls.answer.setValue("0");
 
