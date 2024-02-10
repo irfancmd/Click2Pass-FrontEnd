@@ -47,6 +47,9 @@ export class ExamComponent implements OnInit {
 
   public currentQuestionIndex = 0;
 
+  public isCorrectVisible = false;
+  public isInCorrectVisible = false;
+
   constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
@@ -110,9 +113,44 @@ export class ExamComponent implements OnInit {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
 
-  onQuestionAnswered(questionIndex: number) {
-    console.log(`Question ${questionIndex} answered.`);
-    this.currentQuestionIndex++;
+  onQuestionAnswered(event: {
+    index: number;
+    previous: boolean;
+    isCorrect: boolean;
+  }) {
+    if (this.examService.isPracticeModeON) {
+      this.isCorrectVisible = false;
+      this.isInCorrectVisible = false;
+
+      if (event.isCorrect) {
+        this.isCorrectVisible = true;
+
+        setTimeout(() => {
+          this.isCorrectVisible = false;
+          this.isInCorrectVisible = false;
+
+          if (event.previous) {
+            this.currentQuestionIndex--;
+          } else {
+            this.currentQuestionIndex++;
+          }
+          this.answeredCount++;
+        }, 1000);
+      } else {
+        this.isInCorrectVisible = true;
+      }
+    } else {
+      if (event.previous) {
+        this.currentQuestionIndex--;
+      } else {
+        this.currentQuestionIndex++;
+      }
+      this.answeredCount++;
+    }
+  }
+
+  onQuestionNumberClicked(questionIndex: number) {
+    this.currentQuestionIndex = questionIndex;
   }
 
   private countAnsweredQuestions(): number {

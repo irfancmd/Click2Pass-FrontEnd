@@ -9,15 +9,15 @@
     <div class="question-text">
       {{ question.questionText }}
     </div>
-    <form cForm>
+    <form [formGroup]="questionForm" cForm>
       @if(question.answerOption1Text) {
       <c-form-check>
         <input
           cFormCheckInput
-          checked
           id="radioStack1"
-          name="radioStack"
           type="radio"
+          value="1"
+          formControlName="answer"
         />
         <label cFormCheckLabel for="radioStack1">{{
           question.answerOption1Text
@@ -28,8 +28,9 @@
         <input
           cFormCheckInput
           id="radioStack2"
-          name="radioStack"
           type="radio"
+          value="2"
+          formControlName="answer"
         />
         <label cFormCheckLabel for="radioStack2">{{
           question.answerOption2Text
@@ -40,8 +41,9 @@
         <input
           cFormCheckInput
           id="radioStack3"
-          name="radioStack"
           type="radio"
+          value="3"
+          formControlName="answer"
         />
         <label cFormCheckLabel for="radioStack3">{{
           question.answerOption3Text
@@ -52,8 +54,9 @@
         <input
           cFormCheckInput
           id="radioStack4"
-          name="radioStack"
           type="radio"
+          value="4"
+          formControlName="answer"
         />
         <label cFormCheckLabel for="radioStack4">{{
           question.answerOption4Text
@@ -64,8 +67,9 @@
         <input
           cFormCheckInput
           id="radioStack5"
-          name="radioStack"
           type="radio"
+          value="5"
+          formControlName="answer"
         />
         <label cFormCheckLabel for="radioStack5">{{
           question.answerOption5Text
@@ -76,8 +80,9 @@
         <input
           cFormCheckInput
           id="radioStack6"
-          name="radioStack"
           type="radio"
+          value="6"
+          formControlName="answer"
         />
         <label cFormCheckLabel for="radioStack6">{{
           question.answerOption6Text
@@ -94,6 +99,7 @@
         class="btn-prev"
         shape="rounded-pill"
         [disabled]="questionIndex == 0"
+        (click)="onQuestionAnswered(true, false)"
       >
         Previous
       </button>
@@ -105,7 +111,7 @@
         color="danger"
         class="btn-next"
         shape="rounded-pill"
-        (click)="onQuestionAnswered(true)"
+        (click)="onQuestionAnswered(false, true)"
       >
         Finish Exam
       </button>
@@ -115,7 +121,7 @@
         color="danger"
         class="btn-next"
         shape="rounded-pill"
-        (click)="onQuestionAnswered(false)"
+        (click)="onQuestionAnswered(false, false)"
       >
         Next
       </button>

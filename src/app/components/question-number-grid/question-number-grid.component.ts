@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import {
   ButtonModule,
   CardModule,
   ContainerComponent,
   GridModule,
-} from '@coreui/angular';
+} from "@coreui/angular";
 
 @Component({
-  selector: 'app-question-number-grid',
+  selector: "app-question-number-grid",
   standalone: true,
   imports: [
     RouterModule,
@@ -17,17 +17,19 @@ import {
     ButtonModule,
     CardModule,
   ],
-  templateUrl: './question-number-grid.component.html',
-  styleUrl: './question-number-grid.component.scss',
+  templateUrl: "./question-number-grid.component.html",
+  styleUrl: "./question-number-grid.component.scss",
 })
 export class QuestionNumberGridComponent implements OnInit {
   @Input() questionCount: number = 0;
-  @Input() timeLeft: string = '';
+  @Input() timeLeft: string = "";
   @Input() answeredCount: number = 0;
   @Input() notAnsweredCount: number = 0;
   @Input() passMarkPercentage: number = 0;
   @Input() allowedMistakesCount: number = 0;
   @Input() examTimeInMinutes: number = 0;
+
+  @Output() questionNumberClickedEvent = new EventEmitter<number>();
 
   questionIndecies: number[] = [];
 
@@ -37,5 +39,9 @@ export class QuestionNumberGridComponent implements OnInit {
     for (let i = 0; i < this.questionCount; i++) {
       this.questionIndecies.push(i);
     }
+  }
+
+  onCLickQuestionNumber(questionNumber: number) {
+    this.questionNumberClickedEvent.emit(questionNumber);
   }
 }

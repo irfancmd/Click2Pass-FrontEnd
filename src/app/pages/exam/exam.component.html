@@ -13,6 +13,14 @@
           [question]="questions[currentQuestionIndex]"
           (questionAnsweredEvent)="onQuestionAnswered($event)"
         />
+
+        @if(isCorrectVisible) {
+        <div class="alert alert-success mt-3" role="alert">You're correct!</div>
+        } @if(isInCorrectVisible) {
+        <div class="alert alert-danger" role="alert">
+          Wrong answer. Please try again.
+        </div>
+        }
       </c-col>
       <c-col lg="5">
         <app-question-number-grid
@@ -23,6 +31,7 @@
           [passMarkPercentage]="passMarkPercentage"
           [allowedMistakesCount]="allowedMistakesCount"
           [examTimeInMinutes]="examTimeInMinutes"
+          (questionNumberClickedEvent)="onQuestionNumberClicked($event)"
         />
       </c-col>
     </c-row>
