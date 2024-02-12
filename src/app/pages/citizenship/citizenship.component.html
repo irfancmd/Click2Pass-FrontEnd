@@ -36,18 +36,31 @@
         [routerLink]
         [tabPaneIdx]="0"
         cNavLink
-        >Practice</a
+        >Random Practice</a
+      >
+      <a
+        class="center-tab shadow"
+        [cTabContent]="tabContent"
+        [routerLink]
+        [tabPaneIdx]="1"
+        cNavLink
+        >Chapter Wise Practice</a
       >
       <a
         class="right-tab shadow"
         [cTabContent]="tabContent"
         [routerLink]
-        [tabPaneIdx]="1"
+        [tabPaneIdx]="2"
         cNavLink
-        >Tests</a
+        >Simulation Test</a
       >
     </c-nav>
     <c-tab-content #tabContent="cTabContent">
+      <c-tab-pane class="p-3">
+        <div class="my-5">
+          <app-exam-type-detail />
+        </div>
+      </c-tab-pane>
       <c-tab-pane class="p-3">
         <div class="my-5">
           <app-question-set-grid
@@ -58,7 +71,7 @@
       </c-tab-pane>
       <c-tab-pane class="p-3">
         <div class="my-5">
-          <app-question-set-grid [chapters]="chapters" />
+          <app-exam-type-detail [isSimulation]="true" />
         </div>
       </c-tab-pane>
     </c-tab-content>

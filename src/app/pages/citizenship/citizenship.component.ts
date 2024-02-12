@@ -9,6 +9,7 @@ import {
 import { QuestionSetGridComponent } from '../../components/question-set-grid/question-set-grid.component';
 import { Chapter } from '../../models/chapter.model';
 import { ChapterService } from '../../services/chapter.service';
+import { ExamTypeDetailComponent } from '../../components/exam-type-detail/exam-type-detail.component';
 
 @Component({
   selector: 'app-citizenship',
@@ -20,6 +21,7 @@ import { ChapterService } from '../../services/chapter.service';
     NavModule,
     TabsModule,
     QuestionSetGridComponent,
+    ExamTypeDetailComponent,
   ],
   templateUrl: './citizenship.component.html',
   styleUrl: './citizenship.component.scss',
