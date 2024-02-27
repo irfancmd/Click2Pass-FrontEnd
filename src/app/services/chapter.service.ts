@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CommonResponse } from '../models/common-response.models';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { CommonResponse } from "../models/common-response.models";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ChapterService {
-  private readonly CHAPTER_ENDPOINT = 'http://localhost:3000/category';
+  private readonly CHAPTER_ENDPOINT = "http://localhost:3000/chapter";
 
   constructor(private httpClient: HttpClient) {}
 
