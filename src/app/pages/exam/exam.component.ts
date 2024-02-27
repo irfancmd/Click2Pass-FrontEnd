@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
   ContainerComponent,
@@ -27,11 +27,11 @@ import { Question } from "../../models/question.models";
   templateUrl: "./exam.component.html",
   styleUrl: "./exam.component.scss",
 })
-export class ExamComponent implements OnInit {
+export class ExamComponent implements OnInit, OnDestroy {
   public examId: number = 0;
   public exam?: Exam;
 
-  public examEndTime = new Date();
+  // public examEndTime = new Date();
   public questionCount = 0;
   public timeLeft = "";
   public answeredCount = 0;
@@ -62,22 +62,26 @@ export class ExamComponent implements OnInit {
         this.exam = data.data;
 
         // Set exam deadline
-        this.examEndTime = new Date(this.exam?.endTime ?? new Date());
+        this.examService.examEndTime = new Date(
+          this.exam?.endTime ?? new Date()
+        );
 
         this.questionCount = this.exam?.questionCount ?? 0;
 
-        setInterval(() => {
-          if (this.examEndTime < new Date()) {
-            alert("Time up!");
-          }
+        if (this.examService.examEndTime) {
+          setInterval(() => {
+            if ((this.examService.examEndTime as Date) < new Date()) {
+              alert("Time up! " + this.examService.examEndTime);
+            }
 
-          this.timeLeft = this.calculateTimeDifference(
-            new Date(),
-            this.examEndTime
-          );
+            this.timeLeft = this.calculateTimeDifference(
+              new Date(),
+              this.examService.examEndTime as Date
+            );
 
-          // Add time-up logic
-        }, 1000);
+            // Add time-up logic
+          }, 1000);
+        }
 
         this.notAnsweredCount = this.exam?.questionCount ?? 0;
         this.passMarkPercentage = 70; // Hard coded.
@@ -95,6 +99,10 @@ export class ExamComponent implements OnInit {
         this.examLoaded = true;
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.examService.examEndTime = undefined;
   }
 
   private calculateTimeDifference(start_time: Date, end_time: Date): string {

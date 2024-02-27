@@ -12,6 +12,7 @@ export class ExamService {
 
   public currentExamChapter?: Chapter;
   public isPracticeModeON = false;
+  public examEndTime?: Date;
 
   constructor(private httpClient: HttpClient) {}
 

@@ -1,7 +1,4 @@
 <c-row [gutter]="4" [lg]="4">
-  <c-col>
-    <app-question-set-card [index]="0" (click)="onCardClick()" />
-  </c-col>
   @for(chapter of chapters; track chapter.id; let idx = $index) {
   <c-col>
     <app-question-set-card
