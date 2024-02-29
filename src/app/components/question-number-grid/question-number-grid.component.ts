@@ -21,7 +21,7 @@ import {
   styleUrl: "./question-number-grid.component.scss",
 })
 export class QuestionNumberGridComponent implements OnInit {
-  @Input() questionCount: number = 0;
+  questionCount: number = 20;
   @Input() timeLeft: string = "";
   @Input() answeredCount: number = 0;
   @Input() notAnsweredCount: number = 0;

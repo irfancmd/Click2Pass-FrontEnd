@@ -71,7 +71,7 @@ export class ExamComponent implements OnInit, OnDestroy {
         if (this.examService.examEndTime) {
           setInterval(() => {
             if ((this.examService.examEndTime as Date) < new Date()) {
-              alert("Time up! " + this.examService.examEndTime);
+              // alert("Time up! " + this.examService.examEndTime);
             }
 
             this.timeLeft = this.calculateTimeDifference(

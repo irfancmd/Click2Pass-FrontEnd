@@ -6,7 +6,7 @@
     </h3>
     @if(examLoaded) {
     <c-row [gutter]="4">
-      <c-col lg="7">
+      <c-col lg="8">
         <app-question
           [questionIndex]="currentQuestionIndex"
           [totalQuestions]="questionCount"
@@ -22,9 +22,8 @@
         </div>
         }
       </c-col>
-      <c-col lg="5">
+      <c-col lg="4">
         <app-question-number-grid
-          [questionCount]="questionCount"
           [timeLeft]="timeLeft"
           [answeredCount]="answeredCount"
           [notAnsweredCount]="notAnsweredCount"
