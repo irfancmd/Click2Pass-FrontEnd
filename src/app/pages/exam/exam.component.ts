@@ -50,10 +50,12 @@ export class ExamComponent implements OnInit, OnDestroy {
   public isCorrectVisible = false;
   public isInCorrectVisible = false;
   public correctCount = 0;
+  public examTimeCounter: any;
 
   constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
+    console.log("init");
     this.examService.createNewExam().subscribe((data) => {
       this.examId = data.data;
 
@@ -69,7 +71,7 @@ export class ExamComponent implements OnInit, OnDestroy {
         this.questionCount = this.exam?.questionCount ?? 0;
 
         if (this.examService.examEndTime) {
-          setInterval(() => {
+          this.examTimeCounter = setInterval(() => {
             if ((this.examService.examEndTime as Date) < new Date()) {
               // alert("Time up! " + this.examService.examEndTime);
             }
@@ -103,6 +105,7 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.examService.examEndTime = undefined;
+    clearInterval(this.examTimeCounter);
   }
 
   private calculateTimeDifference(start_time: Date, end_time: Date): string {
