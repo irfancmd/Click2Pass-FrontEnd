@@ -93,6 +93,16 @@
   </c-card-body>
   <c-row class="button-container">
     <c-col>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="chk-review-later">
+        <label class="form-check-label" for="chk-review-later">
+          I want to review this answer later
+        </label>
+      </div>
+    </c-col>
+  </c-row>
+  <c-row class="button-container">
+    <c-col>
       <button
         cButton
         color="danger"
@@ -128,6 +138,18 @@
       }
     </c-col>
   </c-row>
-
+  <c-row class="button-container">
+    <c-col>
+      <button
+        cButton
+        color="danger"
+        class="btn-next"
+        shape="rounded-pill"
+        (click)="onQuestionAnswered(false, true)"
+      >
+        Confirm Submission
+      </button>
+    </c-col>
+  </c-row>
   }
 </c-card>
