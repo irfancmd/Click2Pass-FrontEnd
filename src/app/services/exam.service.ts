@@ -13,6 +13,8 @@ export class ExamService {
   public currentExamChapter?: Chapter;
   public isPracticeModeON = false;
   public examEndTime?: Date;
+  public isConfirmed: boolean[] = new Array(20).fill(false);
+  public answers = new Array(20).fill(null);
 
   constructor(private httpClient: HttpClient) {}
 

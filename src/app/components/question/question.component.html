@@ -94,7 +94,13 @@
   <c-row class="button-container">
     <c-col>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="chk-review-later">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="chk-review-later"
+          [(ngModel)]="reviewLater"
+          (change)="onReviewStatusChange($event)"
+        />
         <label class="form-check-label" for="chk-review-later">
           I want to review this answer later
         </label>
@@ -109,33 +115,21 @@
         class="btn-prev"
         shape="rounded-pill"
         [disabled]="questionIndex == 0"
-        (click)="onQuestionAnswered(true, false)"
+        (click)="onClickNavigate(questionIndex)"
       >
         Previous
       </button>
     </c-col>
     <c-col>
-      @if(questionIndex == totalQuestions - 1) {
       <button
         cButton
         color="danger"
         class="btn-next"
         shape="rounded-pill"
-        (click)="onQuestionAnswered(false, true)"
-      >
-        Finish Exam
-      </button>
-      } @else {
-      <button
-        cButton
-        color="danger"
-        class="btn-next"
-        shape="rounded-pill"
-        (click)="onQuestionAnswered(false, false)"
+        (click)="onClickNavigate(questionIndex)"
       >
         Next
       </button>
-      }
     </c-col>
   </c-row>
   <c-row class="button-container">

@@ -197,6 +197,10 @@ export class ExamComponent implements OnInit, OnDestroy {
     this.currentQuestionIndex = questionIndex;
   }
 
+  onQuestionNavigation(questionIndex: number) {
+    this.currentQuestionIndex = questionIndex;
+  }
+
   private countAnsweredQuestions(): number {
     return this.answeredStatus.filter((e) => e === 1).length;
   }

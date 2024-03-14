@@ -12,6 +12,7 @@
           [totalQuestions]="questionCount"
           [question]="questions[currentQuestionIndex]"
           (questionAnsweredEvent)="onQuestionAnswered($event)"
+          (questionNavigationEvent)="onQuestionNavigation($event)"
         />
 
         @if(isCorrectVisible) {
