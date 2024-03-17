@@ -13,7 +13,7 @@ export class ExamService {
   public currentExamChapter?: Chapter;
   public isPracticeModeON = false;
   public examEndTime?: Date;
-  public isConfirmed: boolean[] = new Array(20).fill(false);
+  public reviewLater: boolean[] = new Array(20).fill(false);
   public answers = new Array(20).fill(null);
 
   constructor(private httpClient: HttpClient) {}
@@ -32,5 +32,13 @@ export class ExamService {
     return this.httpClient.get<CommonResponse>(
       `${this.EXAM_ENDPOINT}/${examId}`
     );
+  }
+
+  resetAll() {
+    this.currentExamChapter = undefined;
+    this.isPracticeModeON = false;
+    this.examEndTime = undefined;
+    this.reviewLater = new Array(20).fill(false);
+    this.answers = new Array(20).fill(null);
   }
 }

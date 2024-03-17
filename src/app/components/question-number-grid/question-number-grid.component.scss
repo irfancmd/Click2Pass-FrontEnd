@@ -1,4 +1,5 @@
 $click2pass-primary: #d80621;
+$click2pass-warning: #f9b115;
 $click2pass-primary-light: #d8062108;
 $click2pass-pink: #ffe1e7;
 $click2pass-pink-light: #fdf2f4;
@@ -41,5 +42,10 @@ $click2pass-pink-light: #fdf2f4;
   &.current {
     color: #ffffff !important;
     background-color: $click2pass-primary !important;
+  }
+
+  &.review {
+    color: #ffffff !important;
+    background-color: $click2pass-warning !important;
   }
 }

@@ -6,6 +6,7 @@ import {
   ContainerComponent,
   GridModule,
 } from "@coreui/angular";
+import { ExamService } from "../../services/exam.service";
 
 @Component({
   selector: "app-question-number-grid",
@@ -33,7 +34,7 @@ export class QuestionNumberGridComponent implements OnInit {
 
   questionIndecies: number[] = [];
 
-  constructor() {}
+  constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
     for (let i = 0; i < this.questionCount; i++) {

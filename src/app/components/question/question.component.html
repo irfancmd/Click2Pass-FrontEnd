@@ -91,6 +91,8 @@
       }
     </form>
   </c-card-body>
+  @if(this.questionForm.controls.answer.value &&
+  !this.examService.isPracticeModeON) {
   <c-row class="button-container">
     <c-col>
       <div class="form-check">
@@ -107,6 +109,7 @@
       </div>
     </c-col>
   </c-row>
+  }
   <c-row class="button-container">
     <c-col>
       <button
@@ -115,7 +118,7 @@
         class="btn-prev"
         shape="rounded-pill"
         [disabled]="questionIndex == 0"
-        (click)="onClickNavigate(questionIndex)"
+        (click)="onClickNavigate(questionIndex - 1)"
       >
         Previous
       </button>
@@ -126,12 +129,13 @@
         color="danger"
         class="btn-next"
         shape="rounded-pill"
-        (click)="onClickNavigate(questionIndex)"
+        (click)="onClickNavigate(questionIndex + 1)"
       >
         Next
       </button>
     </c-col>
   </c-row>
+  @if(this.questionForm.controls.answer.value) {
   <c-row class="button-container">
     <c-col>
       <button
@@ -139,11 +143,11 @@
         color="danger"
         class="btn-next"
         shape="rounded-pill"
-        (click)="onQuestionAnswered(false, true)"
+        (click)="onQuestionAnswered(questionIndex)"
       >
         Confirm Submission
       </button>
     </c-col>
   </c-row>
-  }
+  } }
 </c-card>

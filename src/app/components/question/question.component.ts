@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
   ButtonModule,
@@ -36,7 +36,7 @@ import { ExamService } from "../../services/exam.service";
   styleUrl: "./question.component.scss",
   providers: [IconSetService],
 })
-export class QuestionComponent {
+export class QuestionComponent implements OnInit {
   @Input() question?: Question;
   @Input() questionIndex: number = 0;
   @Input() totalQuestions: number = 0;
@@ -44,10 +44,7 @@ export class QuestionComponent {
   @Output() questionAnsweredEvent = new EventEmitter<{
     index: number;
     answered: boolean;
-    previous: boolean;
     isCorrect: boolean;
-    reviewLater: boolean;
-    finishExam: boolean;
   }>();
 
   @Output() questionNavigationEvent = new EventEmitter<number>();
@@ -55,17 +52,20 @@ export class QuestionComponent {
   readonly icons = { cilArrowLeft };
 
   public questionForm = new FormGroup({
-    answer: new FormControl("0"),
+    answer: new FormControl(null),
   });
 
   public reviewLater: boolean = false;
 
-  constructor(private examService: ExamService) {}
+  constructor(public examService: ExamService) {}
 
-  onQuestionAnswered(previous: boolean, finishExam: boolean) {
+  ngOnInit(): void {}
+
+  onQuestionAnswered(questionIndex: number) {
     let isCorrect = false;
-    let answered = this.questionForm.controls.answer.value != "0";
-    let reviewLater = this.reviewLater;
+    let answered = this.questionForm.controls.answer.value != null;
+    this.examService.answers[questionIndex] =
+      this.questionForm.controls.answer.value;
 
     if (
       this.question &&
@@ -74,44 +74,46 @@ export class QuestionComponent {
       isCorrect = true;
     }
 
+    // this.questionForm.controls.answer.setValue("0");
+    this.questionForm.reset();
+    this.reviewLater = false;
+
     this.questionAnsweredEvent.emit({
       index: this.questionIndex,
       answered,
-      previous,
       isCorrect,
-      reviewLater,
-      finishExam,
     });
-
-    this.questionForm.controls.answer.setValue("0");
-    this.reviewLater = false;
 
     // Add practice mode logic
     // Add finish exam logic
   }
 
-  onClickNavigate(questionIndex: number) {
-    let reviewLater = this.reviewLater;
-
+  public onClickNavigate(questionIndex: number) {
     if (
-      !this.examService.isConfirmed[this.questionIndex] &&
-      this.questionForm.controls.answer.value != "0"
+      !this.examService.reviewLater[this.questionIndex] &&
+      this.questionForm.controls.answer.value != null &&
+      !this.examService.isPracticeModeON &&
+      this.examService.answers[this.questionIndex] == null
     ) {
       alert(
         "Please click on the “Confirm Submission” button to save your answer."
       );
     } else {
-      if (questionIndex < this.questionIndex && questionIndex >= 0) {
-        this.questionNavigationEvent.emit(questionIndex);
-      } else if (questionIndex < this.totalQuestions) {
-        this.questionNavigationEvent.emit(questionIndex);
+      this.questionForm.reset();
+      this.reviewLater = false;
+
+      if (this.examService.answers[questionIndex]) {
+        this.questionForm.controls.answer.setValue(
+          this.examService.answers[questionIndex]
+        );
+        this.reviewLater = this.examService.reviewLater[questionIndex];
       }
+
+      this.questionNavigationEvent.emit(questionIndex);
     }
   }
 
   onReviewStatusChange(event: any) {
-    this.examService.isConfirmed[this.questionIndex] = this.reviewLater;
-
-    console.log(this.examService.isConfirmed);
+    this.examService.reviewLater[this.questionIndex] = this.reviewLater;
   }
 }

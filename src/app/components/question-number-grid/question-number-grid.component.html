@@ -20,7 +20,11 @@
           <button
             cButton
             color="danger"
-            class="btn-question-number shadow current"
+            [class]="
+              this.examService.reviewLater[questionIndex]
+                ? 'btn-question-number shadow review'
+                : 'btn-question-number shadow current'
+            "
             (click)="onCLickQuestionNumber(questionIndex)"
           >
             {{ questionIndex + 1 }}

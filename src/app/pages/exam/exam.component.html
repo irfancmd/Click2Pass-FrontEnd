@@ -6,8 +6,12 @@
     </h3>
     @if(examLoaded) {
     <c-row [gutter]="4">
-      <c-col lg="8">
+      <c-col
+        [lg]="this.examService.isPracticeModeON ? 10 : 8"
+        [offset]="this.examService.isPracticeModeON ? 1 : 0"
+      >
         <app-question
+          #questionComponent
           [questionIndex]="currentQuestionIndex"
           [totalQuestions]="questionCount"
           [question]="questions[currentQuestionIndex]"
@@ -19,10 +23,15 @@
         <div class="alert alert-success mt-3" role="alert">You're correct!</div>
         } @if(isInCorrectVisible) {
         <div class="alert alert-danger" role="alert">
-          Wrong answer. Please try again.
+          {{
+            "Wrong answer. Option (" +
+              this.questions[currentQuestionIndex].correctAnswerText +
+              ") is the correct answer."
+          }}
         </div>
         }
       </c-col>
+      @if(!this.examService.isPracticeModeON) {
       <c-col lg="4">
         <app-question-number-grid
           [timeLeft]="timeLeft"
@@ -34,6 +43,7 @@
           (questionNumberClickedEvent)="onQuestionNumberClicked($event)"
         />
       </c-col>
+      }
     </c-row>
     }
   </c-container>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
   ContainerComponent,
@@ -52,6 +52,8 @@ export class ExamComponent implements OnInit, OnDestroy {
   public correctCount = 0;
   public examTimeCounter: any;
 
+  @ViewChild("questionComponent") questionComponent: any;
+
   constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
@@ -70,7 +72,10 @@ export class ExamComponent implements OnInit, OnDestroy {
 
         this.questionCount = this.exam?.questionCount ?? 0;
 
-        if (this.examService.examEndTime) {
+        if (
+          !this.examService.isPracticeModeON &&
+          this.examService.examEndTime
+        ) {
           this.examTimeCounter = setInterval(() => {
             if ((this.examService.examEndTime as Date) < new Date()) {
               // alert("Time up! " + this.examService.examEndTime);
@@ -104,8 +109,8 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.examService.examEndTime = undefined;
     clearInterval(this.examTimeCounter);
+    this.examService.resetAll();
   }
 
   private calculateTimeDifference(start_time: Date, end_time: Date): string {
@@ -127,10 +132,8 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   onQuestionAnswered(event: {
     index: number;
-    previous: boolean;
     answered: boolean;
     isCorrect: boolean;
-    finishExam: boolean;
   }) {
     if (this.examService.isPracticeModeON) {
       this.isCorrectVisible = false;
@@ -151,19 +154,6 @@ export class ExamComponent implements OnInit, OnDestroy {
               this.correctCount++;
             }
           }
-
-          if (event.finishExam) {
-            alert(
-              "You've completed the test. You got " +
-                `${this.correctCount} / ${this.questionCount}`
-            );
-          } else {
-            if (event.previous) {
-              this.currentQuestionIndex--;
-            } else {
-              this.currentQuestionIndex++;
-            }
-          }
         }, 1000);
       } else {
         this.isInCorrectVisible = true;
@@ -177,28 +167,25 @@ export class ExamComponent implements OnInit, OnDestroy {
           this.correctCount++;
         }
       }
-
-      if (event.finishExam) {
-        alert(
-          "You've completed the test. You got " +
-            `${this.correctCount} / ${this.questionCount}`
-        );
-      } else {
-        if (event.previous) {
-          this.currentQuestionIndex--;
-        } else {
-          this.currentQuestionIndex++;
-        }
-      }
     }
   }
 
   onQuestionNumberClicked(questionIndex: number) {
-    this.currentQuestionIndex = questionIndex;
+    if (this.questionComponent) {
+      console.log("Here");
+      this.questionComponent.onClickNavigate(questionIndex);
+    }
   }
 
   onQuestionNavigation(questionIndex: number) {
-    this.currentQuestionIndex = questionIndex;
+    this.isCorrectVisible = false;
+    this.isInCorrectVisible = false;
+
+    if (questionIndex >= 0 && questionIndex < 20) {
+      this.currentQuestionIndex = questionIndex;
+    } else if (questionIndex == 20) {
+      alert("Finish exam?");
+    }
   }
 
   private countAnsweredQuestions(): number {
