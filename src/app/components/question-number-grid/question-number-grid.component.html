@@ -23,6 +23,8 @@
             [class]="
               this.examService.reviewLater[questionIndex]
                 ? 'btn-question-number shadow review'
+                : this.examService.answers[questionIndex]
+                ? 'btn-question-number shadow answered'
                 : 'btn-question-number shadow current'
             "
             (click)="onCLickQuestionNumber(questionIndex)"

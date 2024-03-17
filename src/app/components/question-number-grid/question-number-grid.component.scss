@@ -1,5 +1,6 @@
 $click2pass-primary: #d80621;
 $click2pass-warning: #f9b115;
+$click2pass-answered: #263238;
 $click2pass-primary-light: #d8062108;
 $click2pass-pink: #ffe1e7;
 $click2pass-pink-light: #fdf2f4;
@@ -47,5 +48,10 @@ $click2pass-pink-light: #fdf2f4;
   &.review {
     color: #ffffff !important;
     background-color: $click2pass-warning !important;
+  }
+
+  &.answered {
+    color: #ffffff !important;
+    background-color: $click2pass-answered !important;
   }
 }
