@@ -53,3 +53,21 @@ $click2pass-pink: #ffe1e7;
     }
   }
 }
+
+.img-question {
+  max-height: 300px;
+  width: auto;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.img-answer {
+  max-height: 200px;
+  width: auto;
+  border-radius: 5px;
+}
+
+.answer-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

@@ -8,6 +8,15 @@
     <hr />
     <div class="question-text">
       {{ question.questionText }}
+      <br />
+      @if(question.questionMediaUrl) {
+      <img
+        [src]="question.questionMediaUrl"
+        alt="Question image"
+        class="img-question"
+        draggable="false"
+      />
+      }
     </div>
     <form [formGroup]="questionForm" cForm>
       @if(question.answerOption1Text) {
@@ -19,9 +28,21 @@
           value="1"
           formControlName="answer"
         />
-        <label cFormCheckLabel for="radioStack1">{{
-          question.answerOption1Text
-        }}</label>
+        <label cFormCheckLabel for="radioStack1">
+          @if(question.answerOption1MediaUrl) {
+          <img
+            [src]="question.answerOption1MediaUrl"
+            alt="Answer option 1 image"
+            class="img-answer"
+            draggable="false"
+          />
+          <br />
+          }
+
+          <span class="answer-text">{{
+            question.answerOption1Text
+          }}</span></label
+        >
       </c-form-check>
       } @if(question.answerOption2Text) {
       <c-form-check>
@@ -32,9 +53,21 @@
           value="2"
           formControlName="answer"
         />
-        <label cFormCheckLabel for="radioStack2">{{
-          question.answerOption2Text
-        }}</label>
+        <label cFormCheckLabel for="radioStack2">
+          @if(question.answerOption2MediaUrl) {
+          <img
+            [src]="question.answerOption2MediaUrl"
+            alt="Answer option 2 image"
+            class="img-answer"
+            draggable="false"
+          />
+          <br />
+          }
+
+          <span class="answer-text">{{
+            question.answerOption2Text
+          }}</span></label
+        >
       </c-form-check>
       } @if(question.answerOption3Text) {
       <c-form-check>
@@ -45,9 +78,21 @@
           value="3"
           formControlName="answer"
         />
-        <label cFormCheckLabel for="radioStack3">{{
-          question.answerOption3Text
-        }}</label>
+        <label cFormCheckLabel for="radioStack3">
+          @if(question.answerOption3MediaUrl) {
+          <img
+            [src]="question.answerOption3MediaUrl"
+            alt="Answer option 3 image"
+            class="img-answer"
+            draggable="false"
+          />
+          <br />
+          }
+
+          <span class="answer-text">{{
+            question.answerOption3Text
+          }}</span></label
+        >
       </c-form-check>
       } @if(question.answerOption4Text) {
       <c-form-check>
@@ -58,9 +103,21 @@
           value="4"
           formControlName="answer"
         />
-        <label cFormCheckLabel for="radioStack4">{{
-          question.answerOption4Text
-        }}</label>
+        <label cFormCheckLabel for="radioStack4">
+          @if(question.answerOption4MediaUrl) {
+          <img
+            [src]="question.answerOption4MediaUrl"
+            alt="Answer option 4 image"
+            class="img-answer"
+            draggable="false"
+          />
+          <br />
+          }
+
+          <span class="answer-text">{{
+            question.answerOption4Text
+          }}</span></label
+        >
       </c-form-check>
       } @if(question.answerOption5Text) {
       <c-form-check>
@@ -71,9 +128,21 @@
           value="5"
           formControlName="answer"
         />
-        <label cFormCheckLabel for="radioStack5">{{
-          question.answerOption5Text
-        }}</label>
+        <label cFormCheckLabel for="radioStack5">
+          @if(question.answerOption5MediaUrl) {
+          <img
+            [src]="question.answerOption5MediaUrl"
+            alt="Answer option 5 image"
+            class="img-answer"
+            draggable="false"
+          />
+          <br />
+          }
+
+          <span class="answer-text">{{
+            question.answerOption5Text
+          }}</span></label
+        >
       </c-form-check>
       } @if(question.answerOption6Text) {
       <c-form-check>
@@ -84,9 +153,20 @@
           value="6"
           formControlName="answer"
         />
-        <label cFormCheckLabel for="radioStack6">{{
-          question.answerOption6Text
-        }}</label>
+        <label cFormCheckLabel for="radioStack6">
+          @if(question.answerOption6MediaUrl) {
+          <img
+            [src]="question.answerOption6MediaUrl"
+            alt="Answer option 6 image"
+            class="img-answer"
+            draggable="false"
+          />
+          <br />
+          }
+          <span class="answer-text">{{
+            question.answerOption6Text
+          }}</span></label
+        >
       </c-form-check>
       }
     </form>
