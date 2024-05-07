@@ -7,7 +7,8 @@ import { CommonResponse } from "../models/common-response.models";
   providedIn: "root",
 })
 export class ChapterService {
-  private readonly CHAPTER_ENDPOINT = "http://localhost:3000/chapter";
+  // private readonly CHAPTER_ENDPOINT = "http://localhost:3000/chapter";
+  private readonly CHAPTER_ENDPOINT = "http://72.167.50.39:3000/chapter";
 
   constructor(private httpClient: HttpClient) {}
 

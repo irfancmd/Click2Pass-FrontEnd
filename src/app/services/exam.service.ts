@@ -8,7 +8,8 @@ import { Chapter } from "../models/chapter.model";
   providedIn: "root",
 })
 export class ExamService {
-  private readonly EXAM_ENDPOINT = "http://localhost:3000/exam";
+  // private readonly EXAM_ENDPOINT = "http://localhost:3000/exam";
+  private readonly EXAM_ENDPOINT = "http://72.167.50.39:3000/exam";
 
   public currentExamChapter?: Chapter;
   public isPracticeModeON = false;
