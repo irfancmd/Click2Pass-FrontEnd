@@ -27,6 +27,7 @@
           type="radio"
           value="1"
           formControlName="answer"
+          (click)="onOptionClicked()"
         />
         <label cFormCheckLabel for="radioStack1">
           @if(question.answerOption1MediaUrl) {
@@ -52,6 +53,7 @@
           type="radio"
           value="2"
           formControlName="answer"
+          (click)="onOptionClicked()"
         />
         <label cFormCheckLabel for="radioStack2">
           @if(question.answerOption2MediaUrl) {
@@ -77,6 +79,7 @@
           type="radio"
           value="3"
           formControlName="answer"
+          (click)="onOptionClicked()"
         />
         <label cFormCheckLabel for="radioStack3">
           @if(question.answerOption3MediaUrl) {
@@ -102,6 +105,7 @@
           type="radio"
           value="4"
           formControlName="answer"
+          (click)="onOptionClicked()"
         />
         <label cFormCheckLabel for="radioStack4">
           @if(question.answerOption4MediaUrl) {
@@ -127,6 +131,7 @@
           type="radio"
           value="5"
           formControlName="answer"
+          (click)="onOptionClicked()"
         />
         <label cFormCheckLabel for="radioStack5">
           @if(question.answerOption5MediaUrl) {
@@ -152,6 +157,7 @@
           type="radio"
           value="6"
           formControlName="answer"
+          (click)="onOptionClicked()"
         />
         <label cFormCheckLabel for="radioStack6">
           @if(question.answerOption6MediaUrl) {
@@ -215,7 +221,7 @@
       </button>
     </c-col>
   </c-row>
-  @if(this.questionForm.controls.answer.value) {
+  @if(!this.examService.isPracticeModeON && this.questionForm.controls.answer.value) {
   <c-row class="button-container">
     <c-col>
       <button
