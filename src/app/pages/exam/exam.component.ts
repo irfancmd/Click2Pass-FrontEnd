@@ -40,7 +40,6 @@ export class ExamComponent implements OnInit, OnDestroy {
   // public examEndTime = new Date();
   public questionCount = 0;
   public timeLeft = "";
-  public answeredCount = 0;
   public notAnsweredCount = 0;
   public passMarkPercentage = 0;
   public allowedMistakesCount = 0;
@@ -154,7 +153,7 @@ export class ExamComponent implements OnInit, OnDestroy {
   }) {
     if (event.answered) {
       this.answeredStatus[event.index] = 1;
-      this.answeredCount = this.countAnsweredQuestions();
+      this.examService.answeredCount = this.countAnsweredQuestions();
 
       if (event.isCorrect) {
         this.correctCount++;

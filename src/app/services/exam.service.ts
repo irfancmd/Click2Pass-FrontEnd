@@ -19,6 +19,7 @@ export class ExamService {
   public isExamStarted = new BehaviorSubject<boolean>(false);
   public isExamFinished = new BehaviorSubject<boolean>(false);
   public answerCorrectStatus = new Array(20).fill(false);
+  public answeredCount = 0;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -47,5 +48,6 @@ export class ExamService {
     this.isExamFinished.next(false);
     this.isExamStarted.next(false);
     this.answerCorrectStatus = new Array(20).fill(false);
+    this.answeredCount = 0;
   }
 }

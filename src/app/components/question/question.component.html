@@ -238,7 +238,8 @@
     </form>
   </c-card-body>
   @if(this.questionForm.controls.answer.value &&
-  !this.examService.isPracticeModeON) {
+  !this.examService.isPracticeModeON && this.examService.isExamFinished.value ==
+  false) {
   <c-row class="button-container">
     <c-col>
       <div class="form-check">

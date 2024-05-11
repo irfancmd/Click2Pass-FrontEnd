@@ -74,7 +74,7 @@
         <app-question-number-grid
           [timeLeft]="timeLeft"
           [totalQuestions]="questionCount"
-          [answeredCount]="answeredCount"
+          [answeredCount]="this.examService.answeredCount"
           [notAnsweredCount]="notAnsweredCount"
           [passMarkPercentage]="passMarkPercentage"
           [allowedMistakesCount]="allowedMistakesCount"

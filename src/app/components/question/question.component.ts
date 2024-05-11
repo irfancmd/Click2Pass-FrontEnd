@@ -174,12 +174,18 @@ export class QuestionComponent implements OnChanges {
         this.questionNavigationEvent.emit(questionIndex);
       } else {
         // Finish exam
-        this.questionForm.controls.answer.disable({
-          onlySelf: true,
-          emitEvent: false,
-        });
+        if (this.examService.answeredCount == this.totalQuestions) {
+          this.questionForm.controls.answer.disable({
+            onlySelf: true,
+            emitEvent: false,
+          });
 
-        this.examService.isExamFinished.next(true);
+          this.examService.isExamFinished.next(true);
+        } else {
+          alert(
+            "You have unanswered questions. Please answer all the questions."
+          );
+        }
       }
     }
   }
