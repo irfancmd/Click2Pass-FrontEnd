@@ -22,7 +22,7 @@ import { ExamService } from "../../services/exam.service";
   styleUrl: "./question-number-grid.component.scss",
 })
 export class QuestionNumberGridComponent implements OnInit {
-  questionCount: number = 20;
+  @Input() totalQuestions: number = 20;
   @Input() timeLeft: string = "";
   @Input() answeredCount: number = 0;
   @Input() notAnsweredCount: number = 0;
@@ -37,7 +37,7 @@ export class QuestionNumberGridComponent implements OnInit {
   constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
-    for (let i = 0; i < this.questionCount; i++) {
+    for (let i = 0; i < this.totalQuestions; i++) {
       this.questionIndecies.push(i);
     }
   }

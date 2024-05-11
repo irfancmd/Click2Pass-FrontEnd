@@ -1,5 +1,7 @@
 $click2pass-primary: #d80621;
 $click2pass-primary-light: #d8062108;
+$click2pass-primary-light-2: #ffcdd2;
+$click2pass-success-light: #e8f5e9;
 
 .test-container {
   padding-top: 3rem;
@@ -17,4 +19,32 @@ $click2pass-primary-light: #d8062108;
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
+}
+
+.result-summary-pass {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .card-body {
+    background-color: $click2pass-success-light !important;
+  }
+}
+
+.result-summary-fail {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .card-body {
+    background-color: $click2pass-primary-light-2 !important;
+  }
+}
+
+.blur {
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.btn-start-exam {
+  font-size: 1.2rem;
+  color: white;
 }

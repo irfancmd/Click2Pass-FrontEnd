@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
+  ButtonModule,
+  CardModule,
   ContainerComponent,
   GridModule,
   NavModule,
@@ -11,13 +13,17 @@ import { QuestionNumberGridComponent } from "../../components/question-number-gr
 import { ExamService } from "../../services/exam.service";
 import { Exam } from "../../models/exam.model";
 import { Question } from "../../models/question.models";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-exam",
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
+    ButtonModule,
     ContainerComponent,
+    CardModule,
     GridModule,
     NavModule,
     TabsModule,
@@ -47,8 +53,6 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   public currentQuestionIndex = 0;
 
-  public isCorrectVisible = false;
-  public isInCorrectVisible = false;
   public correctCount = 0;
   public examTimeCounter: any;
 
@@ -57,7 +61,6 @@ export class ExamComponent implements OnInit, OnDestroy {
   constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
-    console.log("init");
     this.examService.createNewExam().subscribe((data) => {
       this.examId = data.data;
 
@@ -72,6 +75,25 @@ export class ExamComponent implements OnInit, OnDestroy {
 
         this.questionCount = this.exam?.questionCount ?? 0;
 
+        this.notAnsweredCount = this.exam?.questionCount ?? 0;
+        this.passMarkPercentage = 75; // Hard coded.
+        this.allowedMistakesCount = 3; // Hard coded.
+        this.examTimeInMinutes = 20; // Hard coded. Not being used now.
+
+        this.answeredStatus = Array(this.questionCount).fill(0);
+
+        if (this.exam) {
+          for (let i = 1; i <= this.exam.questionCount; i++) {
+            this.questions.push((this.exam as any)[`q${i}`]);
+          }
+        }
+
+        this.examLoaded = true;
+      });
+    });
+
+    this.examService.isExamStarted.subscribe((value) => {
+      if (value == true) {
         if (
           !this.examService.isPracticeModeON &&
           this.examService.examEndTime
@@ -89,23 +111,18 @@ export class ExamComponent implements OnInit, OnDestroy {
             // Add time-up logic
           }, 1000);
         }
-
-        this.notAnsweredCount = this.exam?.questionCount ?? 0;
-        this.passMarkPercentage = 70; // Hard coded.
-        this.allowedMistakesCount = 3; // Hard coded.
-        this.examTimeInMinutes = 20; // Hard coded. Not being used now.
-
-        this.answeredStatus = Array(this.questionCount).fill(0);
-
-        if (this.exam) {
-          for (let i = 1; i <= this.exam.questionCount; i++) {
-            this.questions.push((this.exam as any)[`q${i}`]);
-          }
-        }
-
-        this.examLoaded = true;
-      });
+      }
     });
+
+    this.examService.isExamFinished.subscribe((value) => {
+      if (value == true) {
+        clearInterval(this.examTimeCounter);
+      }
+    });
+  }
+
+  onClickExamStart() {
+    this.examService.isExamStarted.next(true);
   }
 
   ngOnDestroy(): void {
@@ -135,57 +152,31 @@ export class ExamComponent implements OnInit, OnDestroy {
     answered: boolean;
     isCorrect: boolean;
   }) {
-    if (this.examService.isPracticeModeON) {
-      this.isCorrectVisible = false;
-      this.isInCorrectVisible = false;
+    if (event.answered) {
+      this.answeredStatus[event.index] = 1;
+      this.answeredCount = this.countAnsweredQuestions();
 
       if (event.isCorrect) {
-        this.isCorrectVisible = true;
-
-        setTimeout(() => {
-          this.isCorrectVisible = false;
-          this.isInCorrectVisible = false;
-
-          if (event.answered) {
-            this.answeredStatus[event.index] = 1;
-            this.answeredCount = this.countAnsweredQuestions();
-
-            if (event.isCorrect) {
-              this.correctCount++;
-            }
-          }
-        }, 1000);
-      } else {
-        this.isInCorrectVisible = true;
-      }
-    } else {
-      if (event.answered) {
-        this.answeredStatus[event.index] = 1;
-        this.answeredCount = this.countAnsweredQuestions();
-
-        if (event.isCorrect) {
-          this.correctCount++;
-        }
+        this.correctCount++;
+        this.examService.answerCorrectStatus[event.index] = true;
       }
     }
   }
 
   onQuestionNumberClicked(questionIndex: number) {
     if (this.questionComponent) {
-      console.log("Here");
       this.questionComponent.onClickNavigate(questionIndex);
     }
   }
 
   onQuestionNavigation(questionIndex: number) {
-    this.isCorrectVisible = false;
-    this.isInCorrectVisible = false;
-
     if (questionIndex >= 0 && questionIndex < 20) {
       this.currentQuestionIndex = questionIndex;
-    } else if (questionIndex == 20) {
-      alert("Finish exam?");
     }
+  }
+
+  get isPassed(): boolean {
+    return this.correctCount >= Math.floor(0.75 * this.questionCount);
   }
 
   private countAnsweredQuestions(): number {

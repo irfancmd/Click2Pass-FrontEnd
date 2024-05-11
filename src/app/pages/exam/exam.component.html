@@ -1,14 +1,63 @@
 <div class="test-container">
   <c-container>
     <h2 class="text-center">Online Citizenship Test</h2>
+    @if(!this.examService.isPracticeModeON &&
+    this.examService.isExamStarted.value == false) {
+    <h2 class="text-center">
+      <button
+        cButton
+        class="btn-start-exam"
+        color="danger"
+        shape="rounded"
+        (click)="onClickExamStart()"
+      >
+        Start Exam
+      </button>
+    </h2>
+    }
     <h3 class="test-name">
       {{ examService.currentExamChapter?.name ?? "Random Test" }}
     </h3>
-    @if(examLoaded) {
-    <c-row [gutter]="4">
+    @if(this.examService.isExamFinished.value == true) {
+    <div
+      [ngClass]="{
+        'result-summary-pass': this.isPassed,
+        'result-summary-fail': !this.isPassed
+      }"
+    >
+      <c-card>
+        <c-card-body>
+          <h3>Your Result</h3>
+          <h4>Result: {{ this.isPassed ? "Passed" : "Failed" }}</h4>
+          <h4>
+            Score: {{ this.correctCount }} out of
+            {{ this.questionCount }}
+          </h4>
+        </c-card-body>
+      </c-card>
+    </div>
+    } @if(examLoaded) {
+    <c-row
+      [gutter]="4"
+      [ngClass]="{
+        blur:
+          !this.examService.isPracticeModeON &&
+          this.examService.isExamStarted.value == false
+      }"
+    >
       <c-col
-        [lg]="this.examService.isPracticeModeON ? 10 : 8"
-        [offset]="this.examService.isPracticeModeON ? 1 : 0"
+        [lg]="
+          this.examService.isPracticeModeON &&
+          this.examService.isExamFinished.value == false
+            ? 10
+            : 8
+        "
+        [offset]="
+          this.examService.isPracticeModeON &&
+          this.examService.isExamFinished.value == false
+            ? 1
+            : 0
+        "
       >
         <app-question
           #questionComponent
@@ -18,23 +67,13 @@
           (questionAnsweredEvent)="onQuestionAnswered($event)"
           (questionNavigationEvent)="onQuestionNavigation($event)"
         />
-
-        @if(isCorrectVisible) {
-        <div class="alert alert-success mt-3" role="alert">You're correct!</div>
-        } @if(isInCorrectVisible) {
-        <div class="alert alert-danger" role="alert">
-          {{
-            "Wrong answer. Option (" +
-              this.questions[currentQuestionIndex].correctAnswerText +
-              ") is the correct answer."
-          }}
-        </div>
-        }
       </c-col>
-      @if(!this.examService.isPracticeModeON) {
+      @if(!this.examService.isPracticeModeON ||
+      this.examService.isExamFinished.value == true) {
       <c-col lg="4">
         <app-question-number-grid
           [timeLeft]="timeLeft"
+          [totalQuestions]="questionCount"
           [answeredCount]="answeredCount"
           [notAnsweredCount]="notAnsweredCount"
           [passMarkPercentage]="passMarkPercentage"

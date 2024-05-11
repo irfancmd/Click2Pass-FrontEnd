@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import {
   ButtonModule,
   CardModule,
@@ -46,7 +46,7 @@ import { CommonModule } from "@angular/common";
   styleUrl: "./question.component.scss",
   providers: [IconSetService],
 })
-export class QuestionComponent {
+export class QuestionComponent implements OnChanges {
   @Input() question?: Question;
   @Input() questionIndex: number = 0;
   @Input() totalQuestions: number = 0;
@@ -69,34 +69,40 @@ export class QuestionComponent {
   public isOptionCorrect = [false, false, false, false, false, false];
   public reviewLater: boolean = false;
 
-  constructor(public examService: ExamService) {}
-
-  // ngOnInit(): void {
-  //   this.questionForm.valueChanges.subscribe((formValue) => {
-  //     // Only for chapter wise and random practice
-  //     if (this.examService.isPracticeModeON) {
-  //       this.onQuestionAnswered(this.questionIndex, false);
-
-  //       this.questionForm.controls.answer.disable({
-  //         onlySelf: true,
-  //         emitEvent: false,
-  //       });
-
-  //       console.log(this.examService.answers);
-  //     }
-  //   });
-  // }
+  constructor(public examService: ExamService, private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    // Resetting the values
+    this.isCorrect = false;
+    this.reviewLater = false;
+    this.isOptionCorrect = [false, false, false, false, false, false];
+
+    // Setting values for previously answered questions
     if (this.examService.answers[changes["questionIndex"].currentValue]) {
+      const correctOptions = this.question?.correctAnswerText.split(",");
+      this.isOptionCorrect[0] = correctOptions?.includes("1") ?? false;
+      this.isOptionCorrect[1] = correctOptions?.includes("2") ?? false;
+      this.isOptionCorrect[2] = correctOptions?.includes("3") ?? false;
+      this.isOptionCorrect[3] = correctOptions?.includes("4") ?? false;
+      this.isOptionCorrect[4] = correctOptions?.includes("5") ?? false;
+      this.isOptionCorrect[5] = correctOptions?.includes("6") ?? false;
+
       this.questionForm.controls.answer.setValue(
         this.examService.answers[changes["questionIndex"].currentValue]
       );
       this.reviewLater =
         this.examService.reviewLater[changes["questionIndex"].currentValue];
 
+      this.isCorrect =
+        this.question?.correctAnswerText.includes(
+          "" + this.questionForm.controls.answer.value
+        ) ?? false;
+
       // Disable form when in practice mode
-      if (this.examService.isPracticeModeON) {
+      if (
+        this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true
+      ) {
         this.questionForm.controls.answer.disable({
           onlySelf: true,
           emitEvent: false,
@@ -105,7 +111,7 @@ export class QuestionComponent {
     }
   }
 
-  onFormClick() {
+  onFormChange() {
     if (this.examService.isPracticeModeON) {
       this.onQuestionAnswered(this.questionIndex, false);
 
@@ -118,17 +124,21 @@ export class QuestionComponent {
 
   onQuestionAnswered(questionIndex: number, navigateNext: boolean = true) {
     let answered = this.questionForm.controls.answer.value != null;
+
     this.examService.answers[questionIndex] =
       this.questionForm.controls.answer.value;
 
+    const correctOptions = this.question?.correctAnswerText.split(",");
+
     if (
       this.question &&
-      this.question.correctAnswerText == this.questionForm.controls.answer.value
+      this.question.correctAnswerText.includes(
+        "" + this.questionForm.controls.answer.value
+      )
     ) {
       this.isCorrect = true;
     }
 
-    const correctOptions = this.question?.correctAnswerText.split(",");
     this.isOptionCorrect[0] = correctOptions?.includes("1") ?? false;
     this.isOptionCorrect[1] = correctOptions?.includes("2") ?? false;
     this.isOptionCorrect[2] = correctOptions?.includes("3") ?? false;
@@ -136,20 +146,11 @@ export class QuestionComponent {
     this.isOptionCorrect[4] = correctOptions?.includes("5") ?? false;
     this.isOptionCorrect[5] = correctOptions?.includes("6") ?? false;
 
-    if (navigateNext) {
-      // this.questionForm.controls.answer.setValue("0");
-      this.questionForm.reset();
-      this.reviewLater = false;
-
-      this.questionAnsweredEvent.emit({
-        index: this.questionIndex,
-        answered,
-        isCorrect: this.isCorrect,
-      });
-
-      // Add practice mode logic
-      // Add finish exam logic
-    }
+    this.questionAnsweredEvent.emit({
+      index: this.questionIndex,
+      answered,
+      isCorrect: this.isCorrect,
+    });
   }
 
   public onClickNavigate(questionIndex: number) {
@@ -169,14 +170,17 @@ export class QuestionComponent {
         emitEvent: false,
       });
 
-      // if (this.examService.answers[questionIndex]) {
-      //   this.questionForm.controls.answer.setValue(
-      //     this.examService.answers[questionIndex]
-      //   );
-      //   this.reviewLater = this.examService.reviewLater[questionIndex];
-      // }
+      if (questionIndex < this.totalQuestions) {
+        this.questionNavigationEvent.emit(questionIndex);
+      } else {
+        // Finish exam
+        this.questionForm.controls.answer.disable({
+          onlySelf: true,
+          emitEvent: false,
+        });
 
-      this.questionNavigationEvent.emit(questionIndex);
+        this.examService.isExamFinished.next(true);
+      }
     }
   }
 

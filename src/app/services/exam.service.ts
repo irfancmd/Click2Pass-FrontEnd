@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommonResponse } from "../models/common-response.models";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Chapter } from "../models/chapter.model";
 
 @Injectable({
@@ -16,6 +16,9 @@ export class ExamService {
   public examEndTime?: Date;
   public reviewLater: boolean[] = new Array(20).fill(false);
   public answers = new Array(20).fill(null);
+  public isExamStarted = new BehaviorSubject<boolean>(false);
+  public isExamFinished = new BehaviorSubject<boolean>(false);
+  public answerCorrectStatus = new Array(20).fill(false);
 
   constructor(private httpClient: HttpClient) {}
 
@@ -41,5 +44,8 @@ export class ExamService {
     this.examEndTime = undefined;
     this.reviewLater = new Array(20).fill(false);
     this.answers = new Array(20).fill(null);
+    this.isExamFinished.next(false);
+    this.isExamStarted.next(false);
+    this.answerCorrectStatus = new Array(20).fill(false);
   }
 }

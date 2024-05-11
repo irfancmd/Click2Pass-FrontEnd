@@ -18,16 +18,16 @@
       />
       }
     </div>
-    <form [formGroup]="questionForm" cForm (change)="onFormClick()">
+    <form [formGroup]="questionForm" cForm (change)="onFormChange()">
       @if(question.answerOption1Text) {
       <c-form-check
         [ngClass]="{
           correct:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[0],
           wrong:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             !this.isOptionCorrect[0],
         }"
@@ -59,11 +59,11 @@
       <c-form-check
         [ngClass]="{
           correct:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[1],
           wrong:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             !this.isOptionCorrect[1],
         }"
@@ -95,11 +95,11 @@
       <c-form-check
         [ngClass]="{
           correct:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[2],
           wrong:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             !this.isOptionCorrect[2],
         }"
@@ -131,11 +131,11 @@
       <c-form-check
         [ngClass]="{
           correct:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[3],
           wrong:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             !this.isOptionCorrect[3],
         }"
@@ -167,11 +167,11 @@
       <c-form-check
         [ngClass]="{
           correct:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[4],
           wrong:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             !this.isOptionCorrect[4],
         }"
@@ -203,11 +203,11 @@
       <c-form-check
         [ngClass]="{
           correct:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[5],
           wrong:
-            this.examService.isPracticeModeON &&
+            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             !this.isOptionCorrect[5],
         }"
@@ -270,19 +270,27 @@
       </button>
     </c-col>
     <c-col>
+      @if(!(this.examService.isExamFinished.value == true && this.questionIndex
+      == this.totalQuestions - 1)) {
       <button
         cButton
         color="danger"
         class="btn-next"
         shape="rounded-pill"
+        [disabled]="
+          this.examService.isPracticeModeON &&
+          !this.examService.answers[questionIndex]
+        "
         (click)="onClickNavigate(questionIndex + 1)"
       >
-        Next
+        {{ this.questionIndex < totalQuestions - 1 ? "Next" : "Finish Exam" }}
       </button>
+      }
     </c-col>
   </c-row>
   @if(!this.examService.isPracticeModeON &&
-  this.questionForm.controls.answer.value) {
+  this.questionForm.controls.answer.value &&
+  this.examService.isExamFinished.value == false) {
   <c-row class="button-container">
     <c-col>
       <button
