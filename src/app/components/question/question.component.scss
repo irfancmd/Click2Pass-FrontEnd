@@ -1,6 +1,8 @@
 $click2pass-primary: #d80621;
 $click2pass-primary-light: #d8062108;
 $click2pass-pink: #ffe1e7;
+$click2pass-success: #4caf50;
+$click2pass-success-light: #e8f5e9;
 
 .card {
   a {
@@ -70,4 +72,16 @@ $click2pass-pink: #ffe1e7;
 .answer-text {
   font-size: 1.2rem;
   font-weight: 500;
+}
+
+.correct {
+  border-radius: 10px;
+  background-color: $click2pass-success-light;
+  color: $click2pass-success;
+}
+
+.wrong {
+  border-radius: 10px;
+  background-color: $click2pass-primary-light;
+  color: $click2pass-primary;
 }

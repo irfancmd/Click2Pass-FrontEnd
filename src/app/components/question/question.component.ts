@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
   ButtonModule,
@@ -17,11 +25,13 @@ import {
   ReactiveFormsModule,
 } from "@angular/forms";
 import { ExamService } from "../../services/exam.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-question",
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     ContainerComponent,
     GridModule,
@@ -36,7 +46,7 @@ import { ExamService } from "../../services/exam.service";
   styleUrl: "./question.component.scss",
   providers: [IconSetService],
 })
-export class QuestionComponent implements OnInit, OnChanges {
+export class QuestionComponent {
   @Input() question?: Question;
   @Input() questionIndex: number = 0;
   @Input() totalQuestions: number = 0;
@@ -55,41 +65,58 @@ export class QuestionComponent implements OnInit, OnChanges {
     answer: new FormControl(null),
   });
 
+  public isCorrect = false;
+  public isOptionCorrect = [false, false, false, false, false, false];
   public reviewLater: boolean = false;
 
   constructor(public examService: ExamService) {}
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  //   this.questionForm.valueChanges.subscribe((formValue) => {
+  //     // Only for chapter wise and random practice
+  //     if (this.examService.isPracticeModeON) {
+  //       this.onQuestionAnswered(this.questionIndex, false);
+
+  //       this.questionForm.controls.answer.disable({
+  //         onlySelf: true,
+  //         emitEvent: false,
+  //       });
+
+  //       console.log(this.examService.answers);
+  //     }
+  //   });
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.examService.answers);
+    if (this.examService.answers[changes["questionIndex"].currentValue]) {
+      this.questionForm.controls.answer.setValue(
+        this.examService.answers[changes["questionIndex"].currentValue]
+      );
+      this.reviewLater =
+        this.examService.reviewLater[changes["questionIndex"].currentValue];
 
-    if(changes["questionIndex"].currentValue != changes["questionIndex"].previousValue) {
-      if(this.examService.answers[this.questionIndex]) {
-        this.questionForm.controls.answer.setValue(this.examService.answers[this.questionIndex]);
-        this.questionForm.controls.answer.disable({ onlySelf: true, emitEvent: false });
-      } else {
-        this.questionForm.controls.answer.enable({ onlySelf: true, emitEvent: false });
+      // Disable form when in practice mode
+      if (this.examService.isPracticeModeON) {
+        this.questionForm.controls.answer.disable({
+          onlySelf: true,
+          emitEvent: false,
+        });
       }
     }
   }
 
-  onOptionClicked() {
-    // Only for chapter wise and random practice
-    if(this.examService.isPracticeModeON) {
+  onFormClick() {
+    if (this.examService.isPracticeModeON) {
       this.onQuestionAnswered(this.questionIndex, false);
-      this.questionForm.controls.answer.disable({ onlySelf: true, emitEvent: false });
+
+      this.questionForm.controls.answer.disable({
+        onlySelf: true,
+        emitEvent: false,
+      });
     }
   }
 
-
-
   onQuestionAnswered(questionIndex: number, navigateNext: boolean = true) {
-    console.log("Answered " + this.questionForm.controls.answer.value);
-        console.log(this.questionForm.value);
-
-    let isCorrect = false;
     let answered = this.questionForm.controls.answer.value != null;
     this.examService.answers[questionIndex] =
       this.questionForm.controls.answer.value;
@@ -98,10 +125,18 @@ export class QuestionComponent implements OnInit, OnChanges {
       this.question &&
       this.question.correctAnswerText == this.questionForm.controls.answer.value
     ) {
-      isCorrect = true;
+      this.isCorrect = true;
     }
 
-    if(navigateNext) {
+    const correctOptions = this.question?.correctAnswerText.split(",");
+    this.isOptionCorrect[0] = correctOptions?.includes("1") ?? false;
+    this.isOptionCorrect[1] = correctOptions?.includes("2") ?? false;
+    this.isOptionCorrect[2] = correctOptions?.includes("3") ?? false;
+    this.isOptionCorrect[3] = correctOptions?.includes("4") ?? false;
+    this.isOptionCorrect[4] = correctOptions?.includes("5") ?? false;
+    this.isOptionCorrect[5] = correctOptions?.includes("6") ?? false;
+
+    if (navigateNext) {
       // this.questionForm.controls.answer.setValue("0");
       this.questionForm.reset();
       this.reviewLater = false;
@@ -109,7 +144,7 @@ export class QuestionComponent implements OnInit, OnChanges {
       this.questionAnsweredEvent.emit({
         index: this.questionIndex,
         answered,
-        isCorrect,
+        isCorrect: this.isCorrect,
       });
 
       // Add practice mode logic
@@ -128,15 +163,18 @@ export class QuestionComponent implements OnInit, OnChanges {
         "Please click on the “Confirm Submission” button to save your answer."
       );
     } else {
-      // if (this.examService.answers[questionIndex]) {
-        this.questionForm.controls.answer.setValue(
-          this.examService.answers[questionIndex]
-        );
-        this.reviewLater = this.examService.reviewLater[questionIndex];
-      // }
-
       this.questionForm.reset();
-      this.reviewLater = false;
+      this.questionForm.controls.answer.enable({
+        onlySelf: true,
+        emitEvent: false,
+      });
+
+      // if (this.examService.answers[questionIndex]) {
+      //   this.questionForm.controls.answer.setValue(
+      //     this.examService.answers[questionIndex]
+      //   );
+      //   this.reviewLater = this.examService.reviewLater[questionIndex];
+      // }
 
       this.questionNavigationEvent.emit(questionIndex);
     }
