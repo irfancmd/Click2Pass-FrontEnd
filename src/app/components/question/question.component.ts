@@ -59,6 +59,8 @@ export class QuestionComponent implements OnChanges {
 
   @Output() questionNavigationEvent = new EventEmitter<number>();
 
+  public IMG_ROOT = "https://click2pass.ca/uploads/";
+
   readonly icons = { cilArrowLeft };
 
   public questionForm = new FormGroup({
