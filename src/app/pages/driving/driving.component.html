@@ -25,4 +25,91 @@
     </c-row>
   </c-container>
 </div>
-<h1 style="text-align: center">Coming Soon...</h1>
+
+<div class="tab-container">
+  <c-container>
+    <c-nav variant="pills" class="justify-content-center">
+      <a
+        class="left-tab shadow"
+        [active]="true"
+        [cTabContent]="tabContent"
+        [routerLink]
+        [tabPaneIdx]="0"
+        cNavLink
+        >Random Practice</a
+      >
+      <a
+        class="center-tab shadow"
+        [cTabContent]="tabContent"
+        [routerLink]
+        [tabPaneIdx]="1"
+        cNavLink
+        >Chapter Wise Practice</a
+      >
+      <a
+        class="right-tab shadow"
+        [cTabContent]="tabContent"
+        [routerLink]
+        [tabPaneIdx]="2"
+        cNavLink
+        >Simulation Test</a
+      >
+    </c-nav>
+    <c-tab-content #tabContent="cTabContent">
+      <c-tab-pane class="p-3">
+        <div class="my-5">
+          <app-exam-type-detail />
+        </div>
+      </c-tab-pane>
+      <c-tab-pane class="p-3">
+        <div class="my-5">
+          <app-question-set-grid
+            [chapters]="chapters"
+            [isPracticeModeON]="true"
+          />
+        </div>
+      </c-tab-pane>
+      <c-tab-pane class="p-3">
+        <div class="my-5">
+          <app-exam-type-detail [isSimulation]="true" />
+        </div>
+      </c-tab-pane>
+    </c-tab-content>
+  </c-container>
+</div>
+
+<div class="tips-container">
+  <c-container>
+    <h3>How to Prepare for the Canadian Driving license Test</h3>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis libero
+      fugiat accusamus minima excepturi fuga. Eligendi tempora odit eos quaerat
+      dignissimos? Ullam enim, sunt dicta ab facere corporis maiores rem
+      exercitationem sint placeat, aliquid tempora architecto minus veniam?
+      Reprehenderit quae doloribus rem. Harum molestiae, iure, possimus amet
+      magnam aut quibusdam optio quis alias quasi tempore voluptatem. Vero ad,
+      rerum nesciunt deleniti dolore atque odio ab nisi perferendis, iure
+      necessitatibus. Pariatur nisi voluptatem ab assumenda reiciendis rerum
+      voluptatum adipisci ex animi cumque? Non error adipisci sit accusamus hic
+      rerum beatae neque ab consectetur recusandae reiciendis officiis rem ad,
+      soluta ipsa esse eveniet optio earum assumenda? Possimus perspiciatis at
+      asperiores similique neque quaerat sunt tenetur repudiandae maxime non
+      corporis accusamus, consequuntur officia.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis libero
+      fugiat accusamus minima excepturi fuga. Eligendi tempora odit eos quaerat
+      dignissimos? Ullam enim, sunt dicta ab facere corporis maiores rem
+      exercitationem sint placeat, aliquid tempora architecto minus veniam?
+      Reprehenderit quae doloribus rem. Harum molestiae, iure, possimus amet
+      magnam aut quibusdam optio quis alias quasi tempore voluptatem. Vero ad,
+      rerum nesciunt deleniti dolore atque odio ab nisi perferendis, iure
+      necessitatibus. Pariatur nisi voluptatem ab assumenda reiciendis rerum
+      voluptatum adipisci ex animi cumque? Non error adipisci sit accusamus hic
+      rerum beatae neque ab consectetur recusandae reiciendis officiis rem ad,
+      soluta ipsa esse eveniet optio earum assumenda? Possimus perspiciatis at
+      asperiores similique neque quaerat sunt tenetur repudiandae maxime non
+      corporis accusamus, consequuntur officia.
+    </p>
+  </c-container>
+</div>

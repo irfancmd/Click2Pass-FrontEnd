@@ -181,4 +181,8 @@ export class ExamComponent implements OnInit, OnDestroy {
   private countAnsweredQuestions(): number {
     return this.answeredStatus.filter((e) => e === 1).length;
   }
+
+  getPercentage(achieved: number, total: number): string {
+    return ((achieved / total) * 100).toFixed(2);
+  }
 }

@@ -10,6 +10,7 @@ import { QuestionSetGridComponent } from '../../components/question-set-grid/que
 import { Chapter } from '../../models/chapter.model';
 import { ChapterService } from '../../services/chapter.service';
 import { ExamTypeDetailComponent } from '../../components/exam-type-detail/exam-type-detail.component';
+import { ExamService } from '../../services/exam.service';
 
 @Component({
   selector: 'app-citizenship',
@@ -27,13 +28,21 @@ import { ExamTypeDetailComponent } from '../../components/exam-type-detail/exam-
   styleUrl: './citizenship.component.scss',
 })
 export class CitizenshipComponent implements OnInit {
-  readonly chapters: Chapter[] = [];
+  public chapters: Chapter[] = [];
 
-  constructor(private chapterService: ChapterService) {}
+  constructor(
+    private chapterService: ChapterService,
+    private examService: ExamService
+  ) {}
 
   ngOnInit(): void {
+    this.examService.currentExamCurriculumID = '1';
+
     this.chapterService.getChapters().subscribe((data) => {
-      this.chapters.push(...data.data);
+      let chs = data.data;
+      chs = chs.filter((c: any) => c.curriculumId == '1')
+
+      this.chapters.push(...chs);
     });
   }
 }

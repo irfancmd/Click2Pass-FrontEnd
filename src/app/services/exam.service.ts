@@ -11,6 +11,7 @@ export class ExamService {
   // private readonly EXAM_ENDPOINT = "http://localhost:3000/exam";
   private readonly EXAM_ENDPOINT = "https://click2pass.ca:3000/exam";
 
+  public currentExamCurriculumID: string = '1';
   public currentExamChapter?: Chapter;
   public isPracticeModeON = false;
   public examEndTime?: Date;
@@ -25,9 +26,12 @@ export class ExamService {
 
   createNewExam(): Observable<CommonResponse> {
     if (!this.currentExamChapter) {
-      return this.httpClient.post<CommonResponse>(this.EXAM_ENDPOINT, {});
+      return this.httpClient.post<CommonResponse>(this.EXAM_ENDPOINT, {
+        curriculumId: this.currentExamCurriculumID
+      });
     } else {
       return this.httpClient.post<CommonResponse>(this.EXAM_ENDPOINT, {
+        curriculumId: this.currentExamCurriculumID,
         chapterId: this.currentExamChapter?.id,
       });
     }
