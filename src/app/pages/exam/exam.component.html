@@ -1,6 +1,6 @@
 <div class="test-container">
   <c-container>
-    <h2 class="text-center">Online Citizenship Test</h2>
+    <h2 class="text-center">{{ examService.currentExamCurriculumID == "1" ? "Online Citizenship Test" : "Online Driving License Test" }}</h2>
     @if(!this.examService.isPracticeModeON &&
     this.examService.isExamStarted.value == false) {
     <h2 class="text-center">
