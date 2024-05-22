@@ -13,6 +13,10 @@ $click2pass-primary: #d80621;
   background-color: $click2pass-primary;
   padding-left: 1rem;
   padding-right: 1rem;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 }
 
 .navbar-brand {
@@ -24,5 +28,23 @@ $click2pass-primary: #d80621;
     font-weight: bold;
     color: $click2pass-primary;
     border-bottom: 2px solid $click2pass-primary;
+  }
+}
+
+.btn-toggle-hamburger {
+  @media (min-width: 1001px) {
+    display: none;
+  }
+}
+
+.desktop-nav {
+  @media (max-width: 1000px) {
+    display: none;
+  }
+}
+
+#OffcanvasSidebar {
+  @media (min-width: 1000px) {
+    display: none !important;
   }
 }

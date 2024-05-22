@@ -1,6 +1,6 @@
-<c-row [gutter]="4" [lg]="4">
+<c-row [gutter]="4">
   @for(chapter of chapters; track chapter.id; let idx = $index) {
-  <c-col>
+  <c-col md="12" lg="4">
     <app-question-set-card
       [chapter]="chapter"
       [index]="idx + 1"

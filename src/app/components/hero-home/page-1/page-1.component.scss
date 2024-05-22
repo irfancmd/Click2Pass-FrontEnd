@@ -28,8 +28,8 @@ $click2pass-primary: #d80621;
 
   @media (max-width: 1000px) {
     flex-direction: column;
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
@@ -45,7 +45,7 @@ $click2pass-primary: #d80621;
   @media (max-width: 1000px) {
     order: 2;
     margin-bottom: 1rem;
-    
+
     h1 {
       font-size: 1.5rem;
       font-weight: 700;
@@ -63,6 +63,10 @@ $click2pass-primary: #d80621;
 
   @media (max-width: 1000px) {
     order: 1;
+
+    img {
+      max-width: 300px;
+    }
   }
 }
 

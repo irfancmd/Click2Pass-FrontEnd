@@ -6,6 +6,7 @@ import {
   ContainerComponent,
   NavLinkDirective,
   NavbarModule,
+  OffcanvasModule,
 } from "@coreui/angular";
 
 @Component({
@@ -18,6 +19,7 @@ import {
     CollapseModule,
     NavbarModule,
     ButtonModule,
+    OffcanvasModule,
   ],
   templateUrl: "./nav-bar.component.html",
   styleUrl: "./nav-bar.component.scss",

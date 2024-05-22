@@ -31,10 +31,24 @@ $click2pass-primary-light: #d8062108;
     width: 400px;
     height: auto;
   }
+
+  @media (max-width: 1000px) {
+    img {
+      max-width: 300px;
+    }
+  }
 }
 
 .tab-container {
   margin-top: -5rem;
+}
+
+.scrollable-tabs {
+  overflow-x: scroll;
+}
+
+.nav {
+  min-width: 470px;
 }
 
 .nav-link {
@@ -60,6 +74,11 @@ $click2pass-primary-light: #d8062108;
 
   &.center-tab {
     border-radius: 0;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
   }
 }
 

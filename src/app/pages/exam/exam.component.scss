@@ -48,3 +48,9 @@ $click2pass-success-light: #e8f5e9;
   font-size: 1.2rem;
   color: white;
 }
+
+.offset-1 {
+  @media (max-width: 1000px) {
+    margin-left: 0 !important;
+  }
+}

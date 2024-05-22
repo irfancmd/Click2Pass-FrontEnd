@@ -1,7 +1,12 @@
 <c-navbar class="bg-light shadow" colorScheme="light" expand="lg">
   <c-container class="container-navbar">
+    <button
+      class="btn-toggle-hamburger"
+      [cNavbarToggler]
+      cOffcanvasToggle="OffcanvasSidebar"
+    ></button>
+
     <div>
-      <!-- <button [cNavbarToggler]="collapseRef"></button> -->
       <a cNavbarBrand>
         <img
           src="assets/images/logo.png"
@@ -15,7 +20,7 @@
 
     <!-- <div #collapseRef="cCollapse" cCollapse navbar> -->
     <!-- me-auto -->
-    <c-navbar-nav class="mb-2 mb-lg-0">
+    <c-navbar-nav class="mb-2 mb-lg-0 desktop-nav">
       <a
         cNavLink
         routerLink="/"
@@ -52,4 +57,41 @@
       </button>
     </div>
   </c-container>
+
+  <c-offcanvas placement="start" id="OffcanvasSidebar">
+    <c-offcanvas-header>
+      <button
+        cButtonClose
+        class="text-reset"
+        cOffcanvasToggle="OffcanvasSidebar"
+        aria-label="Close"
+      ></button>
+    </c-offcanvas-header>
+
+    <c-offcanvas-body>
+      <c-navbar-nav class="mb-2 mb-lg-0">
+        <a
+          cNavLink
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+        <a
+          cNavLink
+          routerLink="/citizenship"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Citizenship</a
+        >
+        <a
+          cNavLink
+          routerLink="/driving"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Driving License</a
+        >
+      </c-navbar-nav>
+    </c-offcanvas-body>
+  </c-offcanvas>
 </c-navbar>

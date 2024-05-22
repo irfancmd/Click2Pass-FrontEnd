@@ -28,33 +28,35 @@
 
 <div class="tab-container">
   <c-container>
-    <c-nav variant="pills" class="justify-content-center">
-      <a
-        class="left-tab shadow"
-        [active]="true"
-        [cTabContent]="tabContent"
-        [routerLink]
-        [tabPaneIdx]="0"
-        cNavLink
-        >Random Practice</a
-      >
-      <a
-        class="center-tab shadow"
-        [cTabContent]="tabContent"
-        [routerLink]
-        [tabPaneIdx]="1"
-        cNavLink
-        >Chapter Wise Practice</a
-      >
-      <a
-        class="right-tab shadow"
-        [cTabContent]="tabContent"
-        [routerLink]
-        [tabPaneIdx]="2"
-        cNavLink
-        >Simulation Test</a
-      >
-    </c-nav>
+    <div class="scrollable-tabs">
+      <c-nav variant="pills" class="justify-content-center">
+        <a
+          class="left-tab shadow"
+          [active]="true"
+          [cTabContent]="tabContent"
+          [routerLink]
+          [tabPaneIdx]="0"
+          cNavLink
+          >Random Practice</a
+        >
+        <a
+          class="center-tab shadow"
+          [cTabContent]="tabContent"
+          [routerLink]
+          [tabPaneIdx]="1"
+          cNavLink
+          >Chapter Wise Practice</a
+        >
+        <a
+          class="right-tab shadow"
+          [cTabContent]="tabContent"
+          [routerLink]
+          [tabPaneIdx]="2"
+          cNavLink
+          >Simulation Test</a
+        >
+      </c-nav>
+    </div>
     <c-tab-content #tabContent="cTabContent">
       <c-tab-pane class="p-3">
         <div class="my-5">
