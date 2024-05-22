@@ -24,6 +24,7 @@ $click2pass-primary: #d80621;
 }
 
 .nav-link {
+  border: none !important;
   &.active {
     font-weight: bold;
     color: $click2pass-primary;
