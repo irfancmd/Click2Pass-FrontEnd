@@ -1,11 +1,21 @@
 <c-row [gutter]="4">
-  @for(chapter of chapters; track chapter.id; let idx = $index) {
+  @if(chapters) { @for(chapter of chapters; track chapter.id; let idx = $index)
+  {
   <c-col md="12" lg="4">
     <app-question-set-card
-      [chapter]="chapter"
+      [chapterOrSet]="chapter"
       [index]="idx + 1"
       (click)="onCardClick(chapter)"
     />
   </c-col>
-  }
+  } } @else if (questionSets) { @for(questionSet of questionSets; track
+  questionSet.id; let idx = $index) {
+  <c-col md="12" lg="4">
+    <app-question-set-card
+      [chapterOrSet]="questionSet"
+      [index]="idx + 1"
+      (click)="onCardClick(undefined, questionSet)"
+    />
+  </c-col>
+  } }
 </c-row>

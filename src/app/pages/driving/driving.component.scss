@@ -44,7 +44,9 @@ $click2pass-primary-light: #d8062108;
 }
 
 .scrollable-tabs {
-  overflow-x: scroll;
+  @media (max-width: 900px) {
+    overflow-x: scroll;
+  }
 }
 
 .nav {
