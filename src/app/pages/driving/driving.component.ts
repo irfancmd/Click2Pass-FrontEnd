@@ -11,6 +11,7 @@ import { ExamTypeDetailComponent } from '../../components/exam-type-detail/exam-
 import { ExamService } from '../../services/exam.service';
 import { Chapter } from '../../models/chapter.model';
 import { ChapterService } from '../../services/chapter.service';
+import { QuestionSetService } from '../../services/question-set.service';
 
 @Component({
   selector: 'app-driving',
@@ -29,10 +30,12 @@ import { ChapterService } from '../../services/chapter.service';
 })
 export class DrivingComponent implements OnInit {
   public chapters: Chapter[] = [];
+  public questionSets: any[] = []; // TODO: Add model.
 
   constructor(
     private chapterService: ChapterService,
-    private examService: ExamService
+    private examService: ExamService,
+    private questionSetService: QuestionSetService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +46,14 @@ export class DrivingComponent implements OnInit {
       chs = chs.filter((c: any) => c.curriculumId == '5')
 
       this.chapters.push(...chs);
+    });
+
+    this.questionSetService.getQuestionSets().subscribe((data) => {
+      let qSets = data.data;
+
+      qSets = qSets.filter((qs: any) => qs.curriculumId == '5');
+
+      this.questionSets.push(...qSets);
     });
   }
 }

@@ -51,7 +51,7 @@ export class CitizenshipComponent implements OnInit {
     this.questionSetService.getQuestionSets().subscribe((data) => {
       let qSets = data.data;
 
-      // TODO: Add curriculum wise filtering
+      qSets = qSets.filter((qs: any) => qs.curriculumId == "1");
 
       this.questionSets.push(...qSets);
     });
