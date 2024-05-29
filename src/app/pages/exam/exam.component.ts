@@ -185,4 +185,18 @@ export class ExamComponent implements OnInit, OnDestroy {
   getPercentage(achieved: number, total: number): string {
     return ((achieved / total) * 100).toFixed(2);
   }
+
+  getExamName(): string {
+    if(this.examService.isPracticeModeON) {
+      if(this.examService.currentExamChapter) {
+        return this.examService.currentExamChapter.name;
+      } else if(this.examService.currentQuestionSet) {
+        return "Question Set Practice";
+      } else {
+        return "Random Questions Test";
+      }
+    } else {
+      return "Simulation Test";
+    }
+  }
 }

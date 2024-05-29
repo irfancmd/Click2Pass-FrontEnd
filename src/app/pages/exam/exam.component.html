@@ -16,7 +16,7 @@
     </h2>
     }
     <h3 class="test-name">
-      {{ examService.currentExamChapter?.name ?? "Random Test" }}
+      {{ getExamName() }}
     </h3>
     @if(this.examService.isExamFinished.value == true) {
     <div
@@ -29,6 +29,7 @@
         <c-card-body>
           <h3>Your Result</h3>
           <h4>Result: {{ this.isPassed ? "Passed" : "Failed" }}</h4>
+          <h4>Correct Answers: {{ this.correctCount }} out of {{ this.questionCount }}</h4>
           <h4>
             Score: {{ getPercentage(this.correctCount, this.questionCount) }} %
           </h4>
