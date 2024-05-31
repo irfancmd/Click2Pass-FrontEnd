@@ -67,9 +67,25 @@
     </div>
     <c-tab-content #tabContent="cTabContent">
       <c-tab-pane class="p-3">
-        <div class="my-5">
+        <c-row class="mt-3">
+          <c-col lg="8">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+              eveniet ad aliquid consequatur quo aut, voluptates consectetur
+              commodi fuga, aspernatur autem quas libero adipisci ut fugiat,
+              tempore quis eaque quod ea amet ipsum recusandae? At iure odio
+              quia blanditiis laboriosam non id similique perferendis expedita
+              totam magnam natus minus nesciunt excepturi deserunt, quibusdam
+              dolor ipsa amet ratione aut.
+            </p></c-col
+          >
+          <c-col lg="4">
+            <app-exam-type-detail />
+          </c-col>
+        </c-row>
+        <!-- <div class="my-5">
           <app-exam-type-detail />
-        </div>
+        </div> -->
       </c-tab-pane>
       <c-tab-pane class="p-3">
         <div class="my-5">
@@ -88,9 +104,25 @@
         </div>
       </c-tab-pane>
       <c-tab-pane class="p-3">
-        <div class="my-5">
+        <c-row class="mt-3">
+          <c-col lg="8">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+              eveniet ad aliquid consequatur quo aut, voluptates consectetur
+              commodi fuga, aspernatur autem quas libero adipisci ut fugiat,
+              tempore quis eaque quod ea amet ipsum recusandae? At iure odio
+              quia blanditiis laboriosam non id similique perferendis expedita
+              totam magnam natus minus nesciunt excepturi deserunt, quibusdam
+              dolor ipsa amet ratione aut.
+            </p></c-col
+          >
+          <c-col lg="4">
+            <app-exam-type-detail [isSimulation]="true" />
+          </c-col>
+        </c-row>
+        <!-- <div class="my-5">
           <app-exam-type-detail [isSimulation]="true" />
-        </div>
+        </div> -->
       </c-tab-pane>
     </c-tab-content>
   </c-container>
