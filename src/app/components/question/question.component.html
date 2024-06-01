@@ -1,7 +1,46 @@
+@if(isPendingReviewWarningVisible && this.examService.isExamFinished.value ==
+false) {
+<c-card class="shadow-sm review-warning">
+  <c-card-body>
+    <c-row>
+      <c-col>
+        <div class="review-warning-text">
+          You have marked {{ this.examService.getReviewlaterCount() }} questions
+          for review. Are you sure you want to finish this exam without
+          reviewing them?
+        </div>
+      </c-col>
+    </c-row>
+    <c-row class="mt-3">
+      <c-col xs="2">
+        <button
+          cButton
+          color="secondary"
+          shape="rounded-pill"
+          (click)="onClosePendingWarning()"
+        >
+          Go Back
+        </button>
+      </c-col>
+      <c-col xs="2">
+        <button
+          cButton
+          color="danger"
+          shape="rounded-pill"
+          (click)="finishExam()"
+        >
+          Submit
+        </button>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
+} @else {
+
 <c-card class="shadow-sm">
   @if(question) {
   <c-card-body>
-    <a routerLink="/citizenship"
+    <a [routerLink]="getRestartLink()"
       ><svg [cIcon]="icons.cilArrowLeft" size="xs"></svg>&nbsp;All Test</a
     >
     <h4 cCardTitle>Question {{ questionIndex + 1 }} of {{ totalQuestions }}</h4>
@@ -20,41 +59,59 @@
     </div>
     <form [formGroup]="questionForm" cForm (change)="onFormChange()">
       @if(question.answerOption1Text) {
-      <c-form-check
-        [ngClass]="{
-          correct:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
-            this.examService.answers[this.questionIndex] &&
-            this.isOptionCorrect[0],
-          wrong:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
-            this.examService.answers[this.questionIndex] &&
-            !this.isOptionCorrect[0],
-        }"
-      >
-        <input
-          cFormCheckInput
-          id="radioStack1"
-          type="radio"
-          value="1"
-          formControlName="answer"
-        />
-        <label cFormCheckLabel for="radioStack1">
-          @if(question.answerOption1MediaUrl) {
-          <img
-            [src]="IMG_ROOT + question.answerOption1MediaUrl"
-            alt="Answer option 1 image"
-            class="img-answer"
-            draggable="false"
-          />
-          <br />
+      <div>
+        <c-form-check
+          [ngClass]="{
+            correct:
+              (this.examService.isPracticeModeON ||
+                this.examService.isExamFinished.value == true) &&
+              this.examService.answers[this.questionIndex] &&
+              this.isOptionCorrect[0],
+            wrong:
+              (this.examService.isPracticeModeON ||
+                this.examService.isExamFinished.value == true) &&
+              this.examService.answers[this.questionIndex] &&
+              !this.isOptionCorrect[0] &&
+              this.questionForm.controls.answer.value == '1'
+          }"
+        >
+          @if( (this.examService.isPracticeModeON ||
+          this.examService.isExamFinished.value == true) &&
+          this.examService.answers[this.questionIndex] &&
+          this.isOptionCorrect[0] ) {
+          <svg [cIcon]="icons.cilCheckCircle" size="xl" class="mx-2"></svg>
+          } @else if( (this.examService.isPracticeModeON ||
+          this.examService.isExamFinished.value == true) &&
+          this.examService.answers[this.questionIndex] &&
+          !this.isOptionCorrect[0] && this.questionForm.controls.answer.value ==
+          '1' ) {
+          <svg [cIcon]="icons.cilXCircle" size="xl" class="mx-2"></svg>
           }
 
-          <span class="answer-text">{{
-            question.answerOption1Text
-          }}</span></label
-        >
-      </c-form-check>
+          <input
+            cFormCheckInput
+            id="radioStack1"
+            type="radio"
+            value="1"
+            formControlName="answer"
+          />
+          <label cFormCheckLabel for="radioStack1">
+            @if(question.answerOption1MediaUrl) {
+            <img
+              [src]="IMG_ROOT + question.answerOption1MediaUrl"
+              alt="Answer option 1 image"
+              class="img-answer"
+              draggable="false"
+            />
+            <br />
+            }
+
+            <span class="answer-text">{{
+              question.answerOption1Text
+            }}</span></label
+          >
+        </c-form-check>
+      </div>
       } @if(question.answerOption2Text) {
       <c-form-check
         [ngClass]="{
@@ -65,9 +122,23 @@
           wrong:
             (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
-            !this.isOptionCorrect[1],
+            !this.isOptionCorrect[1] &&
+            this.questionForm.controls.answer.value == '2'
+            ,
         }"
       >
+        @if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && this.isOptionCorrect[1]
+        ) {
+        <svg [cIcon]="icons.cilCheckCircle" size="xl" class="mx-2"></svg>
+        } @else if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && !this.isOptionCorrect[0]
+        && this.questionForm.controls.answer.value == '2' ) {
+        <svg [cIcon]="icons.cilXCircle" size="xl" class="mx-2"></svg>
+        }
+
         <input
           cFormCheckInput
           id="radioStack2"
@@ -95,15 +166,30 @@
       <c-form-check
         [ngClass]="{
           correct:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[2],
           wrong:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
-            !this.isOptionCorrect[2],
+            !this.isOptionCorrect[2] &&
+            this.questionForm.controls.answer.value == '3'
         }"
       >
+        @if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && this.isOptionCorrect[2]
+        ) {
+        <svg [cIcon]="icons.cilCheckCircle" size="xl" class="mx-2"></svg>
+        } @else if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && !this.isOptionCorrect[0]
+        && this.questionForm.controls.answer.value == '3' ) {
+        <svg [cIcon]="icons.cilXCircle" size="xl" class="mx-2"></svg>
+        }
+
         <input
           cFormCheckInput
           id="radioStack3"
@@ -131,15 +217,30 @@
       <c-form-check
         [ngClass]="{
           correct:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[3],
           wrong:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
-            !this.isOptionCorrect[3],
+            !this.isOptionCorrect[3] &&
+            this.questionForm.controls.answer.value == '4'
         }"
       >
+        @if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && this.isOptionCorrect[3]
+        ) {
+        <svg [cIcon]="icons.cilCheckCircle" size="xl" class="mx-2"></svg>
+        } @else if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && !this.isOptionCorrect[0]
+        && this.questionForm.controls.answer.value == '4' ) {
+        <svg [cIcon]="icons.cilXCircle" size="xl" class="mx-2"></svg>
+        }
+
         <input
           cFormCheckInput
           id="radioStack4"
@@ -167,15 +268,30 @@
       <c-form-check
         [ngClass]="{
           correct:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[4],
           wrong:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
-            !this.isOptionCorrect[4],
+            !this.isOptionCorrect[4] &&
+            this.questionForm.controls.answer.value == '5'
         }"
       >
+        @if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && this.isOptionCorrect[4]
+        ) {
+        <svg [cIcon]="icons.cilCheckCircle" size="xl" class="mx-2"></svg>
+        } @else if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && !this.isOptionCorrect[0]
+        && this.questionForm.controls.answer.value == '5' ) {
+        <svg [cIcon]="icons.cilXCircle" size="xl" class="mx-2"></svg>
+        }
+
         <input
           cFormCheckInput
           id="radioStack5"
@@ -203,15 +319,30 @@
       <c-form-check
         [ngClass]="{
           correct:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
             this.isOptionCorrect[5],
           wrong:
-            (this.examService.isPracticeModeON || this.examService.isExamFinished.value == true) &&
+            (this.examService.isPracticeModeON ||
+              this.examService.isExamFinished.value == true) &&
             this.examService.answers[this.questionIndex] &&
-            !this.isOptionCorrect[5],
+            !this.isOptionCorrect[5] &&
+            this.questionForm.controls.answer.value == '6'
         }"
       >
+        @if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && this.isOptionCorrect[5]
+        ) {
+        <svg [cIcon]="icons.cilCheckCircle" size="xl" class="mx-2"></svg>
+        } @else if( (this.examService.isPracticeModeON ||
+        this.examService.isExamFinished.value == true) &&
+        this.examService.answers[this.questionIndex] && !this.isOptionCorrect[0]
+        && this.questionForm.controls.answer.value == '6' ) {
+        <svg [cIcon]="icons.cilXCircle" size="xl" class="mx-2"></svg>
+        }
+
         <input
           cFormCheckInput
           id="radioStack6"
@@ -236,6 +367,17 @@
       </c-form-check>
       }
     </form>
+
+    @if(this.examService.isPracticeModeON &&
+    this.examService.answers[this.questionIndex] && this.isCorrect) {
+    <div class="correct-feedback">Your answer is correct!</div>
+    } @else if(this.examService.isPracticeModeON &&
+    this.examService.answers[this.questionIndex] && !this.isCorrect) {
+    <div class="incorrect-feedback">
+      Your answer wrong. Option ({{ question.correctAnswerText }}) is the
+      correct answer.
+    </div>
+    }
   </c-card-body>
   @if(this.questionForm.controls.answer.value &&
   !this.examService.isPracticeModeON && this.examService.isExamFinished.value ==
@@ -257,8 +399,10 @@
     </c-col>
   </c-row>
   }
+
   <c-row class="button-container">
     <c-col>
+      @if(!this.examService.isPracticeModeON) {
       <button
         cButton
         color="danger"
@@ -269,10 +413,12 @@
       >
         Previous
       </button>
+      }
     </c-col>
     <c-col>
-      @if(!(this.examService.isExamFinished.value == true && this.questionIndex
-      == this.totalQuestions - 1)) {
+      <!-- @if(!(this.examService.isExamFinished.value == true && this.questionIndex
+      == this.totalQuestions - 1)) { -->
+      @if(this.examService.isExamFinished.value == false) {
       <button
         cButton
         color="danger"
@@ -305,5 +451,20 @@
       </button>
     </c-col>
   </c-row>
+  } @if(this.examService.answeredCount == this.totalQuestions) {
+  <c-row class="button-container">
+    <c-col>
+      <button
+        cButton
+        color="danger"
+        class="btn-next"
+        shape="rounded-pill"
+        (click)="onClickNavigate(99999999)"
+      >
+        Submit
+      </button>
+    </c-col>
+  </c-row>
   } }
 </c-card>
+}

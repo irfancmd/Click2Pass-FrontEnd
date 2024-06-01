@@ -12,3 +12,38 @@
     </c-row>
   </c-card>
 </div>
+
+<c-modal
+  id="liveDemoModal"
+  [visible]="isModalVisible"
+  (visibleChange)="handleLayer2ModalChange($event)"
+  size="xl"
+  alignment="center"
+  [scrollable]="true"
+>
+  <c-modal-header>
+    <h5 cModalTitle>
+      {{ chapters ? "Choose a chapter" : "Choose a question set" }}
+    </h5>
+    <!-- <button (click)="toggleLayer2Modal()" cButtonClose></button> -->
+  </c-modal-header>
+  <c-modal-body>
+    @if (chapters) {
+    <app-question-set-grid [chapters]="chapters" [isPracticeModeON]="true" />
+    } @else if(questionSets) {
+    <app-question-set-grid
+      [questionSets]="questionSets"
+      [isPracticeModeON]="true"
+    />
+    } @else {
+    <div class="d-flex justify-content-center align-items-center">
+      <c-spinner color="danger"></c-spinner>
+    </div>
+    }
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLayer2Modal()" cButton color="secondary">
+      Close
+    </button>
+  </c-modal-footer>
+</c-modal>

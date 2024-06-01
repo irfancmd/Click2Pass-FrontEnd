@@ -16,7 +16,7 @@ import {
   GridModule,
 } from "@coreui/angular";
 import { IconModule, IconSetService } from "@coreui/icons-angular";
-import { cilArrowLeft } from "@coreui/icons";
+import { cilArrowLeft, cilCheckCircle, cilXCircle } from "@coreui/icons";
 import { Question } from "../../models/question.models";
 import {
   FormControl,
@@ -61,7 +61,7 @@ export class QuestionComponent implements OnChanges {
 
   public IMG_ROOT = "https://click2pass.ca/uploads/";
 
-  readonly icons = { cilArrowLeft };
+  readonly icons = { cilArrowLeft, cilCheckCircle, cilXCircle };
 
   public questionForm = new FormGroup({
     answer: new FormControl(null),
@@ -70,6 +70,7 @@ export class QuestionComponent implements OnChanges {
   public isCorrect = false;
   public isOptionCorrect = [false, false, false, false, false, false];
   public reviewLater: boolean = false;
+  public isPendingReviewWarningVisible: boolean = false;
 
   constructor(public examService: ExamService, private router: Router) {}
 
@@ -78,8 +79,12 @@ export class QuestionComponent implements OnChanges {
     this.isCorrect = false;
     this.reviewLater = false;
     this.isOptionCorrect = [false, false, false, false, false, false];
+    this.isPendingReviewWarningVisible = false;
 
     // Setting values for previously answered questions
+    this.reviewLater =
+      this.examService.reviewLater[changes["questionIndex"].currentValue];
+
     if (this.examService.answers[changes["questionIndex"].currentValue]) {
       const correctOptions = this.question?.correctAnswerText.split(",");
       this.isOptionCorrect[0] = correctOptions?.includes("1") ?? false;
@@ -92,8 +97,6 @@ export class QuestionComponent implements OnChanges {
       this.questionForm.controls.answer.setValue(
         this.examService.answers[changes["questionIndex"].currentValue]
       );
-      this.reviewLater =
-        this.examService.reviewLater[changes["questionIndex"].currentValue];
 
       this.isCorrect =
         this.question?.correctAnswerText.includes(
@@ -156,8 +159,8 @@ export class QuestionComponent implements OnChanges {
   }
 
   public onClickNavigate(questionIndex: number) {
+    // !this.examService.reviewLater[this.questionIndex] &&
     if (
-      !this.examService.reviewLater[this.questionIndex] &&
       this.questionForm.controls.answer.value != null &&
       !this.examService.isPracticeModeON &&
       this.examService.answers[this.questionIndex] == null
@@ -177,12 +180,11 @@ export class QuestionComponent implements OnChanges {
       } else {
         // Finish exam
         if (this.examService.answeredCount == this.totalQuestions) {
-          this.questionForm.controls.answer.disable({
-            onlySelf: true,
-            emitEvent: false,
-          });
-
-          this.examService.isExamFinished.next(true);
+          if (this.examService.getReviewlaterCount() == 0) {
+            this.finishExam();
+          } else {
+            this.isPendingReviewWarningVisible = true;
+          }
         } else {
           alert(
             "You have unanswered questions. Please answer all the questions."
@@ -192,7 +194,34 @@ export class QuestionComponent implements OnChanges {
     }
   }
 
+  onClosePendingWarning() {
+    this.isPendingReviewWarningVisible = false;
+
+    this.questionForm.controls.answer.setValue(
+      this.examService.answers[this.questionIndex]
+    );
+    this.reviewLater = this.examService.reviewLater[this.questionIndex];
+  }
+
+  finishExam() {
+    this.questionForm.controls.answer.disable({
+      onlySelf: true,
+      emitEvent: false,
+    });
+
+    this.examService.isExamFinished.next(true);
+  }
+
   onReviewStatusChange(event: any) {
     this.examService.reviewLater[this.questionIndex] = this.reviewLater;
+  }
+
+  getRestartLink(): string {
+    switch (this.examService.currentExamCurriculumID) {
+      case "5":
+        return "/driving";
+      default:
+        return "/citizenship";
+    }
   }
 }

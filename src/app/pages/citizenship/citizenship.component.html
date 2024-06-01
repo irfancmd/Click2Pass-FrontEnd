@@ -1,4 +1,4 @@
-<div class="feature-master-container">
+<div class="feature-master-container" id="intro">
   <c-container>
     <c-row>
       <c-col md="6" lg="4" class="feature-image-container">
@@ -32,7 +32,7 @@
       <c-nav variant="pills" class="justify-content-center">
         <a
           class="left-tab shadow"
-          [active]="true"
+          [active]="this.activatedRoute.snapshot.fragment != 'simulation'"
           [cTabContent]="tabContent"
           [routerLink]
           [tabPaneIdx]="0"
@@ -57,6 +57,7 @@
         >
         <a
           class="right-tab shadow"
+          [active]="this.activatedRoute.snapshot.fragment == 'simulation'"
           [cTabContent]="tabContent"
           [routerLink]
           [tabPaneIdx]="3"
@@ -67,7 +68,7 @@
     </div>
     <c-tab-content #tabContent="cTabContent">
       <c-tab-pane class="p-3">
-        <c-row class="mt-3">
+        <c-row class="mt-5">
           <c-col lg="8">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
@@ -79,32 +80,13 @@
               dolor ipsa amet ratione aut.
             </p></c-col
           >
-          <c-col lg="4">
-            <app-exam-type-detail />
+          <c-col lg="4" class="d-flex justify-content-end">
+            <app-exam-type-detail examType="randomPractice" />
           </c-col>
         </c-row>
-        <!-- <div class="my-5">
-          <app-exam-type-detail />
-        </div> -->
       </c-tab-pane>
       <c-tab-pane class="p-3">
-        <div class="my-5">
-          <app-question-set-grid
-            [chapters]="chapters"
-            [isPracticeModeON]="true"
-          />
-        </div>
-      </c-tab-pane>
-      <c-tab-pane class="p-3">
-        <div class="my-5">
-          <app-question-set-grid
-            [questionSets]="questionSets"
-            [isPracticeModeON]="true"
-          />
-        </div>
-      </c-tab-pane>
-      <c-tab-pane class="p-3">
-        <c-row class="mt-3">
+        <c-row class="mt-5">
           <c-col lg="8">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
@@ -116,13 +98,52 @@
               dolor ipsa amet ratione aut.
             </p></c-col
           >
-          <c-col lg="4">
-            <app-exam-type-detail [isSimulation]="true" />
+          <c-col lg="4" class="d-flex justify-content-end">
+            <app-exam-type-detail
+              examType="chapterWise"
+              [chapters]="chapters"
+            />
           </c-col>
         </c-row>
-        <!-- <div class="my-5">
-          <app-exam-type-detail [isSimulation]="true" />
-        </div> -->
+      </c-tab-pane>
+      <c-tab-pane class="p-3">
+        <c-row class="mt-5">
+          <c-col lg="8">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+              eveniet ad aliquid consequatur quo aut, voluptates consectetur
+              commodi fuga, aspernatur autem quas libero adipisci ut fugiat,
+              tempore quis eaque quod ea amet ipsum recusandae? At iure odio
+              quia blanditiis laboriosam non id similique perferendis expedita
+              totam magnam natus minus nesciunt excepturi deserunt, quibusdam
+              dolor ipsa amet ratione aut.
+            </p></c-col
+          >
+          <c-col lg="4" class="d-flex justify-content-end">
+            <app-exam-type-detail
+              examType="setWise"
+              [questionSets]="questionSets"
+            />
+          </c-col>
+        </c-row>
+      </c-tab-pane>
+      <c-tab-pane class="p-3">
+        <c-row class="mt-5">
+          <c-col lg="8">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+              eveniet ad aliquid consequatur quo aut, voluptates consectetur
+              commodi fuga, aspernatur autem quas libero adipisci ut fugiat,
+              tempore quis eaque quod ea amet ipsum recusandae? At iure odio
+              quia blanditiis laboriosam non id similique perferendis expedita
+              totam magnam natus minus nesciunt excepturi deserunt, quibusdam
+              dolor ipsa amet ratione aut.
+            </p></c-col
+          >
+          <c-col lg="4" class="d-flex justify-content-end">
+            <app-exam-type-detail examType="simulation" />
+          </c-col>
+        </c-row>
       </c-tab-pane>
     </c-tab-content>
   </c-container>

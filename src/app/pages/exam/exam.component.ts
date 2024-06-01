@@ -6,6 +6,7 @@ import {
   ContainerComponent,
   GridModule,
   NavModule,
+  SpinnerModule,
   TabsModule,
 } from "@coreui/angular";
 import { QuestionComponent } from "../../components/question/question.component";
@@ -27,6 +28,7 @@ import { CommonModule } from "@angular/common";
     GridModule,
     NavModule,
     TabsModule,
+    SpinnerModule,
     QuestionComponent,
     QuestionNumberGridComponent,
   ],
@@ -97,14 +99,15 @@ export class ExamComponent implements OnInit, OnDestroy {
           !this.examService.isPracticeModeON &&
           this.examService.examEndTime
         ) {
-          this.examTimeCounter = setInterval(() => {
-            if ((this.examService.examEndTime as Date) < new Date()) {
-              // alert("Time up! " + this.examService.examEndTime);
-            }
+          const examEndTime = this.addMinutesToDate(20);
 
+          this.examTimeCounter = setInterval(() => {
+            // if ((this.examService.examEndTime as Date) < new Date()) {
+            //   // alert("Time up! " + this.examService.examEndTime);
+            // }
             this.timeLeft = this.calculateTimeDifference(
               new Date(),
-              this.examService.examEndTime as Date
+              examEndTime
             );
 
             // Add time-up logic
@@ -154,6 +157,8 @@ export class ExamComponent implements OnInit, OnDestroy {
     if (event.answered) {
       this.answeredStatus[event.index] = 1;
       this.examService.answeredCount = this.countAnsweredQuestions();
+      this.notAnsweredCount =
+        this.questionCount - this.examService.answeredCount;
 
       if (event.isCorrect) {
         this.correctCount++;
@@ -187,10 +192,10 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   getExamName(): string {
-    if(this.examService.isPracticeModeON) {
-      if(this.examService.currentExamChapter) {
+    if (this.examService.isPracticeModeON) {
+      if (this.examService.currentExamChapter) {
         return this.examService.currentExamChapter.name;
-      } else if(this.examService.currentQuestionSet) {
+      } else if (this.examService.currentQuestionSet) {
         return "Question Set Practice";
       } else {
         return "Random Questions Test";
@@ -198,5 +203,13 @@ export class ExamComponent implements OnInit, OnDestroy {
     } else {
       return "Simulation Test";
     }
+  }
+
+  addMinutesToDate(minutes: number): Date {
+    const currentDate = new Date();
+
+    currentDate.setMinutes(currentDate.getMinutes() + minutes);
+
+    return currentDate;
   }
 }

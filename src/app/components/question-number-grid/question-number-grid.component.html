@@ -3,19 +3,42 @@
     @if(!this.examService.isPracticeModeON) {
     <c-row>
       <c-col>
+        @if(!this.examService.isExamFinished.value) {
         <div class="time-text">Time Left: {{ timeLeft }}</div>
+        }
+        <!-- @else {
+        <div class="time-text">Time Left: {{ timeLeft }}</div>
+        } -->
       </c-col>
       <c-col class="text-end">
-        <a routerLink="/citizenship">Restart?</a>
+        <a [routerLink]="getRestartLink()" fragment="simulation">Restart?</a>
       </c-col>
     </c-row>
 
     <hr />
+    } @if(!this.examService.isExamFinished.value) {
+    <p><b>Review Your Selected Question</b></p>
+    } @else {
+    <div>
+      <button
+        cButton
+        color="secondary"
+        [title]="this.hideQuestionNumbers ? 'Show' : 'Hide'"
+        (click)="toggleQuestionNumberVisibility()"
+      >
+        Review Your Answer @if(this.hideQuestionNumbers) {
+        <svg [cIcon]="icons.cilChevronCircleUpAlt" size="xs"></svg>
+        } @else {
+        <svg [cIcon]="icons.cilChevronCircleDownAlt" size="xs"></svg>
+        }
+      </button>
+    </div>
     }
 
-    <p><b>View Question</b></p>
-
-    <div class="question-number-grid-container">
+    <div
+      class="question-number-grid-container"
+      [hidden]="this.examService.isExamFinished.value && hideQuestionNumbers"
+    >
       <c-row [xs]="5" [sm]="5" [md]="5" [lg]="5" [xl]="5" [xxl]="5">
         @for (questionIndex of questionIndecies; track $index) {
         <c-col>
@@ -24,11 +47,13 @@
             color="danger"
             [class]="
               this.examService.isExamFinished.value == false
-                ? this.examService.reviewLater[questionIndex]
+                ? this.currentQuestionIndex == questionIndex
+                  ? 'btn-question-number shadow current'
+                  : this.examService.reviewLater[questionIndex]
                   ? 'btn-question-number shadow review'
                   : this.examService.answers[questionIndex]
                   ? 'btn-question-number shadow answered'
-                  : 'btn-question-number shadow current'
+                  : 'btn-question-number shadow generic'
                 : this.examService.answerCorrectStatus[questionIndex]
                 ? 'btn-question-number shadow correct'
                 : 'btn-question-number shadow wrong'
@@ -64,12 +89,13 @@
       </c-col>
       <c-col class="text-end">
         <p>
-          <b>{{ passMarkPercentage }}%</b>
+          <!-- <b>{{ passMarkPercentage }}%</b> -->
+          <b>75%</b>
         </p>
       </c-col>
     </c-row>
 
-    <c-row>
+    <!-- <c-row>
       <c-col>
         <p>Allowed mistakes</p>
       </c-col>
@@ -78,7 +104,7 @@
           <b>{{ allowedMistakesCount }} Questions</b>
         </p>
       </c-col>
-    </c-row>
+    </c-row> -->
 
     <c-row>
       <c-col>

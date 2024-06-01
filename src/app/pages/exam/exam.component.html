@@ -1,9 +1,16 @@
 <div class="test-container">
   <c-container>
-    <h2 class="text-center">{{ examService.currentExamCurriculumID == "1" ? "Online Citizenship Test" : "Online Driving License Test" }}</h2>
+    <h2 class="text-center">
+      {{
+        examService.currentExamCurriculumID == "1"
+          ? "Online Citizenship Test"
+          : "Online Driving License Test"
+      }}
+    </h2>
     @if(!this.examService.isPracticeModeON &&
     this.examService.isExamStarted.value == false) {
     <h2 class="text-center">
+      @if(examLoaded) {
       <button
         cButton
         class="btn-start-exam"
@@ -13,6 +20,11 @@
       >
         Start Exam
       </button>
+      } @else {
+      <div class="d-flex justify-content-center align-items-center">
+        <c-spinner color="danger"></c-spinner>
+      </div>
+      }
     </h2>
     }
     <h3 class="test-name">
@@ -29,9 +41,19 @@
         <c-card-body>
           <h3>Your Result</h3>
           <h4>Result: {{ this.isPassed ? "Passed" : "Failed" }}</h4>
-          <h4>Correct Answers: {{ this.correctCount }} out of {{ this.questionCount }}</h4>
+          <h4>
+            Correct Answers: {{ this.correctCount }} out of
+            {{ this.questionCount }}
+          </h4>
           <h4>
             Score: {{ getPercentage(this.correctCount, this.questionCount) }} %
+          </h4>
+          <h4>
+            {{
+              this.isPassed
+                ? "Congratulations! Keep it up."
+                : "Please keep practicing."
+            }}
           </h4>
         </c-card-body>
       </c-card>
@@ -79,6 +101,7 @@
           [passMarkPercentage]="passMarkPercentage"
           [allowedMistakesCount]="allowedMistakesCount"
           [examTimeInMinutes]="examTimeInMinutes"
+          [currentQuestionIndex]="currentQuestionIndex"
           (questionNumberClickedEvent)="onQuestionNumberClicked($event)"
         />
       </c-col>

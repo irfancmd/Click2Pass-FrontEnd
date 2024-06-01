@@ -3,6 +3,7 @@ $click2pass-primary-light: #d8062108;
 $click2pass-pink: #ffe1e7;
 $click2pass-success: #4caf50;
 $click2pass-success-light: #e8f5e9;
+$click2pass-warning-light: #fff8e1;
 
 .card {
   a {
@@ -59,14 +60,13 @@ $click2pass-success-light: #e8f5e9;
 .img-question {
   max-height: 300px;
   width: auto;
-  border-radius: 5px;
-  margin-top: 5px;
+  margin: 1.5rem 0 1.5rem 1.5rem;
 }
 
 .img-answer {
   max-height: 200px;
   width: auto;
-  border-radius: 5px;
+  margin: 1.5rem 0 1.5rem 1.5rem;
 }
 
 .answer-text {
@@ -84,4 +84,36 @@ $click2pass-success-light: #e8f5e9;
   border-radius: 10px;
   background-color: $click2pass-primary-light;
   color: $click2pass-primary;
+}
+
+.correct-feedback {
+  font-size: 1.4rem;
+  border-radius: 5px;
+  padding: 1rem;
+  background-color: $click2pass-success-light;
+  color: $click2pass-success;
+}
+
+.incorrect-feedback {
+  font-size: 1.4rem;
+  border-radius: 5px;
+  padding: 1rem;
+  background-color: $click2pass-primary-light;
+  color: $click2pass-primary;
+}
+
+.review-warning {
+  .card-body {
+    background-color: $click2pass-warning-light;
+  }
+
+  .review-warning-text {
+    font-size: 1.2rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    min-width: 7rem;
+    color: #ffffff !important;
+  }
 }

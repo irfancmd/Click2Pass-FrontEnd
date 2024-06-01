@@ -7,6 +7,8 @@ import {
   GridModule,
 } from "@coreui/angular";
 import { ExamService } from "../../services/exam.service";
+import { cilChevronCircleUpAlt, cilChevronCircleDownAlt } from "@coreui/icons";
+import { IconModule } from "@coreui/icons-angular";
 
 @Component({
   selector: "app-question-number-grid",
@@ -17,6 +19,7 @@ import { ExamService } from "../../services/exam.service";
     GridModule,
     ButtonModule,
     CardModule,
+    IconModule,
   ],
   templateUrl: "./question-number-grid.component.html",
   styleUrl: "./question-number-grid.component.scss",
@@ -29,10 +32,15 @@ export class QuestionNumberGridComponent implements OnInit {
   @Input() passMarkPercentage: number = 0;
   @Input() allowedMistakesCount: number = 0;
   @Input() examTimeInMinutes: number = 0;
+  @Input() currentQuestionIndex: number = 0;
 
   @Output() questionNumberClickedEvent = new EventEmitter<number>();
 
   questionIndecies: number[] = [];
+
+  public hideQuestionNumbers: boolean = true;
+
+  readonly icons = { cilChevronCircleUpAlt, cilChevronCircleDownAlt };
 
   constructor(public examService: ExamService) {}
 
@@ -44,5 +52,18 @@ export class QuestionNumberGridComponent implements OnInit {
 
   onCLickQuestionNumber(questionNumber: number) {
     this.questionNumberClickedEvent.emit(questionNumber);
+  }
+
+  toggleQuestionNumberVisibility(): void {
+    this.hideQuestionNumbers = !this.hideQuestionNumbers;
+  }
+
+  getRestartLink(): string {
+    switch (this.examService.currentExamCurriculumID) {
+      case "5":
+        return "/driving";
+      default:
+        return "/citizenship";
+    }
   }
 }

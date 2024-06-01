@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 import {
   ContainerComponent,
   GridModule,
@@ -35,11 +35,14 @@ export class CitizenshipComponent implements OnInit {
   constructor(
     private chapterService: ChapterService,
     private examService: ExamService,
-    private questionSetService: QuestionSetService
+    private questionSetService: QuestionSetService,
+    public activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.examService.currentExamCurriculumID = "1";
+    this.examService.currentQuestionSet = undefined;
+    this.examService.currentExamChapter = undefined;
 
     this.chapterService.getChapters().subscribe((data) => {
       let chs = data.data;

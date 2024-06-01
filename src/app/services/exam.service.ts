@@ -62,4 +62,8 @@ export class ExamService {
     this.answerCorrectStatus = new Array(20).fill(false);
     this.answeredCount = 0;
   }
+
+  getReviewlaterCount(): number {
+    return this.reviewLater.filter((rl: boolean) => rl == true).length;
+  }
 }
