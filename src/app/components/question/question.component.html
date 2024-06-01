@@ -402,7 +402,8 @@ false) {
 
   <c-row class="button-container">
     <c-col>
-      @if(!this.examService.isPracticeModeON) {
+      @if(!this.examService.isPracticeModeON &&
+      this.examService.isExamFinished.value == false) {
       <button
         cButton
         color="danger"
@@ -451,7 +452,9 @@ false) {
       </button>
     </c-col>
   </c-row>
-  } @if(this.examService.answeredCount == this.totalQuestions) {
+  } @if(this.examService.isExamFinished.value == false &&
+  this.examService.answeredCount == this.totalQuestions &&
+  !this.examService.isPracticeModeON) {
   <c-row class="button-container">
     <c-col>
       <button
