@@ -5,6 +5,7 @@ import {
   CardModule,
   ContainerComponent,
   GridModule,
+  ModalModule,
   NavModule,
   SpinnerModule,
   TabsModule,
@@ -31,6 +32,7 @@ import { CommonModule } from "@angular/common";
     SpinnerModule,
     QuestionComponent,
     QuestionNumberGridComponent,
+    ModalModule
   ],
   templateUrl: "./exam.component.html",
   styleUrl: "./exam.component.scss",
@@ -42,9 +44,11 @@ export class ExamComponent implements OnInit, OnDestroy {
   // public examEndTime = new Date();
   public questionCount = 0;
   public timeLeft = "";
+  public timeLeftInMinutes = 0;
+  public timeLeftInSeconds = 0;
   public notAnsweredCount = 0;
   public passMarkPercentage = 0;
-  public allowedMistakesCount = 0;
+  // public allowedMistakesCount = 0;
   public examTimeInMinutes = 0;
 
   public examLoaded = false;
@@ -56,6 +60,7 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   public correctCount = 0;
   public examTimeCounter: any;
+  public isTimeUpModalVisible: boolean = false;
 
   @ViewChild("questionComponent") questionComponent: any;
 
@@ -78,8 +83,8 @@ export class ExamComponent implements OnInit, OnDestroy {
 
         this.notAnsweredCount = this.exam?.questionCount ?? 0;
         this.passMarkPercentage = 75; // Hard coded.
-        this.allowedMistakesCount = 3; // Hard coded.
-        this.examTimeInMinutes = 20; // Hard coded. Not being used now.
+        // this.allowedMistakesCount = 3; // Hard coded.
+        this.examTimeInMinutes = 30; // Hard coded. Not being used now.
 
         this.answeredStatus = Array(this.questionCount).fill(0);
 
@@ -99,18 +104,26 @@ export class ExamComponent implements OnInit, OnDestroy {
           !this.examService.isPracticeModeON &&
           this.examService.examEndTime
         ) {
-          const examEndTime = this.addMinutesToDate(20);
+          const examEndTime = this.addMinutesToDate(30);
 
           this.examTimeCounter = setInterval(() => {
             // if ((this.examService.examEndTime as Date) < new Date()) {
             //   // alert("Time up! " + this.examService.examEndTime);
             // }
-            this.timeLeft = this.calculateTimeDifference(
+            const timeLeftData = this.calculateTimeDifference(
               new Date(),
               examEndTime
             );
+            this.timeLeft = timeLeftData[0];
+            this.timeLeftInMinutes = timeLeftData[1];
+            this.timeLeftInSeconds = timeLeftData[2];
 
-            // Add time-up logic
+            // Time-up logic
+            if(this.timeLeftInSeconds <= 0) {
+              this.isTimeUpModalVisible = true;
+              this.examService.isExamFinished.next(true);
+            }
+
           }, 1000);
         }
       }
@@ -132,7 +145,7 @@ export class ExamComponent implements OnInit, OnDestroy {
     this.examService.resetAll();
   }
 
-  private calculateTimeDifference(start_time: Date, end_time: Date): string {
+  private calculateTimeDifference(start_time: Date, end_time: Date): [string, number, number] {
     const startMinutes = start_time.getMinutes();
     const startSeconds = start_time.getSeconds();
     const endMinutes = end_time.getMinutes();
@@ -146,7 +159,7 @@ export class ExamComponent implements OnInit, OnDestroy {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return [`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, minutes, seconds];
   }
 
   onQuestionAnswered(event: {
@@ -214,4 +227,9 @@ export class ExamComponent implements OnInit, OnDestroy {
 
     return currentDate;
   }
+
+  toggleTimeUpModal() {
+    this.isTimeUpModalVisible = !this.isTimeUpModalVisible;
+  }
+
 }

@@ -3,6 +3,9 @@
     @if(!this.examService.isPracticeModeON) {
     <c-row>
       <c-col>
+        @if(!this.examService.isExamFinished.value && timeLeftInMinutes < 5) {
+        <div class="time-left-warning">You have less than 5 minutes.</div>
+        }
         @if(!this.examService.isExamFinished.value) {
         <div class="time-text">Time Left: {{ timeLeft }}</div>
         }
@@ -70,6 +73,13 @@
     </div>
 
     @if(!this.examService.isPracticeModeON) {
+    <c-row>
+      <c-col>
+        <p>
+          To be reviwed: <b>{{ this.examService.getReviewlaterCount() }}</b>
+        </p>
+      </c-col>
+    </c-row>
     <c-row>
       <c-col>
         <p>

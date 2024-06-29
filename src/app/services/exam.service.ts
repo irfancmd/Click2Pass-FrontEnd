@@ -16,11 +16,11 @@ export class ExamService {
   public currentQuestionSet?: any; // TODO: Add model
   public isPracticeModeON = false;
   public examEndTime?: Date;
-  public reviewLater: boolean[] = new Array(20).fill(false);
-  public answers = new Array(20).fill(null);
+  public reviewLater: boolean[] = new Array(40).fill(false);
+  public answers = new Array(40).fill(null);
   public isExamStarted = new BehaviorSubject<boolean>(false);
   public isExamFinished = new BehaviorSubject<boolean>(false);
-  public answerCorrectStatus = new Array(20).fill(false);
+  public answerCorrectStatus = new Array(40).fill(false);
   public answeredCount = 0;
 
   constructor(private httpClient: HttpClient) {}
@@ -55,11 +55,11 @@ export class ExamService {
     this.currentExamChapter = undefined;
     this.isPracticeModeON = false;
     this.examEndTime = undefined;
-    this.reviewLater = new Array(20).fill(false);
-    this.answers = new Array(20).fill(null);
+    this.reviewLater = new Array(40).fill(false);
+    this.answers = new Array(40).fill(null);
     this.isExamFinished.next(false);
     this.isExamStarted.next(false);
-    this.answerCorrectStatus = new Array(20).fill(false);
+    this.answerCorrectStatus = new Array(40).fill(false);
     this.answeredCount = 0;
     this.currentQuestionSet = null 
   }

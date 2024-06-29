@@ -34,19 +34,26 @@
     <div
       [ngClass]="{
         'result-summary ': true,
-        'pass': this.isPassed,
-        'fail': !this.isPassed
+        pass: this.isPassed,
+        fail: !this.isPassed
       }"
     >
       <c-card>
         <c-card-body>
-          <h4 class="mb-3"><b>{{ this.isPassed ? "Good job, you have passed!" : "Sorry, you have failed." }}</b></h4>
+          <h4 class="mb-3">
+            <b>{{
+              this.isPassed
+                ? "Good job, you have passed!"
+                : "Sorry, you have failed."
+            }}</b>
+          </h4>
           <h5>
             Correct Answer {{ this.correctCount }} out of
             {{ this.questionCount }}
           </h5>
           <h5>
-            Your score is {{ getPercentage(this.correctCount, this.questionCount) }} %
+            Your score is
+            {{ getPercentage(this.correctCount, this.questionCount) }} %
           </h5>
           <h5>
             {{
@@ -95,11 +102,11 @@
       <c-col lg="4">
         <app-question-number-grid
           [timeLeft]="timeLeft"
+          [timeLeftInMinutes]="timeLeftInMinutes"
           [totalQuestions]="questionCount"
           [answeredCount]="this.examService.answeredCount"
           [notAnsweredCount]="notAnsweredCount"
           [passMarkPercentage]="passMarkPercentage"
-          [allowedMistakesCount]="allowedMistakesCount"
           [examTimeInMinutes]="examTimeInMinutes"
           [currentQuestionIndex]="currentQuestionIndex"
           (questionNumberClickedEvent)="onQuestionNumberClicked($event)"
@@ -109,4 +116,13 @@
     </c-row>
     }
   </c-container>
+
+  <c-modal id="timeUpModal" [visible]="isTimeUpModalVisible">
+    <c-modal-body>The test time of 30 minutes is over. Your test is being submitted automatically to ensure you get a result. Thank you for taking the test.</c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleTimeUpModal()" cButton color="secondary">
+        Close
+      </button>
+    </c-modal-footer>
+  </c-modal>
 </div>

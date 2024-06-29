@@ -27,10 +27,11 @@ import { IconModule } from "@coreui/icons-angular";
 export class QuestionNumberGridComponent implements OnInit {
   @Input() totalQuestions: number = 20;
   @Input() timeLeft: string = "";
+  @Input() timeLeftInMinutes: number = 0
   @Input() answeredCount: number = 0;
   @Input() notAnsweredCount: number = 0;
   @Input() passMarkPercentage: number = 0;
-  @Input() allowedMistakesCount: number = 0;
+  // @Input() allowedMistakesCount: number = 0;
   @Input() examTimeInMinutes: number = 0;
   @Input() currentQuestionIndex: number = 0;
 

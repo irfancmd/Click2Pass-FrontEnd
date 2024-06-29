@@ -97,3 +97,10 @@ $ca-current: #ffffff;
     color: black !important;
   }
 }
+
+.time-left-warning {
+  color: red;
+  font-size: 1rem;
+  font-weight: 700;
+  min-width: 14rem;
+}
