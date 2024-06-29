@@ -119,7 +119,7 @@ export class ExamComponent implements OnInit, OnDestroy {
             this.timeLeftInSeconds = timeLeftData[2];
 
             // Time-up logic
-            if(this.timeLeftInSeconds <= 0) {
+            if(this.examService.isExamStarted.value == true && this.timeLeftInSeconds <= 0) {
               this.isTimeUpModalVisible = true;
               this.examService.isExamFinished.next(true);
             }
@@ -146,20 +146,16 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   private calculateTimeDifference(start_time: Date, end_time: Date): [string, number, number] {
-    const startMinutes = start_time.getMinutes();
-    const startSeconds = start_time.getSeconds();
-    const endMinutes = end_time.getMinutes();
-    const endSeconds = end_time.getSeconds();
+    const differenceInMillis: number = (end_time as any) - (start_time as any);
 
-    // Calculate the total time difference in seconds
-    const totalSeconds =
-      endMinutes * 60 + endSeconds - (startMinutes * 60 + startSeconds);
+    // Convert milliseconds to seconds
+    const totalSeconds = Math.floor(differenceInMillis / 1000);
 
     // Convert to "mm:ss" format
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    return [`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, minutes, seconds];
+    return [`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, minutes, totalSeconds];
   }
 
   onQuestionAnswered(event: {

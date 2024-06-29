@@ -3,7 +3,7 @@
     @if(!this.examService.isPracticeModeON) {
     <c-row>
       <c-col>
-        @if(!this.examService.isExamFinished.value && timeLeftInMinutes < 5) {
+        @if(this.timeLeft != '' && timeLeftInMinutes < 5) {
         <div class="time-left-warning">You have less than 5 minutes.</div>
         }
         @if(!this.examService.isExamFinished.value) {
