@@ -420,6 +420,7 @@ false) {
       <!-- @if(!(this.examService.isExamFinished.value == true && this.questionIndex
       == this.totalQuestions - 1)) { -->
       @if(this.examService.isExamFinished.value == false) {
+        @if(this.examService.isPracticeModeON || (!this.examService.isPracticeModeON && this.questionIndex < totalQuestions - 1)) {
       <button
         cButton
         color="danger"
@@ -433,6 +434,7 @@ false) {
       >
         {{ this.questionIndex < totalQuestions - 1 ? "Next" : "Finish Exam" }}
       </button>
+        }
       }
     </c-col>
   </c-row>
@@ -464,7 +466,7 @@ false) {
         shape="rounded-pill"
         (click)="onClickNavigate(99999999)"
       >
-        Submit
+        Submit Your Test
       </button>
     </c-col>
   </c-row>

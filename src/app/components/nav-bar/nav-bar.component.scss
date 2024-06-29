@@ -9,6 +9,7 @@ $click2pass-primary: #d80621;
 }
 
 .btn-contact {
+  font-size: 1.2rem;
   color: white;
   background-color: $click2pass-primary;
   padding-left: 1rem;
@@ -24,6 +25,8 @@ $click2pass-primary: #d80621;
 }
 
 .nav-link {
+  font-size: 1.2rem;
+
   border: none !important;
   &.active {
     font-weight: bold;
@@ -48,4 +51,9 @@ $click2pass-primary: #d80621;
   @media (min-width: 1000px) {
     display: none !important;
   }
+}
+
+.logo {
+  max-width: 10rem;
+  height: auto;
 }

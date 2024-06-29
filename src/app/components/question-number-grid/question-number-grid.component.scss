@@ -4,8 +4,10 @@ $click2pass-answered: #263238;
 $click2pass-primary-light: #d8062108;
 $click2pass-pink: #ffe1e7;
 $click2pass-pink-light: #fdf2f4;
-$click2pass-success-2: #2e7d32;
-$click2pass-danger: #c62828;
+// $click2pass-success-2: #2e7d32;
+// $click2pass-danger: #c62828;
+$click2pass-success-2: #A5D6A7;
+$click2pass-danger: #EF9A9A;
 
 $ca-answered: #2d4863;
 $ca-background: #e9eaec;
@@ -72,12 +74,26 @@ $ca-current: #ffffff;
   }
 
   &.correct {
-    color: #ffffff !important;
+    // color: #ffffff !important;
+    color: green !important;
     background-color: $click2pass-success-2 !important;
   }
 
   &.wrong {
-    color: #ffffff !important;
+    // color: #ffffff !important;
+    color: #B71C1C !important;
     background-color: $click2pass-danger !important;
+  }
+}
+
+
+.btn-restart {
+  background-color: $click2pass-primary;
+  color: white !important;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: lighten($click2pass-primary, 30);
+    color: black !important;
   }
 }

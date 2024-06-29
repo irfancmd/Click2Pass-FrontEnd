@@ -33,28 +33,28 @@
     @if(this.examService.isExamFinished.value == true) {
     <div
       [ngClass]="{
-        'result-summary-pass': this.isPassed,
-        'result-summary-fail': !this.isPassed
+        'result-summary ': true,
+        'pass': this.isPassed,
+        'fail': !this.isPassed
       }"
     >
       <c-card>
         <c-card-body>
-          <h3>Your Result</h3>
-          <h4>Result: {{ this.isPassed ? "Passed" : "Failed" }}</h4>
-          <h4>
-            Correct Answers: {{ this.correctCount }} out of
+          <h4 class="mb-3"><b>{{ this.isPassed ? "Good job, you have passed!" : "Sorry, you have failed." }}</b></h4>
+          <h5>
+            Correct Answer {{ this.correctCount }} out of
             {{ this.questionCount }}
-          </h4>
-          <h4>
-            Score: {{ getPercentage(this.correctCount, this.questionCount) }} %
-          </h4>
-          <h4>
+          </h5>
+          <h5>
+            Your score is {{ getPercentage(this.correctCount, this.questionCount) }} %
+          </h5>
+          <h5>
             {{
               this.isPassed
                 ? "Congratulations! Keep it up."
                 : "Please keep practicing."
             }}
-          </h4>
+          </h5>
         </c-card-body>
       </c-card>
     </div>

@@ -11,7 +11,7 @@
         } -->
       </c-col>
       <c-col class="text-end">
-        <a [routerLink]="getRestartLink()" fragment="simulation">Restart?</a>
+        <a class="btn btn-restart" [routerLink]="getRestartLink()" fragment="simulation">Restart?</a>
       </c-col>
     </c-row>
 
@@ -20,8 +20,10 @@
     <p><b>Review Your Selected Question</b></p>
     } @else {
     <div>
+      <!-- <button class="btn btn-danger" (click)="restartExam()">Take the test again</button> -->
       <button
         cButton
+        size="lg"
         color="secondary"
         [title]="this.hideQuestionNumbers ? 'Show' : 'Hide'"
         (click)="toggleQuestionNumberVisibility()"

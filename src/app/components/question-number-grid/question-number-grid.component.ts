@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import {
   ButtonModule,
   CardModule,
@@ -42,7 +42,7 @@ export class QuestionNumberGridComponent implements OnInit {
 
   readonly icons = { cilChevronCircleUpAlt, cilChevronCircleDownAlt };
 
-  constructor(public examService: ExamService) {}
+  constructor(public examService: ExamService, private router: Router) {}
 
   ngOnInit(): void {
     for (let i = 0; i < this.totalQuestions; i++) {
@@ -65,5 +65,33 @@ export class QuestionNumberGridComponent implements OnInit {
       default:
         return "/citizenship";
     }
+  }
+
+  restartExam() {
+    // if (this.examService.currentExamChapter) {
+    //   chapter = 
+    //   this.resetExamService();
+    // } else if (questionSet) {
+    //   this.resetExamService();
+
+    //   this.examService.currentQuestionSet = questionSet;
+    // } else {
+    //   this.resetExamService();
+    // }
+
+    // this.examService.isPracticeModeON = this.isPracticeModeON;
+
+    const currentExamChapter = this.examService.currentExamChapter;
+    const currentQuestionSet = this.examService.currentQuestionSet; 
+    const isPracticeModeON = this.examService.isPracticeModeON;
+
+    this.examService.resetAll();
+
+    this.examService.currentExamChapter = currentExamChapter;
+    this.examService.currentQuestionSet = currentQuestionSet;
+    this.examService.isPracticeModeON = isPracticeModeON;
+    
+    this.router.navigate(["/exam", "restart"
+    ], {skipLocationChange: true});
   }
 }

@@ -9,4 +9,5 @@ export const routes: Routes = [
   { path: "citizenship", component: CitizenshipComponent },
   { path: "driving", component: DrivingComponent },
   { path: "exam", component: ExamComponent },
+  { path: "exam/restart", component: ExamComponent },
 ];

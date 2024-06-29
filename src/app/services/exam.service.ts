@@ -61,9 +61,24 @@ export class ExamService {
     this.isExamStarted.next(false);
     this.answerCorrectStatus = new Array(20).fill(false);
     this.answeredCount = 0;
+    this.currentQuestionSet = null 
   }
 
   getReviewlaterCount(): number {
     return this.reviewLater.filter((rl: boolean) => rl == true).length;
   }
+
+  // restartExam() {
+  //   const currentExamChapter = this.currentExamChapter;
+  //   const currentQuestionSet = this.currentQuestionSet; 
+  //   const isPracticeModeON = this.isPracticeModeON;
+
+  //   this.resetAll();
+
+  //   this.currentExamChapter = currentExamChapter;
+  //   this.currentQuestionSet = currentQuestionSet;
+  //   this.isPracticeModeON = isPracticeModeON;
+
+  //   this.createNewExam();
+  // }
 }

@@ -23,8 +23,10 @@ $click2pass-primary-light: #d8062108;
   margin-bottom: 1rem;
 
   img {
-    height: 48px;
-    width: 48px;
+    // height: 48px;
+    // width: 48px;
+    max-width: 12rem;
+    height: auto;
   }
 
   h6 {

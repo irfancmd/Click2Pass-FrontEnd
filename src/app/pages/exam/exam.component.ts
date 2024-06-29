@@ -180,7 +180,9 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   get isPassed(): boolean {
-    return this.correctCount >= Math.floor(0.75 * this.questionCount);
+    // return this.correctCount >= Math.floor(0.75 * this.questionCount);
+    // const percentage = Number(((this.correctCount / this.questionCount) * 100).toFixed(2);
+    return Number(this.getPercentage(this.correctCount, this.questionCount)) >= 75;
   }
 
   private countAnsweredQuestions(): number {

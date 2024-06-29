@@ -4,6 +4,7 @@ $click2pass-pink: #ffe1e7;
 $click2pass-success: #4caf50;
 $click2pass-success-light: #e8f5e9;
 $click2pass-warning-light: #fff8e1;
+$click2pass-deep-gray: #263238;
 
 .card {
   a {
@@ -30,8 +31,8 @@ $click2pass-warning-light: #fff8e1;
 
 .form-check-input {
   &:checked {
-    background-color: $click2pass-primary;
-    border-color: $click2pass-primary;
+    background-color: $click2pass-deep-gray;
+    border-color: $click2pass-deep-gray;
   }
 }
 
@@ -69,9 +70,16 @@ $click2pass-warning-light: #fff8e1;
   margin: 1.5rem 0 1.5rem 1.5rem;
 }
 
+.form-check-input {
+  margin-top: 0.7rem;
+  margin-bottom: 0.3rem;
+}
+
 .answer-text {
   font-size: 1.2rem;
   font-weight: 500;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
 .correct {
@@ -116,4 +124,9 @@ $click2pass-warning-light: #fff8e1;
     min-width: 7rem;
     color: #ffffff !important;
   }
+}
+
+.icon:not(.icon-c-s):not(.icon-custom-size).icon-xl {
+  width: 1.8rem !important;
+  height: 1.8rem !important;
 }
