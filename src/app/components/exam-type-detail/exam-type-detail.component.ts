@@ -70,6 +70,8 @@ export class ExamTypeDetailComponent implements OnInit {
     } else {
       if (this.examType != "simulation") {
         this.examService.isPracticeModeON = true;
+      } else {
+        this.examService.isPracticeModeON = false;
       }
       this.router.navigate(["/exam"]);
     }

@@ -26,6 +26,8 @@ export class ExamService {
   constructor(private httpClient: HttpClient) {}
 
   createNewExam(): Observable<CommonResponse> {
+    this.resetStatus();
+
     if (this.currentExamChapter) {
       // Chapter wise
       return this.httpClient.post<CommonResponse>(this.EXAM_ENDPOINT, {
@@ -68,17 +70,14 @@ export class ExamService {
     return this.reviewLater.filter((rl: boolean) => rl == true).length;
   }
 
-  // restartExam() {
-  //   const currentExamChapter = this.currentExamChapter;
-  //   const currentQuestionSet = this.currentQuestionSet; 
-  //   const isPracticeModeON = this.isPracticeModeON;
-
-  //   this.resetAll();
-
-  //   this.currentExamChapter = currentExamChapter;
-  //   this.currentQuestionSet = currentQuestionSet;
-  //   this.isPracticeModeON = isPracticeModeON;
-
-  //   this.createNewExam();
-  // }
+  // Resets some, but not all.
+  resetStatus() {
+    this.examEndTime = undefined;
+    this.reviewLater = new Array(40).fill(false);
+    this.answers = new Array(40).fill(null);
+    this.answerCorrectStatus = new Array(40).fill(false);
+    this.isExamFinished.next(false);
+    this.isExamStarted.next(false);
+    this.answeredCount = 0;
+  }
 }

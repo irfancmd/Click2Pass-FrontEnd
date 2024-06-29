@@ -6,5 +6,5 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withRouterConfig({onSameUrlNavigation: "reload"})), provideAnimations(), provideHttpClient()],
+  providers: [provideRouter(routes), provideAnimations(), provideHttpClient()],
 };

@@ -67,6 +67,8 @@ export class ExamComponent implements OnInit, OnDestroy {
   constructor(public examService: ExamService) {}
 
   ngOnInit(): void {
+    console.log(this.examService.currentExamChapter);
+
     this.examService.createNewExam().subscribe((data) => {
       this.examId = data.data;
 
@@ -142,7 +144,7 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.examTimeCounter);
-    this.examService.resetAll();
+    // this.examService.resetAll();
   }
 
   private calculateTimeDifference(start_time: Date, end_time: Date): [string, number, number] {

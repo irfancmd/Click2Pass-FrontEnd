@@ -69,29 +69,6 @@ export class QuestionNumberGridComponent implements OnInit {
   }
 
   restartExam() {
-    // if (this.examService.currentExamChapter) {
-    //   chapter = 
-    //   this.resetExamService();
-    // } else if (questionSet) {
-    //   this.resetExamService();
-
-    //   this.examService.currentQuestionSet = questionSet;
-    // } else {
-    //   this.resetExamService();
-    // }
-
-    // this.examService.isPracticeModeON = this.isPracticeModeON;
-
-    const currentExamChapter = this.examService.currentExamChapter;
-    const currentQuestionSet = this.examService.currentQuestionSet; 
-    const isPracticeModeON = this.examService.isPracticeModeON;
-
-    this.examService.resetAll();
-
-    this.examService.currentExamChapter = currentExamChapter;
-    this.examService.currentQuestionSet = currentQuestionSet;
-    this.examService.isPracticeModeON = isPracticeModeON;
-    
     this.router.navigate(["/exam", "restart"
     ], {skipLocationChange: true});
   }
