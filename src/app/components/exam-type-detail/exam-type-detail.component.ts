@@ -34,7 +34,9 @@ export class ExamTypeDetailComponent implements OnInit {
     | "simulation"
     | "randomPractice"
     | "chapterWise"
-    | "setWise" = "randomPractice";
+    | "setWise"
+    | "roadSignDrivingPractice"
+    | "roadRulesDrivingPractice" = "randomPractice";
 
   @Input() chapters?: Chapter[];
   @Input() questionSets?: any[]; // TODO: Add model.
@@ -58,6 +60,12 @@ export class ExamTypeDetailComponent implements OnInit {
       case "setWise":
         this.title = "Start Set Wise Test";
         break;
+      case "roadSignDrivingPractice":
+        this.title = "Practice Road Signs";
+        break;
+      case "roadRulesDrivingPractice":
+        this.title = "Practice Rules of the Road";
+        break;
       default:
         this.title = "Start Randomized Test";
         break;
@@ -70,6 +78,22 @@ export class ExamTypeDetailComponent implements OnInit {
     } else {
       if (this.examType != "simulation") {
         this.examService.isPracticeModeON = true;
+
+        if(this.examType == "roadSignDrivingPractice" && this.questionSets) {
+          const questionSet = this.questionSets.filter(q => q.drivingSetType == 1)[0];
+
+          if(questionSet) {
+            this.examService.currentQuestionSet = questionSet;
+          }
+        }
+
+        if(this.examType == "roadRulesDrivingPractice" && this.questionSets) {
+          const questionSet = this.questionSets.filter(q => q.drivingSetType == 2)[0];
+
+          if(questionSet) {
+            this.examService.currentQuestionSet = questionSet;
+          }
+        }
       } else {
         this.examService.isPracticeModeON = false;
       }

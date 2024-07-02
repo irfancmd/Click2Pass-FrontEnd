@@ -45,7 +45,7 @@
           [routerLink]
           [tabPaneIdx]="1"
           cNavLink
-          >Chapter Wise Practice</a
+          >Questions of Road Signs</a
         >
         <a
           class="center-tab shadow"
@@ -53,7 +53,7 @@
           [routerLink]
           [tabPaneIdx]="2"
           cNavLink
-          >Question Set Practice</a
+          >Questions of Rules of the Road</a
         >
         <!-- <a
           class="right-tab shadow"
@@ -98,18 +98,47 @@
             </p></c-col
           >
           <c-col lg="4" class="d-flex justify-content-end">
+            <app-exam-type-detail examType="roadSignDrivingPractice" [questionSets]="this.questionSets" />
+          </c-col>
+        </c-row>
+      </c-tab-pane>
+      <c-tab-pane class="p-3">
+        <c-row class="mt-5">
+          <c-col lg="8">
+            <p>
+              Donec lobortis lacinia neque, non porta urna porta nec. Praesent
+              vitae augue purus. Proin rutrum, velit eget lacinia dapibus, felis
+              turpis tempus tortor, nec ullamcorper quam quam molestie nisi.
+              Donec blandit viverra nulla et maximus. Curabitur viverra finibus
+              dui quis malesuada. Etiam quis pretium nulla. Nullam elementum
+              purus cursus eros ullamcorper, eget viverra purus pellentesque.
+              Integer varius iaculis augue et elementum.
+            </p></c-col
+          >
+          <c-col lg="4" class="d-flex justify-content-end">
+            <app-exam-type-detail examType="roadRulesDrivingPractice" [questionSets]="this.questionSets" />
+          </c-col>
+        </c-row>
+      </c-tab-pane>
+      <!-- <c-tab-pane class="p-3">
+        <c-row class="mt-5">
+          <c-col lg="8">
+            <p>
+              Nullam purus ligula, tristique eu arcu vehicula, placerat
+              hendrerit urna. Quisque aliquam dolor eu tincidunt pharetra.
+              Suspendisse viverra laoreet ipsum sit amet egestas. Aenean id
+              massa vestibulum, laoreet metus nec, pulvinar orci. In in lacus
+              scelerisque, aliquam odio vestibulum, placerat leo. Fusce varius
+              velit id ligula sodales pharetra.
+            </p></c-col
+          >
+          <c-col lg="4" class="d-flex justify-content-end">
             <app-exam-type-detail
               examType="chapterWise"
               [chapters]="chapters"
             />
           </c-col>
         </c-row>
-        <!-- <div class="my-5">
-          <app-question-set-grid
-            [chapters]="chapters"
-            [isPracticeModeON]="true"
-          />
-        </div> -->
       </c-tab-pane>
       <c-tab-pane class="p-3">
         <c-row class="mt-5">
@@ -131,13 +160,7 @@
             />
           </c-col>
         </c-row>
-        <!-- <div class="my-5">
-          <app-question-set-grid
-            [questionSets]="questionSets"
-            [isPracticeModeON]="true"
-          />
-        </div> -->
-      </c-tab-pane>
+      </c-tab-pane> -->
       <!-- <c-tab-pane class="p-3">
         <c-row class="mt-5">
           <c-col lg="8">
