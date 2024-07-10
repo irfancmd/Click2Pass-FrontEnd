@@ -1,20 +1,20 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { Router, RouterModule } from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import {
   CardModule,
   ContainerComponent,
   GridModule,
   ModalModule,
   SpinnerModule,
-} from "@coreui/angular";
-import { IconModule } from "@coreui/icons-angular";
-import { cilMediaPlay } from "@coreui/icons";
-import { ExamService } from "../../services/exam.service";
-import { Chapter } from "../../models/chapter.model";
-import { QuestionSetGridComponent } from "../question-set-grid/question-set-grid.component";
+} from '@coreui/angular';
+import { IconModule } from '@coreui/icons-angular';
+import { cilMediaPlay } from '@coreui/icons';
+import { ExamService } from '../../services/exam.service';
+import { Chapter } from '../../models/chapter.model';
+import { QuestionSetGridComponent } from '../question-set-grid/question-set-grid.component';
 
 @Component({
-  selector: "app-exam-type-detail",
+  selector: 'app-exam-type-detail',
   standalone: true,
   imports: [
     RouterModule,
@@ -26,22 +26,22 @@ import { QuestionSetGridComponent } from "../question-set-grid/question-set-grid
     QuestionSetGridComponent,
     SpinnerModule,
   ],
-  templateUrl: "./exam-type-detail.component.html",
-  styleUrl: "./exam-type-detail.component.scss",
+  templateUrl: './exam-type-detail.component.html',
+  styleUrl: './exam-type-detail.component.scss',
 })
 export class ExamTypeDetailComponent implements OnInit {
   @Input() examType:
-    | "simulation"
-    | "randomPractice"
-    | "chapterWise"
-    | "setWise"
-    | "roadSignDrivingPractice"
-    | "roadRulesDrivingPractice" = "randomPractice";
+    | 'simulation'
+    | 'randomPractice'
+    | 'chapterWise'
+    | 'setWise'
+    | 'roadSignDrivingPractice'
+    | 'roadRulesDrivingPractice' = 'randomPractice';
 
   @Input() chapters?: Chapter[];
   @Input() questionSets?: any[]; // TODO: Add model.
 
-  public title?: string = "Start Randomized Test";
+  public title?: string = 'Start Randomized Test';
 
   readonly icons = { cilMediaPlay };
 
@@ -51,53 +51,42 @@ export class ExamTypeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     switch (this.examType) {
-      case "simulation":
-        this.title = "Start Simulation Test";
+      case 'simulation':
+        this.title = 'Start Simulation Test';
         break;
-      case "chapterWise":
-        this.title = "Start Chapter Wise Test";
+      case 'chapterWise':
+        this.title = 'Start Chapter Wise Test';
         break;
-      case "setWise":
-        this.title = "Start Set Wise Test";
+      case 'setWise':
+        this.title = 'Start Set Wise Test';
         break;
-      case "roadSignDrivingPractice":
-        this.title = "Practice Road Signs";
+      case 'roadSignDrivingPractice':
+        this.title = 'Practice Road Signs';
         break;
-      case "roadRulesDrivingPractice":
-        this.title = "Practice Rules of the Road";
+      case 'roadRulesDrivingPractice':
+        this.title = 'Practice Rules of the Road';
         break;
       default:
-        this.title = "Start Randomized Test";
+        this.title = 'Start Randomized Test';
         break;
     }
   }
 
   onClickCard(): void {
-    if (this.examType == "chapterWise" || this.examType == "setWise") {
+    if (
+      this.examType == 'chapterWise' ||
+      this.examType == 'setWise' ||
+      this.examType == 'roadSignDrivingPractice' ||
+      this.examType == 'roadRulesDrivingPractice'
+    ) {
       this.toggleLayer2Modal();
     } else {
-      if (this.examType != "simulation") {
+      if (this.examType != 'simulation') {
         this.examService.isPracticeModeON = true;
-
-        if(this.examType == "roadSignDrivingPractice" && this.questionSets) {
-          const questionSet = this.questionSets.filter(q => q.drivingSetType == 1)[0];
-
-          if(questionSet) {
-            this.examService.currentQuestionSet = questionSet;
-          }
-        }
-
-        if(this.examType == "roadRulesDrivingPractice" && this.questionSets) {
-          const questionSet = this.questionSets.filter(q => q.drivingSetType == 2)[0];
-
-          if(questionSet) {
-            this.examService.currentQuestionSet = questionSet;
-          }
-        }
       } else {
         this.examService.isPracticeModeON = false;
       }
-      this.router.navigate(["/exam"]);
+      this.router.navigate(['/exam']);
     }
   }
 

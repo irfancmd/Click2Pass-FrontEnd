@@ -59,4 +59,13 @@ export class DrivingComponent implements OnInit {
       this.questionSets.push(...qSets);
     });
   }
+
+  get roadSignSets() {
+    return this.questionSets.filter(s => s.drivingSetType == 1);
+  }
+
+  get rulesOfRoadSets() {
+    return this.questionSets.filter(s => s.drivingSetType == 2);
+  }
+
 }
