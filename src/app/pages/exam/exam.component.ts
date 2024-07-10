@@ -185,7 +185,7 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   onQuestionNavigation(questionIndex: number) {
-    if (questionIndex >= 0 && questionIndex < 20) {
+    if (questionIndex >= 0 && questionIndex < this.questionCount) {
       this.currentQuestionIndex = questionIndex;
     }
   }
