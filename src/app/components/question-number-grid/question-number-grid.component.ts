@@ -1,17 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Router, RouterModule } from "@angular/router";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import {
   ButtonModule,
   CardModule,
   ContainerComponent,
   GridModule,
-} from "@coreui/angular";
-import { ExamService } from "../../services/exam.service";
-import { cilChevronCircleUpAlt, cilChevronCircleDownAlt } from "@coreui/icons";
-import { IconModule } from "@coreui/icons-angular";
+  NavModule,
+  TabsModule,
+} from '@coreui/angular';
+import { ExamService } from '../../services/exam.service';
+import { cilChevronCircleUpAlt, cilChevronCircleDownAlt } from '@coreui/icons';
+import { IconModule } from '@coreui/icons-angular';
 
 @Component({
-  selector: "app-question-number-grid",
+  selector: 'app-question-number-grid',
   standalone: true,
   imports: [
     RouterModule,
@@ -20,14 +22,16 @@ import { IconModule } from "@coreui/icons-angular";
     ButtonModule,
     CardModule,
     IconModule,
+    TabsModule,
+    NavModule,
   ],
-  templateUrl: "./question-number-grid.component.html",
-  styleUrl: "./question-number-grid.component.scss",
+  templateUrl: './question-number-grid.component.html',
+  styleUrl: './question-number-grid.component.scss',
 })
 export class QuestionNumberGridComponent implements OnInit {
   @Input() totalQuestions: number = 20;
-  @Input() timeLeft: string = "";
-  @Input() timeLeftInMinutes: number = 0
+  @Input() timeLeft: string = '';
+  @Input() timeLeftInMinutes: number = 0;
   @Input() answeredCount: number = 0;
   @Input() notAnsweredCount: number = 0;
   @Input() passMarkPercentage: number = 0;
@@ -42,6 +46,8 @@ export class QuestionNumberGridComponent implements OnInit {
   public hideQuestionNumbers: boolean = true;
 
   readonly icons = { cilChevronCircleUpAlt, cilChevronCircleDownAlt };
+
+  public activeTabPane = 0;
 
   constructor(public examService: ExamService, private router: Router) {}
 
@@ -61,15 +67,18 @@ export class QuestionNumberGridComponent implements OnInit {
 
   getRestartLink(): string {
     switch (this.examService.currentExamCurriculumID) {
-      case "5":
-        return "/driving";
+      case '5':
+        return '/driving';
       default:
-        return "/citizenship";
+        return '/citizenship';
     }
   }
 
   restartExam() {
-    this.router.navigate(["/exam", "restart"
-    ], {skipLocationChange: true});
+    this.router.navigate(['/exam', 'restart'], { skipLocationChange: true });
+  }
+
+  onTabChange($event: number) {
+    this.activeTabPane = $event;
   }
 }

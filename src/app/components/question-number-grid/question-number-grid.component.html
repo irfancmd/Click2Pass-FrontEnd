@@ -5,8 +5,7 @@
       <c-col>
         @if(this.timeLeft != '' && timeLeftInMinutes < 5) {
         <div class="time-left-warning">You have less than 5 minutes.</div>
-        }
-        @if(!this.examService.isExamFinished.value) {
+        } @if(!this.examService.isExamFinished.value) {
         <div class="time-text">Time Left: {{ timeLeft }}</div>
         }
         <!-- @else {
@@ -14,7 +13,12 @@
         } -->
       </c-col>
       <c-col class="text-end">
-        <a class="btn btn-restart" [routerLink]="getRestartLink()" fragment="simulation">Restart?</a>
+        <a
+          class="btn btn-restart"
+          [routerLink]="getRestartLink()"
+          fragment="simulation"
+          >Restart?</a
+        >
       </c-col>
     </c-row>
 
@@ -23,7 +27,9 @@
     <p><b>Review Your Selected Question</b></p>
     } @else {
     <div>
-      <button class="btn btn-danger" (click)="restartExam()">Take the test again</button>
+      <button class="btn btn-danger" (click)="restartExam()">
+        Take the test again
+      </button>
       <button
         cButton
         size="lg"
@@ -44,32 +50,127 @@
       class="question-number-grid-container"
       [hidden]="this.examService.isExamFinished.value && hideQuestionNumbers"
     >
-      <c-row [xs]="5" [sm]="5" [md]="5" [lg]="5" [xl]="5" [xxl]="5">
-        @for (questionIndex of questionIndecies; track $index) {
-        <c-col>
-          <button
-            cButton
-            color="danger"
-            [class]="
-              this.examService.isExamFinished.value == false
-                ? this.currentQuestionIndex == questionIndex
-                  ? 'btn-question-number shadow current'
-                  : this.examService.reviewLater[questionIndex]
-                  ? 'btn-question-number shadow review'
-                  : this.examService.answers[questionIndex]
-                  ? 'btn-question-number shadow answered'
-                  : 'btn-question-number shadow generic'
-                : this.examService.answerCorrectStatus[questionIndex]
-                ? 'btn-question-number shadow correct'
-                : 'btn-question-number shadow wrong'
-            "
-            (click)="onCLickQuestionNumber(questionIndex)"
+      <c-nav variant="pills" class="justify-content-center">
+        @if(!examService.isPracticeModeON) {
+        <c-nav-item>
+          <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink
+            >Grid View</a
           >
-            {{ questionIndex + 1 }}
-          </button>
-        </c-col>
+        </c-nav-item>
+        <c-nav-item>
+          <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink
+            >List View</a
+          >
+        </c-nav-item>
         }
-      </c-row>
+      </c-nav>
+
+      <c-tab-content
+        #tabContent="cTabContent"
+        (activeTabPaneIdxChange)="onTabChange($event)"
+        [activeTabPaneIdx]="activeTabPane"
+      >
+        <c-tab-pane class="mt-3">
+          <c-row [xs]="5" [sm]="5" [md]="5" [lg]="5" [xl]="5" [xxl]="5">
+            @for (questionIndex of questionIndecies; track $index) {
+            <c-col>
+              <button
+                cButton
+                color="danger"
+                [class]="
+                  this.examService.isExamFinished.value == false
+                    ? this.currentQuestionIndex == questionIndex
+                      ? 'btn-question-number shadow current'
+                      : this.examService.reviewLater[questionIndex]
+                      ? 'btn-question-number shadow review'
+                      : this.examService.answers[questionIndex]
+                      ? 'btn-question-number shadow answered'
+                      : 'btn-question-number shadow generic'
+                    : this.examService.answerCorrectStatus[questionIndex]
+                    ? 'btn-question-number shadow correct'
+                    : 'btn-question-number shadow wrong'
+                "
+                (click)="onCLickQuestionNumber(questionIndex)"
+              >
+                {{ questionIndex + 1 }}
+              </button>
+            </c-col>
+            }
+          </c-row>
+        </c-tab-pane>
+        <c-tab-pane class="mt-3">
+          <section class="mb-3">
+            <h3 class="list-view-heading">Current Question</h3>
+            <p>
+              <a href="javascript:void(0)"
+                >Question {{ currentQuestionIndex + 1 }}</a
+              >
+            </p>
+          </section>
+
+          <section class="mb-3">
+            <h3 class="list-view-heading">
+              To be reviewed ({{ this.examService.getReviewlaterCount() }}):
+            </h3>
+            @for (questionIndex of questionIndecies; track $index) {
+            @if(this.examService.reviewLater[questionIndex]) {
+            @if(currentQuestionIndex == questionIndex) {
+            <p>
+              <a href="javascript:void(0)"
+                >Question {{ currentQuestionIndex + 1 }}</a
+              >
+            </p>
+            } @else {
+            <p>
+              <a (click)="onCLickQuestionNumber(questionIndex)"
+                >Question {{ questionIndex + 1 }}</a
+              >
+            </p>
+            } } }
+          </section>
+
+          <section class="mb-3">
+            <h3 class="list-view-heading">Answered ({{ answeredCount }}):</h3>
+            @for (questionIndex of questionIndecies; track $index) {
+            @if(this.examService.answers[questionIndex] &&
+            !this.examService.reviewLater[questionIndex]) {
+            @if(currentQuestionIndex == questionIndex) {
+            <p>
+              <a href="javascript:void(0)"
+                >Question {{ currentQuestionIndex + 1 }}</a
+              >
+            </p>
+            } @else {
+            <p>
+              <a (click)="onCLickQuestionNumber(questionIndex)"
+                >Question {{ questionIndex + 1 }}</a
+              >
+            </p>
+            } } }
+          </section>
+
+          <section class="mb-3">
+            <h3 class="list-view-heading">
+              Not Answered ({{ notAnsweredCount }}):
+            </h3>
+            @for (questionIndex of questionIndecies; track $index) {
+            @if(!this.examService.answers[questionIndex]) {
+            @if(currentQuestionIndex == questionIndex) {
+            <p>
+              <a href="javascript:void(0)"
+                >Question {{ currentQuestionIndex + 1 }}</a
+              >
+            </p>
+            } @else {
+            <p>
+              <a (click)="onCLickQuestionNumber(questionIndex)"
+                >Question {{ questionIndex + 1 }}</a
+              >
+            </p>
+            } } }
+          </section>
+        </c-tab-pane>
+      </c-tab-content>
     </div>
 
     @if(!this.examService.isPracticeModeON) {
