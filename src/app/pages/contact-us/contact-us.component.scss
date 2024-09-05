@@ -62,6 +62,10 @@ $click2pass-primary-light: #d8062108;
   //     color: $click2pass-primary;
   //   }
   // }
+
+  @media (max-width: 750px) {
+    height: 6rem;
+  }
 }
 
 .card-title {
@@ -75,5 +79,11 @@ $click2pass-primary-light: #d8062108;
 
 .contact-card-container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
