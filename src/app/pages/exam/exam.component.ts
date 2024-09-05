@@ -1,5 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import {
   ButtonModule,
   CardModule,
@@ -9,16 +15,17 @@ import {
   NavModule,
   SpinnerModule,
   TabsModule,
-} from "@coreui/angular";
-import { QuestionComponent } from "../../components/question/question.component";
-import { QuestionNumberGridComponent } from "../../components/question-number-grid/question-number-grid.component";
-import { ExamService } from "../../services/exam.service";
-import { Exam } from "../../models/exam.model";
-import { Question } from "../../models/question.models";
-import { CommonModule } from "@angular/common";
+} from '@coreui/angular';
+import { QuestionComponent } from '../../components/question/question.component';
+import { QuestionNumberGridComponent } from '../../components/question-number-grid/question-number-grid.component';
+import { ExamService } from '../../services/exam.service';
+import { Exam } from '../../models/exam.model';
+import { Question } from '../../models/question.models';
+import { CommonModule } from '@angular/common';
+import { routes } from '../../app.routes';
 
 @Component({
-  selector: "app-exam",
+  selector: 'app-exam',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,10 +39,10 @@ import { CommonModule } from "@angular/common";
     SpinnerModule,
     QuestionComponent,
     QuestionNumberGridComponent,
-    ModalModule
+    ModalModule,
   ],
-  templateUrl: "./exam.component.html",
-  styleUrl: "./exam.component.scss",
+  templateUrl: './exam.component.html',
+  styleUrl: './exam.component.scss',
 })
 export class ExamComponent implements OnInit, OnDestroy {
   public examId: number = 0;
@@ -43,7 +50,7 @@ export class ExamComponent implements OnInit, OnDestroy {
 
   // public examEndTime = new Date();
   public questionCount = 0;
-  public timeLeft = "";
+  public timeLeft = '';
   public timeLeftInMinutes = 0;
   public timeLeftInSeconds = 0;
   public notAnsweredCount = 0;
@@ -62,11 +69,14 @@ export class ExamComponent implements OnInit, OnDestroy {
   public examTimeCounter: any;
   public isTimeUpModalVisible: boolean = false;
 
-  @ViewChild("questionComponent") questionComponent: any;
+  @ViewChild('questionComponent') questionComponent: any;
+  @ViewChild('intro') introElement!: ElementRef;
 
-  constructor(public examService: ExamService) {}
+  constructor(public examService: ExamService, public router: Router) {}
 
   ngOnInit(): void {
+    this.router.resetConfig(routes);
+
     console.log(this.examService.currentExamChapter);
 
     this.examService.createNewExam().subscribe((data) => {
@@ -84,7 +94,17 @@ export class ExamComponent implements OnInit, OnDestroy {
         this.questionCount = this.exam?.questionCount ?? 0;
 
         this.notAnsweredCount = this.exam?.questionCount ?? 0;
-        this.passMarkPercentage = 75; // Hard coded.
+
+        this.passMarkPercentage = 75;
+
+        if (
+          this.examService.currentExamCurriculumID == '5' ||
+          (this.examService.currentQuestionSet &&
+            this.examService.currentQuestionSet.curriculumId == '5')
+        ) {
+          this.passMarkPercentage = 80;
+        }
+
         // this.allowedMistakesCount = 3; // Hard coded.
         this.examTimeInMinutes = 30; // Hard coded. Not being used now.
 
@@ -121,11 +141,13 @@ export class ExamComponent implements OnInit, OnDestroy {
             this.timeLeftInSeconds = timeLeftData[2];
 
             // Time-up logic
-            if(this.examService.isExamStarted.value == true && this.timeLeftInSeconds <= 0) {
+            if (
+              this.examService.isExamStarted.value == true &&
+              this.timeLeftInSeconds <= 0
+            ) {
               this.isTimeUpModalVisible = true;
               this.examService.isExamFinished.next(true);
             }
-
           }, 1000);
         }
       }
@@ -134,6 +156,7 @@ export class ExamComponent implements OnInit, OnDestroy {
     this.examService.isExamFinished.subscribe((value) => {
       if (value == true) {
         clearInterval(this.examTimeCounter);
+        this.scrollToIntro();
       }
     });
   }
@@ -147,7 +170,10 @@ export class ExamComponent implements OnInit, OnDestroy {
     // this.examService.resetAll();
   }
 
-  private calculateTimeDifference(start_time: Date, end_time: Date): [string, number, number] {
+  private calculateTimeDifference(
+    start_time: Date,
+    end_time: Date
+  ): [string, number, number] {
     const differenceInMillis: number = (end_time as any) - (start_time as any);
 
     // Convert milliseconds to seconds
@@ -157,7 +183,11 @@ export class ExamComponent implements OnInit, OnDestroy {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    return [`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, minutes, totalSeconds];
+    return [
+      `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`,
+      minutes,
+      totalSeconds,
+    ];
   }
 
   onQuestionAnswered(event: {
@@ -176,6 +206,12 @@ export class ExamComponent implements OnInit, OnDestroy {
         this.examService.answerCorrectStatus[event.index] = true;
       }
     }
+
+    this.scrollToIntro();
+  }
+
+  scrollToIntro() {
+    this.introElement.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
 
   onQuestionNumberClicked(questionIndex: number) {
@@ -193,7 +229,10 @@ export class ExamComponent implements OnInit, OnDestroy {
   get isPassed(): boolean {
     // return this.correctCount >= Math.floor(0.75 * this.questionCount);
     // const percentage = Number(((this.correctCount / this.questionCount) * 100).toFixed(2);
-    return Number(this.getPercentage(this.correctCount, this.questionCount)) >= 75;
+    return (
+      Number(this.getPercentage(this.correctCount, this.questionCount)) >=
+      this.passMarkPercentage
+    );
   }
 
   private countAnsweredQuestions(): number {
@@ -209,12 +248,26 @@ export class ExamComponent implements OnInit, OnDestroy {
       if (this.examService.currentExamChapter) {
         return this.examService.currentExamChapter.name;
       } else if (this.examService.currentQuestionSet) {
-        return "Question Set Practice";
+        if (this.examService.currentQuestionSet.curriculumId == '1') {
+          return `CitizenShip Question Set Practice: ${this.examService.currentQuestionSet.name}`;
+        } else if (this.examService.currentQuestionSet.curriculumId == '5') {
+          if (this.examService.currentQuestionSet.drivingSetType == '1') {
+            return `Question Set on Road Sign Practice: ${this.examService.currentQuestionSet.name}`;
+          } else if (
+            this.examService.currentQuestionSet.drivingSetType == '2'
+          ) {
+            return `Question Set on Rules of Road Practice: ${this.examService.currentQuestionSet.name}`;
+          } else {
+            return `Driving Question Set Practice: ${this.examService.currentQuestionSet.name}`;
+          }
+        } else {
+          return `Question Set Practice: ${this.examService.currentQuestionSet.name}`;
+        }
       } else {
-        return "Random Questions Test";
+        return 'Random Questions Test';
       }
     } else {
-      return "Simulation Test";
+      return 'Simulation Test';
     }
   }
 
@@ -229,5 +282,4 @@ export class ExamComponent implements OnInit, OnDestroy {
   toggleTimeUpModal() {
     this.isTimeUpModalVisible = !this.isTimeUpModalVisible;
   }
-
 }

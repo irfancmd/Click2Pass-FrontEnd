@@ -50,7 +50,7 @@ $click2pass-primary-light: #d8062108;
 }
 
 .nav {
-  min-width: 470px;
+  min-width: 700px;
 }
 
 .nav-link {
@@ -58,6 +58,8 @@ $click2pass-primary-light: #d8062108;
   padding: 0.6rem 5rem;
   color: $click2pass-primary;
   background-color: #ffffff;
+  width: 27rem;
+  text-align: center;
 
   &.active {
     background-color: $click2pass-primary;
@@ -78,9 +80,16 @@ $click2pass-primary-light: #d8062108;
     border-radius: 0;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1400px) {
     font-size: 1rem;
-    padding: 0.6rem 0.8rem;
+    padding: 0.6rem 0.4rem;
+    width: 20rem;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.3rem;
+    width: 12rem;
   }
 }
 

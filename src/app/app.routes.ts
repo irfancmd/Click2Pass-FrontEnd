@@ -5,6 +5,7 @@ import { ExamComponent } from "./pages/exam/exam.component";
 import { DrivingComponent } from "./pages/driving/driving.component";
 import { PrivacyPolicyComponent } from "./pages/privacy-policy/privacy-policy.component";
 import { ContactUsComponent } from "./pages/contact-us/contact-us.component";
+import { AboutComponent } from "./pages/about/about.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: "exam/restart", component: ExamComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "contact-us", component: ContactUsComponent },
+  { path: "about", component: AboutComponent },
 ];

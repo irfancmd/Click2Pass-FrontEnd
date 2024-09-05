@@ -28,24 +28,36 @@ $click2pass-success-light: #e8f5e9;
   align-items: center;
   justify-content: center;
 
-  &.pass {
-    .card {
-      border: 5px dotted green;
-    }
+  .card {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 
-    .card-body {
-      background-color: $click2pass-success-light !important;
+  &.pass {
+    h4 {
+      color: green;
     }
+    // .card {
+    //   border: 5px dotted green;
+    // }
+
+    // .card-body {
+    //   background-color: $click2pass-success-light !important;
+    // }
   }
 
   &.fail {
-    .card {
-      border: 5px dotted $click2pass-primary;
+    h4 {
+      color: $click2pass-primary;
     }
 
-    .card-body {
-      background-color: $click2pass-primary-light-2 !important;
-    }
+    // .card {
+    //   border: 5px dotted $click2pass-primary;
+    // }
+
+    // .card-body {
+    //   background-color: $click2pass-primary-light-2 !important;
+    // }
   }
 }
 

@@ -118,3 +118,32 @@ $ca-current: #ffffff;
     color: #ffffff !important;
   }
 }
+
+.indicator-square {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 0.5rem;
+
+  &.r {
+    background-color: $ca-review;
+  }
+
+  &.a {
+    background-color: $ca-answered;
+  }
+
+  &.na {
+    background-color: $ca-background;
+  }
+}
+
+.btn-review {
+  background-color: $ca-answered;
+  color: white;
+}
+
+.btn-retake {
+  background-color: $click2pass-primary;
+  color: white;
+}

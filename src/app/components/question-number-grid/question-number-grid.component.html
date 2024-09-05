@@ -27,13 +27,13 @@
     <p><b>Review Your Selected Question</b></p>
     } @else {
     <div>
-      <button class="btn btn-danger" (click)="restartExam()">
+      <button class="btn btn-retake" (click)="restartExam()">
         Take the test again
       </button>
       <button
         cButton
         size="lg"
-        color="secondary"
+        class="mt-3 btn-review"
         [title]="this.hideQuestionNumbers ? 'Show' : 'Hide'"
         (click)="toggleQuestionNumberVisibility()"
       >
@@ -176,20 +176,25 @@
     @if(!this.examService.isPracticeModeON) {
     <c-row>
       <c-col>
-        <p>
-          To be reviwed: <b>{{ this.examService.getReviewlaterCount() }}</b>
+        <p class="d-flex align-items-center">
+          <span class="indicator-square r"></span> To be reviwed:&nbsp;&nbsp;
+          <b>{{ this.examService.getReviewlaterCount() }}</b>
         </p>
       </c-col>
     </c-row>
     <c-row>
       <c-col>
-        <p>
-          Answered: <b>{{ answeredCount }}</b>
+        <p class="d-flex align-items-center">
+          <span class="indicator-square na"></span> Not answered:&nbsp;&nbsp;
+          <b>{{ notAnsweredCount }}</b>
         </p>
       </c-col>
-      <c-col class="text-end">
-        <p>
-          Not answered: <b>{{ notAnsweredCount }}</b>
+    </c-row>
+    <c-row>
+      <c-col>
+        <p class="d-flex align-items-center">
+          <span class="indicator-square a"></span> Answered:&nbsp;&nbsp;
+          <b>{{ answeredCount }}</b>
         </p>
       </c-col>
     </c-row>

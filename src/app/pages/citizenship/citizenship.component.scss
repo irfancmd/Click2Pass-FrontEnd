@@ -27,9 +27,13 @@ $click2pass-primary-light: #d8062108;
 }
 
 .feature-image-container {
+  display: flex;
+  justify-content: center;
+
   img {
     width: 400px;
     height: auto;
+    margin-bottom: 1rem;
   }
 
   @media (max-width: 1000px) {
@@ -50,7 +54,7 @@ $click2pass-primary-light: #d8062108;
 }
 
 .nav {
-  min-width: 470px;
+  min-width: 700px;
 }
 
 .nav-link {

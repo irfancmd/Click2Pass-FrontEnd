@@ -1,10 +1,10 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withRouterConfig } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimations(), provideHttpClient()],
+  providers: [provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled' })), provideAnimations(), provideHttpClient()],
 };

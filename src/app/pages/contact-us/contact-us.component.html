@@ -1,7 +1,7 @@
 <div class="master-container" id="intro">
-    <c-container class="contact-container">
-        <c-row>
-            <c-col sm="12" md="6">
+  <c-container class="contact-container">
+    <c-row>
+      <!-- <c-col sm="12" md="6">
                 <div class="map-container">
                     <div style="overflow:hidden;resize:none;max-width:100%;width:500px;height:500px;">
                         <div id="display-google-map" style="height:100%; width:100%;max-width:100%;"><iframe
@@ -20,33 +20,108 @@
                         </style>
                     </div>
                 </div>
-            </c-col>
-            <c-col sm="12" md="6">
-                <h2>Get in Touch</h2>
-                <form cForm [formGroup]="contactForm">
-                    <div class="mb-3">
-                        <label cLabel for="input-name">Name</label>
-                        <input formControlName="name" cFormControl id="inpu-name" type="text">
-                    </div>
-                    <div class="mb-3">
-                        <label cLabel for="input-email">Email address</label>
-                        <input formControlName="email" cFormControl id="input-email" type="email">
-                        <!-- <div cFormText>
+            </c-col> -->
+      <c-col sm="12" md="6" [offset]="{ sm: 0, md: 3 }">
+        <h2>Get in Touch</h2>
+        <form cForm [formGroup]="contactForm">
+          <div class="mb-3">
+            <label cLabel for="input-name">Name</label>
+            <input
+              formControlName="name"
+              cFormControl
+              id="input-name"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="input-email">Email address</label>
+            <input
+              formControlName="email"
+              cFormControl
+              id="input-email"
+              type="email"
+            />
+            <!-- <div cFormText>
                             We'll never share your email with anyone else
                         </div> -->
-                    </div>
-                    <div class="mb-3">
-                        <label cLabel for="input-subject">Subject</label>
-                        <input formControlName="subject" cFormControl id="input-subject" type="text">
-                    </div>
-                    <div class="mb-3">
-                        <label cLabel for="input-message">Your Message</label>
-                        <textarea formControlName="message" cFormControl id="input-message" rows="3"></textarea>
-                    </div>
+          </div>
+          <div class="mb-3">
+            <label cLabel for="input-subject">Subject</label>
+            <input
+              formControlName="subject"
+              cFormControl
+              id="input-subject"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="input-message">Your Message</label>
+            <textarea
+              formControlName="message"
+              cFormControl
+              id="input-message"
+              rows="3"
+            ></textarea>
+          </div>
 
-                    <input cButton class="btn-submit" type="submit">
-                </form>
+          <input cButton class="btn-submit" type="submit" />
+        </form>
+      </c-col>
+    </c-row>
+
+    <c-row class="mt-5">
+      <div class="contact-card-container">
+        <c-card class="shadow-sm">
+          <c-row class="g-0">
+            <c-col
+              [md]="2"
+              class="d-flex justify-content-center align-items-center"
+            >
+              <div class="icon-container shadow-sm">
+                <svg [cIcon]="icons.cilPhone" size="xl" class="mx-2 icon-margin"></svg>
+              </div>
             </c-col>
-        </c-row>
-    </c-container>
+            <c-card-body cCol [md]="10">
+              <h5 cCardTitle>Mobile</h5>
+              <p cCardText>01234567890</p>
+            </c-card-body>
+          </c-row>
+        </c-card>
+
+        <c-card class="shadow-sm">
+          <c-row class="g-0">
+            <c-col
+              [md]="2"
+              class="d-flex justify-content-center align-items-center"
+            >
+              <div class="icon-container shadow-sm">
+                <svg [cIcon]="icons.cilEnvelopeClosed" size="xl" class="mx-2 icon-margin"></svg>
+              </div>
+            </c-col>
+            <c-card-body cCol [md]="10">
+              <h5 cCardTitle>Email</h5>
+              <p cCardText>{{ "click2pass@email.com" }}</p>
+            </c-card-body>
+          </c-row>
+        </c-card>
+
+        <c-card class="shadow-sm">
+          <c-row class="g-0">
+            <c-col
+              [md]="2"
+              class="d-flex justify-content-center align-items-center"
+            >
+              <div class="icon-container shadow-sm">
+                <svg [cIcon]="icons.cilLocationPin" size="xl" class="mx-2 icon-margin"></svg>
+              </div>
+            </c-col>
+            <c-card-body cCol [md]="10">
+              <h5 cCardTitle>Location</h5>
+              <p cCardText>Ontario, Canada</p>
+            </c-card-body>
+          </c-row>
+        </c-card>
+      </div>
+    </c-row>
+  </c-container>
 </div>

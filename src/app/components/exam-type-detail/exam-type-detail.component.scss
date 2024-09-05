@@ -20,6 +20,10 @@ $click2pass-primary-light: #d8062108;
   line-height: 2.2rem;
   margin-left: 0.6rem;
   transition: all 0.3s;
+
+  @media (max-width: 1000px) {
+    margin-top: 0.5rem; 
+  }
 }
 
 .card {
@@ -41,4 +45,8 @@ $click2pass-primary-light: #d8062108;
 .card-title {
   font-weight: 600;
   font-size: 1rem;
+
+  @media (max-width: 1000px) {
+    text-align: center;
+  }
 }

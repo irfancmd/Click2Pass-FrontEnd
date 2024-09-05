@@ -9,8 +9,6 @@ $click2pass-primary: #d80621;
   );
   color: white;
   padding: 2rem 10rem;
-  // height: 420px;
-  // min-height: 52vh;
   height: 500px;
   display: flex;
   flex-direction: row;
@@ -20,17 +18,34 @@ $click2pass-primary: #d80621;
   h1 {
     font-weight: 700;
     font-size: 3rem;
-    margin-top: -50px;
+    margin-top: 5rem;
   }
 
   p {
     font-size: 1.2rem;
   }
 
+  @media (max-width: 1200px) {
+    h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-top: -50px;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
   @media (max-width: 1000px) {
+    height: 600px;
     flex-direction: column;
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    height: 800px;
   }
 }
 
@@ -51,22 +66,28 @@ $click2pass-primary: #d80621;
       font-size: 1.5rem;
       font-weight: 700;
       margin-top: 1.5rem;
-      // margin-top: -50px;
     }
   }
 }
 
 .feature-image-container {
   img {
-    width: 400px;
+    width: 300px;
     height: auto;
   }
+
+  @media (max-width: 1000px) {
+    img {
+      max-width: 250px;
+    }
+  }
+
 
   @media (max-width: 1000px) {
     order: 1;
 
     img {
-      max-width: 300px;
+      max-width: 200px;
     }
   }
 }
