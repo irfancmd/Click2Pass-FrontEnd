@@ -72,7 +72,7 @@ export class ExamComponent implements OnInit, OnDestroy {
   @ViewChild('questionComponent') questionComponent: any;
   @ViewChild('intro') introElement!: ElementRef;
 
-  constructor(public examService: ExamService, public router: Router) {}
+  constructor(public examService: ExamService, public router: Router) { }
 
   ngOnInit(): void {
     this.router.resetConfig(routes);
@@ -249,19 +249,19 @@ export class ExamComponent implements OnInit, OnDestroy {
         return this.examService.currentExamChapter.name;
       } else if (this.examService.currentQuestionSet) {
         if (this.examService.currentQuestionSet.curriculumId == '1') {
-          return `CitizenShip Question Set Practice: ${this.examService.currentQuestionSet.name}`;
+          return `CitizenShip Question Set: ${this.examService.currentQuestionSet.name}`;
         } else if (this.examService.currentQuestionSet.curriculumId == '5') {
           if (this.examService.currentQuestionSet.drivingSetType == '1') {
-            return `Question Set on Road Sign Practice: ${this.examService.currentQuestionSet.name}`;
+            return `Question Set on Road Sign: ${this.examService.currentQuestionSet.name}`;
           } else if (
             this.examService.currentQuestionSet.drivingSetType == '2'
           ) {
-            return `Question Set on Rules of Road Practice: ${this.examService.currentQuestionSet.name}`;
+            return `Question Set on Rules of Road: ${this.examService.currentQuestionSet.name}`;
           } else {
-            return `Driving Question Set Practice: ${this.examService.currentQuestionSet.name}`;
+            return `Driving Question Set: ${this.examService.currentQuestionSet.name}`;
           }
         } else {
-          return `Question Set Practice: ${this.examService.currentQuestionSet.name}`;
+          return `Question Set: ${this.examService.currentQuestionSet.name}`;
         }
       } else {
         return 'Random Questions Test';

@@ -21,17 +21,22 @@ $click2pass-primary-light: #d8062108;
   align-items: center;
   color: $click2pass-primary;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 
   img {
     // height: 48px;
     // width: 48px;
-    max-width: 12rem;
+    max-width: 15rem;
     height: auto;
   }
 
   h6 {
     font-size: 1.8rem;
     margin-left: 0.6rem;
+  }
+
+  @media (max-width: 1199px) {
+    margin-left: -12px;
   }
 }
 
