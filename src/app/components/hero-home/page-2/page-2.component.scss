@@ -17,8 +17,8 @@ $click2pass-primary: #d80621;
 
   h1 {
     font-weight: 700;
-    font-size: 3rem;
-    margin-top: -50px;
+    font-size: 2.2rem;
+    margin-top: 3rem;
   }
 
   p {
@@ -27,11 +27,13 @@ $click2pass-primary: #d80621;
 
   @media (max-width: 1200px) {
     h1 {
-      font-size: 1.5rem;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-top: -50px;
     }
-
+    
     p {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
   }
 
@@ -70,7 +72,7 @@ $click2pass-primary: #d80621;
 
 .feature-image-container {
   img {
-    width: 400px;
+    width: 320px;
     height: auto;
   }
 
@@ -78,7 +80,7 @@ $click2pass-primary: #d80621;
     order: 1;
 
     img {
-      max-width: 300px;
+      max-width: 280px;
     }
   }
 }

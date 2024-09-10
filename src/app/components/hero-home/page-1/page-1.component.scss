@@ -17,8 +17,8 @@ $click2pass-primary: #d80621;
 
   h1 {
     font-weight: 700;
-    font-size: 3rem;
-    margin-top: 5rem;
+    font-size: 2.2rem;
+    // margin-top: 0.5rem;
   }
 
   p {
@@ -72,13 +72,13 @@ $click2pass-primary: #d80621;
 
 .feature-image-container {
   img {
-    width: 300px;
+    width: 320px;
     height: auto;
   }
 
   @media (max-width: 1000px) {
     img {
-      max-width: 250px;
+      max-width: 280px;
     }
   }
 
