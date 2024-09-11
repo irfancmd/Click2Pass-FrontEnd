@@ -70,14 +70,8 @@
         (activeTabPaneIdxChange)="onTabChange($event)"
         [activeTabPaneIdx]="activeTabPane"
       >
-        <c-tab-pane class="mt-3">
-          <c-row [xs]="5" [sm]="5" [md]="5" [lg]="5" [xl]="5" [xxl]="5">
-            @for (questionIndex of questionIndecies; track $index) {
-            <c-col>
-              <button
-                cButton
-                color="danger"
-                [class]="
+
+                <!-- [class]="
                   this.examService.isExamFinished.value == false
                     ? this.currentQuestionIndex == questionIndex
                       ? 'btn-question-number shadow current'
@@ -89,7 +83,25 @@
                     : this.examService.answerCorrectStatus[questionIndex]
                     ? 'btn-question-number shadow correct'
                     : 'btn-question-number shadow wrong'
-                "
+                " -->
+
+        <c-tab-pane class="mt-3">
+          <c-row [xs]="5" [sm]="5" [md]="5" [lg]="5" [xl]="5" [xxl]="5">
+            @for (questionIndex of questionIndecies; track $index) {
+            <c-col>
+              <button
+                cButton
+                color="danger"
+                [ngClass]="{
+                  'btn-question-number': true,
+                  'shadow': true,
+                  'current': this.examService.isExamFinished.value == false && this.currentQuestionIndex == questionIndex,
+                  'review': this.examService.isExamFinished.value == false && this.examService.reviewLater[questionIndex],
+                  'answered': this.examService.isExamFinished.value == false && this.examService.answers[questionIndex],
+                  'generic': this.examService.isExamFinished.value == false && !this.examService.answers[questionIndex],
+                  'correct': this.examService.isExamFinished.value == true && this.examService.answerCorrectStatus[questionIndex],
+                  'wrong': this.examService.isExamFinished.value == true && !this.examService.answerCorrectStatus[questionIndex],
+                }"
                 (click)="onCLickQuestionNumber(questionIndex)"
               >
                 {{ questionIndex + 1 }}

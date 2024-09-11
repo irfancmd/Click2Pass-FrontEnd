@@ -54,7 +54,8 @@ $ca-current: #ffffff;
     // color: #ffffff !important;
     // background-color: $click2pass-primary !important;
     color: $ca-answered !important;
-    background-color: $ca-current !important;
+    // background-color: $ca-current !important;
+    background-color: transparentize($ca-current, 0.5);
     border: 1px solid $ca-answered;
   }
 

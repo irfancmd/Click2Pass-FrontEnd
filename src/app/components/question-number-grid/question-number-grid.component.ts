@@ -11,11 +11,13 @@ import {
 import { ExamService } from '../../services/exam.service';
 import { cilChevronCircleUpAlt, cilChevronCircleDownAlt } from '@coreui/icons';
 import { IconModule } from '@coreui/icons-angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-question-number-grid',
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     ContainerComponent,
     GridModule,
