@@ -7,9 +7,22 @@ $click2pass-primary-light: #d8062108;
 }
 
 .privacy-policy-container {
-  background-color: white;
+  // background-color: white;
   border-radius: 5px;
   padding: 1rem;
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    text-align: justify;
+    font-size: 1.1rem;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
 }
 
 .container {
