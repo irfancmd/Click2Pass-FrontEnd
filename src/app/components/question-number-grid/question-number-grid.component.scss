@@ -53,9 +53,25 @@ $ca-current: #ffffff;
   &.current {
     // color: #ffffff !important;
     // background-color: $click2pass-primary !important;
-    color: $ca-answered !important;
+    // color: $ca-answered !important;
     // background-color: $ca-current !important;
-    background-color: transparentize($ca-current, 0.5);
+    // background-color: transparentize($ca-current, 0.9) !important;
+
+    &.generic {
+      color: $ca-answered !important;
+      background-color: transparentize($color: $ca-background, $amount: 0.5) !important;
+    }
+
+    &.answered {
+      color: #ffffff !important;
+      background-color: transparentize($color: $ca-answered, $amount: 0.2) !important;
+    }
+
+    &.review {
+      color: $ca-answered !important;
+      background-color: transparentize($color: $ca-review, $amount: 0.2) !important;
+    }
+
     border: 1px solid $ca-answered;
   }
 
@@ -68,9 +84,9 @@ $ca-current: #ffffff;
   }
 
   &.answered {
-    color: #ffffff !important;
+    color: #ffffff;
     // background-color: $click2pass-answered !important;
-    background-color: $ca-answered !important;
+    background-color: $ca-answered;
     border: 1px solid $ca-answered;
   }
 

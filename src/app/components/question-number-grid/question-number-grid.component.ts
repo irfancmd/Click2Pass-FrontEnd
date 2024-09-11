@@ -70,9 +70,9 @@ export class QuestionNumberGridComponent implements OnInit {
   getRestartLink(): string {
     switch (this.examService.currentExamCurriculumID) {
       case '5':
-        return '/driving';
+        return '/ontario-g1-driving-preparation';
       default:
-        return '/citizenship';
+        return '/canada-citizenship-test-preparation';
     }
   }
 

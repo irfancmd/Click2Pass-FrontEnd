@@ -10,7 +10,9 @@ import { AboutComponent } from "./pages/about/about.component";
 export const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "citizenship", component: CitizenshipComponent },
+  { path: "canada-citizenship-test-preparation", component: CitizenshipComponent },
   { path: "driving", component: DrivingComponent },
+  { path: "ontario-g1-driving-preparation", component: DrivingComponent },
   { path: "exam", component: ExamComponent },
   { path: "exam/restart", component: ExamComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
