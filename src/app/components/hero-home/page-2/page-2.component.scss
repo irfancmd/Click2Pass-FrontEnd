@@ -1,13 +1,14 @@
 $click2pass-primary: #d80621;
 
 .hero-container {
-  background: rgb(216, 6, 33);
-  background: linear-gradient(
-    90deg,
-    rgba(216, 6, 33, 1) 20%,
-    rgba(255, 255, 255, 1) 100%
-  );
-  color: white;
+  // background: rgb(216, 6, 33);
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(216, 6, 33, 1) 20%,
+  //   rgba(255, 255, 255, 1) 100%
+  // );
+  background-image: url("../../../../assets/images/slide-2-new.jpg");
+  color: black;
   padding: 2rem 10rem;
   height: 500px;
   display: flex;
@@ -19,6 +20,7 @@ $click2pass-primary: #d80621;
     font-weight: 700;
     font-size: 2.2rem;
     margin-top: 3rem;
+    color: $click2pass-primary;
   }
 
   p {
@@ -50,8 +52,8 @@ $click2pass-primary: #d80621;
 }
 
 .btn-get-started {
-  background-color: #ffffff;
-  color: $click2pass-primary;
+  color: #ffffff;
+  background-color: $click2pass-primary;
   margin-top: 1.2rem;
 }
 
