@@ -22,8 +22,13 @@
                 </div>
             </c-col> -->
       <c-col sm="12" md="6" [offset]="{ sm: 0, md: 3 }">
-        <h2>Get in Touch</h2>
-        <form cForm [formGroup]="contactForm">
+        <h2 class="text-center">Get in Touch</h2>
+        @if(messageSent) {
+        <h3 class="text-center mt-3">
+          We have recieved your feedback! Thanks for staying with CLick2Pass.
+        </h3>
+        } @if(!messageSent) {
+        <form cForm [formGroup]="contactForm" (submit)="onSubmit()">
           <div class="mb-3">
             <label cLabel for="input-name">Name</label>
             <input
@@ -66,6 +71,7 @@
 
           <input cButton class="btn-submit" type="submit" />
         </form>
+        }
       </c-col>
     </c-row>
 
