@@ -1,4 +1,6 @@
 $click2pass-primary: #d80621;
+$mt-green: #388E3C;
+$mt-orange: #F57C00;
 
 .container-navbar {
   justify-content: space-between;
@@ -56,4 +58,16 @@ $click2pass-primary: #d80621;
 .logo {
   max-width: 10rem;
   height: auto;
+}
+
+.link-sidebar-home {
+  color: $mt-green;
+}
+
+.link-sidebar-citizenship {
+  color: $click2pass-primary;
+}
+
+.link-sidebar-driving {
+  color: $mt-orange;
 }

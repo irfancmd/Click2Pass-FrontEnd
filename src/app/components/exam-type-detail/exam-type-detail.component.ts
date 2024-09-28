@@ -47,7 +47,7 @@ export class ExamTypeDetailComponent implements OnInit {
 
   public isModalVisible: boolean = false;
 
-  constructor(private router: Router, private examService: ExamService) {}
+  constructor(private router: Router, private examService: ExamService) { }
 
   ngOnInit(): void {
     switch (this.examType) {
@@ -86,7 +86,7 @@ export class ExamTypeDetailComponent implements OnInit {
       } else {
         this.examService.isPracticeModeON = false;
       }
-      this.router.navigate(['/exam']);
+      this.router.navigate(['/exam'], { fragment: 'top' });
     }
   }
 
