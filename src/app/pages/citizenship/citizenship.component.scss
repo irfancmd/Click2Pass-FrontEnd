@@ -18,7 +18,7 @@ $click2pass-primary-light: #d8062108;
 
   h5 {
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   p {
@@ -34,6 +34,12 @@ $click2pass-primary-light: #d8062108;
     width: 400px;
     height: auto;
     margin-bottom: 1rem;
+  }
+
+  @media (max-width: 1400px) {
+    img {
+      max-width: 320px;
+    }
   }
 
   @media (max-width: 1000px) {
@@ -128,3 +134,20 @@ p {
 ::-webkit-scrollbar-thumb:hover {
   background: darken($click2pass-primary, 10); 
 }
+
+ul.tips-list {
+  list-style: none;
+  padding-left: 1rem;
+
+  li {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  li::before {
+    content: '✓';
+  }
+}
+
+// ul.tips-list::before {
+// }
