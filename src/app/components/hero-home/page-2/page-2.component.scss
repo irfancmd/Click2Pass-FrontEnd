@@ -17,20 +17,22 @@ $click2pass-primary: #d80621;
   align-items: center;
 
   h1 {
-    font-weight: 700;
     font-size: 2.2rem;
     margin-top: 3rem;
     color: $click2pass-primary;
+    font-weight: 400;
   }
 
   p {
     font-size: 1.2rem;
     color: $click2pass-primary;
+    text-align: justify;
+    font-weight: 600;
   }
 
   @media (max-width: 1200px) {
     h1 {
-      font-weight: 700;
+      // font-weight: 700;
       font-size: 2rem;
       margin-top: -50px;
     }

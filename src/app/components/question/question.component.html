@@ -12,21 +12,23 @@ false) {
       </c-col>
     </c-row>
     <c-row class="mt-3">
-      <c-col xs="2">
+      <c-col lg="12" xl="2">
         <button
           cButton
           color="secondary"
           shape="rounded-pill"
+          class="my-1"
           (click)="onClosePendingWarning()"
         >
           Go Back
         </button>
       </c-col>
-      <c-col xs="2">
+      <c-col lg="12" xl="2">
         <button
           cButton
           color="danger"
           shape="rounded-pill"
+          class="my-1"
           (click)="finishExam()"
         >
           Submit

@@ -23,6 +23,7 @@ $click2pass-primary: #d80621;
 
   p {
     font-size: 1.2rem;
+    text-align: justify;
   }
 
   @media (max-width: 1200px) {
@@ -42,6 +43,12 @@ $click2pass-primary: #d80621;
     flex-direction: column;
     padding-left: 2rem;
     padding-right: 2rem;
+
+    background: linear-gradient(
+      90deg,
+      rgba(239, 142, 32, 1) 68%,
+      rgba(255, 183, 77, 1) 100%
+    );
   }
 
   @media (max-width: 600px) {
